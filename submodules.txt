@@ -1,0 +1,8 @@
+lib/asio
+lib/cereal
+lib/fmt
+lib/libmedida
+lib/libsodium
+lib/spdlog
+lib/tracy
+lib/xdrpp

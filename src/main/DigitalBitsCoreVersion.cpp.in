@@ -1,0 +1,4 @@
+#include "main/DigitalBitsCoreVersion.h"
+
+const std::string DIGITALBITS_CORE_VERSION = "%%VERSION%%";
+
