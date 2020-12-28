@@ -91,3 +91,4 @@ test-partitions.*
 *.vcxproj.user
 **/.vs/*
 
+testnet*.cfg

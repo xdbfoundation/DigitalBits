@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:16.04
 
 WORKDIR /opt/digitalbits-core
 
