@@ -63,4 +63,4 @@ jobs:
         env:
           GHR_COMPRESS: xz
           GHR_PATH: /opt/digitalbits
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: 3715ced5d52a443edadef0309eb646d136c55685
