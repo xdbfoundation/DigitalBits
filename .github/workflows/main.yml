@@ -40,13 +40,12 @@ jobs:
                     clang-8 \
                     gcc-6 g++-6 cpp-6 \
                     libc++-8-dev libc++abi-8-dev
-      - name: Build the app
-        env:
-          CC: clang-8
-          CXX: clang++-8
-          CFLAGS: "-O3 -g1 -fno-omit-frame-pointer"
-          CXXFLAGS: "$CFLAGS -stdlib=libc++"    
+      - name: Build the app    
         run: |
+          export ENV CC=clang-8
+          export ENV CXX=clang++-8
+          export ENV CFLAGS="-O3 -g1 -fno-omit-frame-pointer"
+          export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
            ./autogen.sh
            ./configure  
            make
