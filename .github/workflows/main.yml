@@ -40,7 +40,14 @@ jobs:
                     libunwind-dev parallel \
                     clang-8 \
                     gcc-6 g++-6 cpp-6 \
-                    libc++-8-dev libc++abi-8-dev
+                    libc++-8-dev libc++abi-8-dev unzip curl
+
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+              
       - name: Build the app    
         run: |
           export ENV CC=clang-8
@@ -52,11 +59,12 @@ jobs:
            make
            sudo make install
            mkdir /opt/digitalbits
-           sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core          
+           sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
+                
       - name: Release
-        uses: fnkr/github-action-ghr@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GHR_COMPRESS: xz
-          GHR_PATH: /opt/digitalbits
-          GITHUB_TOKEN: 3715ced5d52a443edadef0309eb646d136c55685
+        run: |
+          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
+          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
+          export AWS_DEFAULT_REGION=eu-central-1
+
+          aws s3 sync /opt/digitalbits/ s3://digitalbits-bin/core/
