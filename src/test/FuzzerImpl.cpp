@@ -27,7 +27,7 @@ namespace digitalbits
 namespace FuzzUtils
 {
 auto constexpr FUZZER_MAX_OPERATIONS = 5;
-auto constexpr INITIAL_LUMEN_AND_ASSET_BALANCE = 100000LL;
+auto constexpr INITIAL_DIGITALBITS_AND_ASSET_BALANCE = 100000LL;
 auto constexpr NUMBER_OF_ASSETS_TO_ISSUE = 4;
 
 // must be strictly less than 255
@@ -542,7 +542,7 @@ TransactionFuzzer::initialize()
 
             auto createOp = txtest::createAccount(
                 publicKey,
-                FuzzUtils::INITIAL_LUMEN_AND_ASSET_BALANCE * 10000000);
+                FuzzUtils::INITIAL_DIGITALBITS_AND_ASSET_BALANCE * 10000000);
 
             ops.emplace_back(createOp);
 
@@ -599,7 +599,7 @@ TransactionFuzzer::initialize()
                     // distribute asset
                     auto distributeOp = txtest::payment(
                         account, asset,
-                        FuzzUtils::INITIAL_LUMEN_AND_ASSET_BALANCE);
+                        FuzzUtils::INITIAL_DIGITALBITS_AND_ASSET_BALANCE);
                     PublicKey issuer;
                     FuzzUtils::setShortKey(issuer, j);
                     distributeOp.sourceAccount.activate() =
@@ -622,7 +622,7 @@ TransactionFuzzer::initialize()
         // In order for certain operation combinations to be valid, we need an
         // initial order book with various offers. The order book will consist
         // of identical setups for the asset pairs:
-        //      XLM - A
+        //      XDB - A
         //      A   - B
         //      B   - C
         //      C   - D
@@ -677,13 +677,13 @@ TransactionFuzzer::initialize()
             addOffer(B, A, pks[0], Price{22, 7}, 10000);
         };
 
-        auto const XLM = txtest::makeNativeAsset();
+        auto const XDB = txtest::makeNativeAsset();
         auto const ASSET_A = FuzzUtils::makeAsset(1);
         auto const ASSET_B = FuzzUtils::makeAsset(2);
         auto const ASSET_C = FuzzUtils::makeAsset(3);
         auto const ASSET_D = FuzzUtils::makeAsset(4);
 
-        genOffersForPair(XLM, ASSET_A, {13, 14, 15, 1, 12}, ltx);
+        genOffersForPair(XDB, ASSET_A, {13, 14, 15, 1, 12}, ltx);
         genOffersForPair(ASSET_A, ASSET_B, {11, 1, 12, 2, 10}, ltx);
         genOffersForPair(ASSET_B, ASSET_C, {13, 2, 14, 3, 15}, ltx);
         genOffersForPair(ASSET_C, ASSET_D, {6, 3, 7, 4, 8}, ltx);

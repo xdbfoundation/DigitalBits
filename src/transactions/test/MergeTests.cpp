@@ -438,13 +438,13 @@ TEST_CASE("merge", "[tx][merge]")
             {
                 for_all_versions(*app, [&] {
                     gateway.pay(a1, usd, trustLineBalance);
-                    auto xlm = makeNativeAsset();
+                    auto xdb = makeNativeAsset();
                     auto curIssued = a1.asset("CUR1");
 
                     const Price somePrice(3, 2);
                     for (int i = 0; i < 4; i++)
                     {
-                        a1.manageOffer(0, xlm, curIssued, somePrice, 100);
+                        a1.manageOffer(0, xdb, curIssued, somePrice, 100);
                     }
                     REQUIRE_THROWS_AS(a1.merge(b1),
                                       ex_ACCOUNT_MERGE_HAS_SUB_ENTRIES);

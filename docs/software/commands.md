@@ -301,6 +301,6 @@ format.
 * **testtx**
   `testtx?from=F&to=T&amount=N&[create=true]`<br>
   Injects a payment transaction (or a create transaction if "create" is
-  specified) from the account F to the account T, sending N XLM to the account.
+  specified) from the account F to the account T, sending N XDB to the account.
   Note that F and T are seed strings but can also be specified as "root" as
   shorthand for the root account for the test instance.

@@ -77,7 +77,7 @@ assetToString(const Asset& asset)
     switch (asset.type())
     {
     case digitalbits::ASSET_TYPE_NATIVE:
-        r = std::string{"XLM"};
+        r = std::string{"XDB"};
         break;
     case digitalbits::ASSET_TYPE_CREDIT_ALPHANUM4:
         assetCodeToStr(asset.alphaNum4().assetCode, r);

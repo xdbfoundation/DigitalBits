@@ -202,10 +202,10 @@ of a signer to more than 255.
 
 * `Ledger` - security - overflow in base reserve computation would allow certain operation to reduce the balance below reserve.
     * exploited: unknown
-        * while it was possible to take the balance below reserve, this would simply make accounts unusable until more Lumens were sent to the account.
+        * while it was possible to take the balance below reserve, this would simply make accounts unusable until more DigitalBits were sent to the account.
     * mitigation: code fix
 
- * `Ledger` - protocol - `manageOffer` now computes the amount of Lumens that can be sold as if the offer was created
+ * `Ledger` - protocol - `manageOffer` now computes the amount of DigitalBits that can be sold as if the offer was created
 
 * `Ledger` - protocol - make `BASE_RESERVE` configurable
 
@@ -215,12 +215,12 @@ of a signer to more than 255.
 
 ## v0.6.2 (2017-04-30)
 
-* `Ledger` - security - invalid use of cached data could lead to lumen creation (double spend) or destruction
+* `Ledger` - security - invalid use of cached data could lead to digitalbit creation (double spend) or destruction
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new DigitalBits to be created, not accounted for in total coins
     * mitigation:
         * code fix
-        * in order to restore the ledger to its expected number of coins, the foundation burned Lumens using one of the bugs fixed in this release (`pathPaymentOp`), practically speaking this ended up being equivalent to a forced distribution of Lumens by the foundation.
+        * in order to restore the ledger to its expected number of coins, the foundation burned DigitalBits using one of the bugs fixed in this release (`pathPaymentOp`), practically speaking this ended up being equivalent to a forced distribution of DigitalBits by the foundation.
         * invariant for total coins implemented
 
 * `Ledger` - protocol - updated protocol version to 8 (2017-04-26)
@@ -239,9 +239,9 @@ of a signer to more than 255.
 
 ## v0.6.1c (not widely released - 2017-04-08)
 
-* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Lumens balance of the doubly merged account to be credited multiple times into the destination account
+* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the DigitalBits balance of the doubly merged account to be credited multiple times into the destination account
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new DigitalBits to be created, not accounted for in total coins
     * mitigation:
         * another minimal code fix scoped to merge account was implemented to stop the updated pattern of transactions exploiting the bug while working on complete fix
         * additional monitoring of network activity
@@ -252,9 +252,9 @@ of a signer to more than 255.
 
 ## v0.6.1b (not widely released - 2017-04-06)
 
-* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the Lumens balance of the doubly merged account to be credited multiple times into the destination account
+* `Ledger` - security - merge account could be called on an account already merged in the same ledger, causing the DigitalBits balance of the doubly merged account to be credited multiple times into the destination account
     * exploited: yes
-        * rogue transactions caused new Lumens to be created, not accounted for in total coins
+        * rogue transactions caused new DigitalBits to be created, not accounted for in total coins
     * mitigation:
         * minimal code fix implemented to stop known pattern of transactions exploiting the bug
         * additional monitoring of network activity

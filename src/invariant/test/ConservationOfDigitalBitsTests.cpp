@@ -2,7 +2,7 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "invariant/ConservationOfLumens.h"
+#include "invariant/ConservationOfDigitalBits.h"
 #include "invariant/InvariantDoesNotHold.h"
 #include "invariant/InvariantManager.h"
 #include "invariant/test/InvariantTestUtils.h"
@@ -103,10 +103,10 @@ updateBalances(std::vector<LedgerEntry> const& entries, Application& app)
 }
 
 TEST_CASE("Total coins change without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationofdigitalbits]")
 {
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfDigitalBits"};
 
     std::uniform_int_distribution<int64_t> dist(0, INT64_MAX);
 
@@ -122,10 +122,10 @@ TEST_CASE("Total coins change without inflation",
 }
 
 TEST_CASE("Fee pool change without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationofdigitalbits]")
 {
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfDigitalBits"};
 
     std::uniform_int_distribution<int64_t> dist(0, INT64_MAX);
 
@@ -141,10 +141,10 @@ TEST_CASE("Fee pool change without inflation",
 }
 
 TEST_CASE("Account balances changed without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationofdigitalbits]")
 {
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfDigitalBits"};
 
     uint32_t const N = 10;
     for (uint32_t i = 0; i < 100; ++i)
@@ -175,10 +175,10 @@ TEST_CASE("Account balances changed without inflation",
 }
 
 TEST_CASE("Account balances unchanged without inflation",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationofdigitalbits]")
 {
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfDigitalBits"};
 
     uint32_t const N = 10;
     for (uint32_t i = 0; i < 100; ++i)
@@ -216,10 +216,10 @@ TEST_CASE("Account balances unchanged without inflation",
 }
 
 TEST_CASE("Inflation changes are consistent",
-          "[invariant][conservationoflumens]")
+          "[invariant][conservationofdigitalbits]")
 {
     Config cfg = getTestConfig(0);
-    cfg.INVARIANT_CHECKS = {"ConservationOfLumens"};
+    cfg.INVARIANT_CHECKS = {"ConservationOfDigitalBits"};
     std::uniform_int_distribution<uint32_t> payoutsDist(1, 100);
     std::uniform_int_distribution<int64_t> amountDist(1, 100000);
 

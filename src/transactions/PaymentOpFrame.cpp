@@ -29,7 +29,7 @@ PaymentOpFrame::doApply(AbstractLedgerTxn& ltx)
     std::string payStr = assetToString(mPayment.asset);
     ZoneTextV(applyZone, payStr.c_str(), payStr.size());
 
-    // if sending to self XLM directly, just mark as success, else we need at
+    // if sending to self XDB directly, just mark as success, else we need at
     // least to check trustlines
     // in ledger version 2 it would work for any asset type
     auto ledgerVersion = ltx.loadHeader().current().ledgerVersion;

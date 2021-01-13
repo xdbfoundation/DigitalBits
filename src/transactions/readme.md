@@ -254,7 +254,7 @@ the signatures is greater or equal to the threshold for that level.
   The transaction would have to be signed by both A and B, but the sequence 
   number consumed will be from account Atemp.
 
-  An additional operation "Operation 3" can be included to recover the XLM 
+  An additional operation "Operation 3" can be included to recover the XDB 
   balance from Atemp, "A" must be given "high" weight for this to work: 
   * Operation 3
     * source=_null_
