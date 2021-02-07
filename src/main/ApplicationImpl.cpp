@@ -93,6 +93,7 @@ ApplicationImpl::ApplicationImpl(VirtualClock& clock, Config const& cfg)
     std::srand(static_cast<uint32>(clock.now().time_since_epoch().count()));
 
     mNetworkID = sha256(mConfig.NETWORK_PASSPHRASE);
+    mFeeID = sha256(mConfig.FEE_PASSPHRASE);
 
     TracyAppInfo(DIGITALBITS_CORE_VERSION.c_str(), DIGITALBITS_CORE_VERSION.size());
     TracyAppInfo(mConfig.NETWORK_PASSPHRASE.c_str(),
@@ -195,6 +196,7 @@ ApplicationImpl::newDB()
     mDatabase->upgradeToCurrentSchema();
     mBucketManager->dropAll();
     mLedgerManager->startNewLedger();
+    mLedgerManager->startFeeLedger();
 }
 
 void
@@ -346,6 +348,12 @@ Hash const&
 ApplicationImpl::getNetworkID() const
 {
     return mNetworkID;
+}
+
+Hash const&
+ApplicationImpl::getFeePoolID() const
+{
+    return mFeeID;
 }
 
 ApplicationImpl::~ApplicationImpl()

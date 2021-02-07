@@ -371,11 +371,21 @@ FeeBumpTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx,
     resetResults(ltx.loadHeader().current(), baseFee, true);
 
     auto feeSource = digitalbits::loadAccount(ltx, getFeeSourceID());
+    
+    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
+    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+
     if (!feeSource)
     {
         throw std::runtime_error("Unexpected database state");
     }
+    if (!feeTarget)
+    {
+        throw std::runtime_error("Unexpected database state (fees account is missing)");
+    }
+
     auto& acc = feeSource.current().data.account();
+    auto& fpAcc = feeTarget.current().data.account();
 
     auto header = ltx.loadHeader();
     int64_t& fee = getResult().feeCharged;
@@ -386,7 +396,10 @@ FeeBumpTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx,
         // are respected. In this case, we allow it to fall below that since it
         // will be caught later in commonValid.
         digitalbits::addBalance(acc.balance, -fee);
-        header.current().feePool += fee;
+        
+        // send fees to the Foundation's account instead of feePool.
+        digitalbits::addBalance(fpAcc.balance, fee);
+        // header.current().feePool += fee;
     }
 }
 

@@ -100,11 +100,21 @@ TxSimTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
     resetResults(header.current(), baseFee, true);
 
     auto sourceAccount = loadSourceAccount(ltx, header);
+
+    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
+    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+
     if (!sourceAccount)
     {
         return;
     }
+    if (!feeTarget)
+    {
+        return;
+    }
+
     auto& acc = sourceAccount.current().data.account();
+    auto& fpAcc = feeTarget.current().data.account();
 
     int64_t& fee = getResult().feeCharged;
     if (fee > 0)
@@ -114,7 +124,9 @@ TxSimTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
         // are respected. In this case, we allow it to fall below that since it
         // will be caught later in commonValid.
         digitalbits::addBalance(acc.balance, -fee);
-        header.current().feePool += fee;
+        // send fees to the Foundation's account instead of feePool.
+        digitalbits::addBalance(fpAcc.balance, fee);
+        // header.current().feePool += fee;
     }
     // in v10 we update sequence numbers during apply
     if (header.current().ledgerVersion <= 9)

@@ -987,6 +987,10 @@ Config::processConfig(std::shared_ptr<cpptoml::table> t)
             {
                 NETWORK_PASSPHRASE = readString(item);
             }
+            else if (item.first == "FEE_PASSPHRASE")
+            {
+                FEE_PASSPHRASE = readString(item);
+            }
             else if (item.first == "INVARIANT_CHECKS")
             {
                 INVARIANT_CHECKS = readStringArray(item);

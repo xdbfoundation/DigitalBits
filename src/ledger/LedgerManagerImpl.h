@@ -106,6 +106,10 @@ class LedgerManagerImpl : public LedgerManager
 
     void startNewLedger(LedgerHeader const& genesisLedger);
     void startNewLedger() override;
+
+    void startFeeLedger(LedgerHeader const& feeLedger);
+    void startFeeLedger() override;
+
     void loadLastKnownLedger(
         std::function<void(asio::error_code const& ec)> handler) override;
 

@@ -193,6 +193,7 @@ class ApplicationImpl : public Application
     VirtualClock::system_time_point mStartedOn;
 
     Hash mNetworkID;
+    Hash mFeeID;
 
     void newDB();
     void upgradeDB();
