@@ -282,6 +282,8 @@ class Application
     // Returns the hash of the passphrase, used to separate various network
     // instances
     virtual Hash const& getNetworkID() const = 0;
+    
+    virtual Hash const& getFeePoolID() const = 0;
 
     virtual AbstractLedgerTxnParent& getLedgerTxnRoot() = 0;
 

@@ -118,6 +118,8 @@ class ApplicationImpl : public Application
 
     virtual Hash const& getNetworkID() const override;
 
+    virtual Hash const& getFeePoolID() const override;
+
     virtual AbstractLedgerTxnParent& getLedgerTxnRoot() override;
 
   protected:
