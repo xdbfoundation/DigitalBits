@@ -6,6 +6,7 @@
 #include "ledger/LedgerTxn.h"
 #include "transactions/TransactionUtils.h"
 #include "transactions/simulation/TxSimTransactionFrame.h"
+#include "crypto/SecretKey.h"
 
 namespace digitalbits
 {
@@ -33,14 +34,14 @@ TxSimFeeBumpTransactionFrame::getFee(const digitalbits::LedgerHeader& header,
 
 void
 TxSimFeeBumpTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx,
-                                               int64_t baseFee)
+                                               int64_t baseFee, Hash const& feeID)
 {
     resetResults(ltx.loadHeader().current(), baseFee, true);
 
     auto feeSource = digitalbits::loadAccount(ltx, getFeeSourceID());
 
-    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
-    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+    SecretKey fskey = SecretKey::fromSeed(feeID);
+    auto feeTarget = digitalbits::loadAccount(ltx, fskey.getPublicKey());
 
     if (!feeSource)
     {

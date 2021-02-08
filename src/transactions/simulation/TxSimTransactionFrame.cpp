@@ -12,6 +12,7 @@
 #include "transactions/simulation/TxSimManageBuyOfferOpFrame.h"
 #include "transactions/simulation/TxSimManageSellOfferOpFrame.h"
 #include "transactions/simulation/TxSimMergeOpFrame.h"
+#include "crypto/SecretKey.h"
 
 namespace digitalbits
 {
@@ -92,7 +93,7 @@ TxSimTransactionFrame::getFee(LedgerHeader const& header, int64_t baseFee,
 }
 
 void
-TxSimTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
+TxSimTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash const& feeID)
 {
     mCachedAccount.reset();
 
@@ -101,8 +102,8 @@ TxSimTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
 
     auto sourceAccount = loadSourceAccount(ltx, header);
 
-    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
-    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+    SecretKey fskey = SecretKey::fromSeed(feeID);
+    auto feeTarget = digitalbits::loadAccount(ltx, fskey.getPublicKey());
 
     if (!sourceAccount)
     {

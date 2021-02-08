@@ -55,7 +55,7 @@ class TransactionFrameBase
     insertKeysForFeeProcessing(UnorderedSet<LedgerKey>& keys) const = 0;
     virtual void insertKeysForTxApply(UnorderedSet<LedgerKey>& keys) const = 0;
 
-    virtual void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee) = 0;
+    virtual void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash const& feeID) = 0;
 
     virtual DigitalBitsMessage toDigitalBitsMessage() const = 0;
 };

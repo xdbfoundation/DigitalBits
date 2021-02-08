@@ -186,7 +186,7 @@ class TransactionFrame : public TransactionFrameBase
     void insertKeysForTxApply(UnorderedSet<LedgerKey>& keys) const override;
 
     // collect fee, consume sequence number
-    void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee) override;
+    void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash const& feeID) override;
 
     // apply this transaction to the current ledger
     // returns true if successfully applied

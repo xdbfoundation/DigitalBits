@@ -9,6 +9,7 @@
 #include "crypto/SHA.h"
 #include "crypto/SignerKey.h"
 #include "crypto/SignerKeyUtils.h"
+#include "crypto/SecretKey.h"
 #include "database/Database.h"
 #include "database/DatabaseUtils.h"
 #include "herder/TxSetFrame.h"
@@ -550,7 +551,7 @@ TransactionFrame::commonValid(SignatureChecker& signatureChecker,
 }
 
 void
-TransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
+TransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash const& feeID)
 {
     ZoneScoped;
     mCachedAccount.reset();
@@ -560,8 +561,8 @@ TransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee)
 
     auto sourceAccount = loadSourceAccount(ltx, header);
     
-    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
-    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+    SecretKey fskey = SecretKey::fromSeed(feeID);
+    auto feeTarget = digitalbits::loadAccount(ltx, fskey.getPublicKey());
 
     if (!sourceAccount)
     {

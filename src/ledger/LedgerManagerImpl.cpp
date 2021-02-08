@@ -888,7 +888,7 @@ LedgerManagerImpl::processFeesSeqNums(
         for (auto tx : txs)
         {
             LedgerTxn ltxTx(ltx);
-            tx->processFeeSeqNum(ltxTx, baseFee);
+            tx->processFeeSeqNum(ltxTx, baseFee, mApp.getFeePoolID());
             LedgerEntryChanges changes = ltxTx.getChanges();
             if (ledgerCloseMeta)
             {

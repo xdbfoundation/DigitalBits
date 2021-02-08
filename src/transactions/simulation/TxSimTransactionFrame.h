@@ -31,7 +31,7 @@ class TxSimTransactionFrame : public TransactionFrame
     int64_t getFee(LedgerHeader const& header, int64_t baseFee,
                    bool applying) const override;
 
-    void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee) override;
+    void processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash const& feeID) override;
     void processSeqNum(AbstractLedgerTxn& ltx) override;
 
   public:

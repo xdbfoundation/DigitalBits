@@ -251,7 +251,7 @@ TEST_CASE("fee bump transactions", "[tx][feebump]")
             auto fb =
                 feeBump(app->getNetworkID(), acc, root, root, 2 * fee, fee, 1);
             LedgerTxn ltx(app->getLedgerTxnRoot());
-            fb->processFeeSeqNum(ltx, fee);
+            fb->processFeeSeqNum(ltx, fee, app->getFeePoolID());
             auto delta = ltx.getDelta();
             REQUIRE(delta.entry.size() == 1);
             auto gkey = delta.entry.begin()->first;

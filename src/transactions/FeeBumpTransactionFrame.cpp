@@ -7,6 +7,7 @@
 #include "crypto/SHA.h"
 #include "crypto/SignerKey.h"
 #include "crypto/SignerKeyUtils.h"
+#include "crypto/SecretKey.h"
 #include "ledger/LedgerTxn.h"
 #include "ledger/LedgerTxnEntry.h"
 #include "ledger/LedgerTxnHeader.h"
@@ -366,14 +367,14 @@ FeeBumpTransactionFrame::insertKeysForTxApply(
 
 void
 FeeBumpTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx,
-                                          int64_t baseFee)
+                                          int64_t baseFee, Hash const& feeID)
 {
     resetResults(ltx.loadHeader().current(), baseFee, true);
 
     auto feeSource = digitalbits::loadAccount(ltx, getFeeSourceID());
     
-    SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
-    auto feeTarget = digitalbits::loadAccount(fskey.getPublicKey());
+    SecretKey fskey = SecretKey::fromSeed(feeID);
+    auto feeTarget = digitalbits::loadAccount(ltx, fskey.getPublicKey());
 
     if (!feeSource)
     {
