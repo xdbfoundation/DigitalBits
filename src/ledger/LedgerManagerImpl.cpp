@@ -279,9 +279,6 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
 
     ltx.create(feePoolEntry);
 
-    CLOG_INFO(Ledger, "Established fee pool ledger, closing");
-    CLOG_INFO(Ledger, "Fee Pool account seed: {}", fskey.getStrKeySeed().value);
-
     ledgerClosed(ltx);
     ltx.commit();
 }

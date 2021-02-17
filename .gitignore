@@ -92,3 +92,5 @@ test-partitions.*
 **/.vs/*
 
 testnet*.cfg
+livenet*.cfg
+ingestor.cfg
