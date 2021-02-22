@@ -66,7 +66,7 @@ TxSimFeeBumpTransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx,
         digitalbits::addBalance(acc.balance, -fee);
         // send fees to the Foundation's account instead of feePool.
         digitalbits::addBalance(fpAcc.balance, fee);
-        header.current().feePool += fee;
+        // header.current().feePool += fee;
     }
 }
 }

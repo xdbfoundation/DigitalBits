@@ -586,7 +586,7 @@ TransactionFrame::processFeeSeqNum(AbstractLedgerTxn& ltx, int64_t baseFee, Hash
         digitalbits::addBalance(acc.balance, -fee);
         // send fees to the Foundation's account instead of feePool.
         digitalbits::addBalance(fpAcc.balance, fee);
-        header.current().feePool += fee;
+        // header.current().feePool += fee;
     }
     // in v10 we update sequence numbers during apply
     if (header.current().ledgerVersion <= 9)
