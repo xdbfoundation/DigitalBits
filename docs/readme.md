@@ -18,7 +18,7 @@ guarantee see [`src/scp/readme.md`](/src/scp/readme.md).
 - [Building & Installing](/README.md)
 - [DigitalBits-core administration](software/admin.md)
 - [Architecture](architecture.md)
-- [Key Concepts](https://www.digitalbits.io/developers/guides/)
+- [Key Concepts](https://developer.digitalbits.io/guides/)
 - [Integration with other services](integration.md)
 - [Major Components](#major-components)
 - [Supporting Code Directories](#supporting-code-directories)
