@@ -160,7 +160,7 @@ CommandHandler::fileNotFound(std::string const& params, std::string& retStr)
     retStr = "<b>Welcome to digitalbits-core!</b><p>";
     retStr +=
         "Supported HTTP commands are listed in the <a href=\""
-        "https://github.com/digitalbits/digitalbits-core/blob/master/docs/software/"
+        "https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/"
         "commands.md#http-commands"
         "\">docs</a> as well as in the man pages.</p>"
         "<p>Have fun!</p>";

@@ -158,7 +158,7 @@ if you need to expose this endpoint to other hosts in your local network, it is 
 
 ### Release version
 
-In general you should aim to run the latest [release](https://github.com/digitalbits/digitalbits-core/releases) as builds are backward compatible and are cumulative.
+In general you should aim to run the latest [release](https://github.com/xdbfoundation/DigitalBits/releases) as builds are backward compatible and are cumulative.
 
 The version number scheme that we follow is `protocol_version.release_number.patch_number`, where
 
@@ -167,18 +167,18 @@ The version number scheme that we follow is `protocol_version.release_number.pat
   * `patch_number` is used when a critical fix has to be deployed
 
 ### Installing from source
-See the [INSTALL](https://github.com/digitalbits/digitalbits-core/blob/master/INSTALL.md) for build instructions.
+See the [INSTALL](https://github.com/xdbfoundation/DigitalBits/blob/master/INSTALL.md) for build instructions.
 
 ### Package based Installation
-If you are using Ubuntu 16.04 LTS we provide the latest stable releases of [digitalbits-core](https://github.com/digitalbits/digitalbits-core) and [digitalbits-horizon](https://github.com/digitalbits/go/tree/master/services/horizon) in Debian binary package format.
+If you are using Ubuntu 16.04 LTS we provide the latest stable releases of [digitalbits-core](https://github.com/xdbfoundation/DigitalBits) and [digitalbits-horizon](https://github.com/xdbfoundation/go/tree/master/services/horizon) in Debian binary package format.
 
-See [detailed installation instructions](https://github.com/digitalbits/packages#sdf---packages)
+See [detailed installation instructions](https://github.com/xdbfoundation/packages#sdf---packages)
 
 ### Container based installation
 Docker images are maintained in a few places, good starting points are:
 
-   * the [quickstart image](https://github.com/digitalbits/docker-digitalbits-core-horizon)
-   * the [standalone image](https://github.com/digitalbits/docker-digitalbits-core). **Warning**: this only tracks the latest master, so you have to find the image based on the [release](https://github.com/digitalbits/digitalbits-core/releases) that you want to use.
+   * the [quickstart image](https://github.com/xdbfoundation/docker-digitalbits-core-horizon)
+   * the [standalone image](https://github.com/xdbfoundation/docker-digitalbits-core). **Warning**: this only tracks the latest master, so you have to find the image based on the [release](https://github.com/xdbfoundation/DigitalBits/releases) that you want to use.
 
 ## Configuring
 
@@ -190,11 +190,11 @@ digitalbits-core loads `./digitalbits-core.cfg`, but you can specify a different
 
 `$ digitalbits-core --conf betterfile.cfg <COMMAND>`
 
-The [example config](https://github.com/digitalbits/digitalbits-core/blob/master/docs/digitalbits-core_example.cfg) is not a real configuration, but documents all possible configuration elements as well as their default values.
+The [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg) is not a real configuration, but documents all possible configuration elements as well as their default values.
 
-Here is an [example test network config](https://github.com/digitalbits/docker-digitalbits-core-horizon/blob/master/testnet/core/etc/digitalbits-core.cfg) for connecting to the test network.
+Here is an [example test network config](https://github.com/xdbfoundation/docker-digitalbits-core-horizon/blob/master/testnet/core/etc/digitalbits-core.cfg) for connecting to the test network.
 
-Here is an [example public network config](https://github.com/digitalbits/docs/blob/master/other/digitalbits-core-validator-example.cfg) for connecting to the public network.
+Here is an [example public network config](https://github.com/xdbfoundation/docs/blob/master/other/digitalbits-core-validator-example.cfg) for connecting to the public network.
 
 The examples in this file don't specify `--conf betterfile.cfg` for brevity.
 
@@ -232,7 +232,7 @@ watch SCP and see all the data in the network but will not send validation messa
 NB: if you run more than one node, set the `HOME_DOMAIN` common to those nodes using the `NODE_HOME_DOMAIN` property.
 Doing so will allow your nodes to be grouped correctly during [quorum set generation](#home-domains-array).
 
-If you want other validators to add your node to their quorum sets, you should also share your public key (GDMTUTQ... ) by publishing a digitalbits.toml file on your homedomain following specs laid out in [SEP-20](https://github.com/digitalbits/digitalbits-protocol/blob/master/ecosystem/sep-0020.md). 
+If you want other validators to add your node to their quorum sets, you should also share your public key (GDMTUTQ... ) by publishing a digitalbits.toml file on your homedomain following specs laid out in [SEP-20](https://github.com/xdbfoundation/digitalbits-protocol/blob/master/ecosystem/sep-0020.md). 
 
 ### Choosing your quorum set
 A good quorum set:
@@ -252,16 +252,16 @@ While this does not absolve you of all responsibility — you still need to pick
 #### Validator discovery
 When you add a validating node to your quorum set, it’s generally because you trust the *organization* running the node: you trust SDF, not some anonymous DigitalBits public key. 
 
-In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a digitalbits.toml file hosted on that domain.  To find out how that works, take a look at [SEP-20](https://github.com/digitalbits/digitalbits-protocol/blob/master/ecosystem/sep-0020.md).  
+In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a digitalbits.toml file hosted on that domain.  To find out how that works, take a look at [SEP-20](https://github.com/xdbfoundation/digitalbits-protocol/blob/master/ecosystem/sep-0020.md).  
 
-As a result of that link, you can look up a node by its DigitalBits public key and check the digitalbits.toml to find out who runs it.  It’s possible to do that manually, but you can also just consult the list of nodes on [DigitalBitsbeat.io](https://digitalbitsbeat.io/nodes).  If you decide to trust an organization, you can use that list to collect the information necessary to add their nodes to your configuration.  
+As a result of that link, you can look up a node by its DigitalBits public key and check the digitalbits.toml to find out who runs it. If you decide to trust an organization, you can use that list to collect the information necessary to add their nodes to your configuration.  
 
 When you look at that list, you will discover that the most reliable organizations actually run more than one validator, and adding all of an organization’s nodes to your quorum set creates the redundancy necessary to sustain arbitrary node failure.  When an organization with a trio of nodes takes one down for maintenance, for instance, the remaining two vote on the organization’s behalf, and the organization’s network presence persists.
 
 One important thing to note: you need to either depend on exactly one entity OR have **at least 4 entities** for automatic quorum set configuration to work properly.  At least 4 is the better option.
 
 #### Home domains array
-To create your quorum set, digitalbits cores relies on two arrays of tables: `[[HOME_DOMAINS]]` and `[[VALIDATORS]]`.  Check out the [example config](https://github.com/digitalbits/digitalbits-core/blob/master/docs/digitalbits-core_example.cfg#L372) to see those arrays in action.
+To create your quorum set, digitalbits cores relies on two arrays of tables: `[[HOME_DOMAINS]]` and `[[VALIDATORS]]`.  Check out the [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg#L372) to see those arrays in action.
 
 `[[HOME_DOMAINS]]` defines a superset of validators: when you add nodes hosted by the same organization to your configuration, they share a home domain, and the information in the `[[HOME_DOMAINS]]` table, specifically the quality rating, will automatically apply to every one of those validators. 
 
@@ -275,7 +275,7 @@ QUALITY | string | Rating for organization's nodes: `HIGH`, `MEDIUM`, or `LOW`
 Here’s an example:
 ```
 [[HOME_DOMAINS]]
-HOME_DOMAIN="testnet.digitalbits.org"
+HOME_DOMAIN="testnet.digitalbits.io"
 QUALITY="HIGH"
 
 [[HOME_DOMAINS]]
@@ -301,17 +301,17 @@ Here’s an example:
 ```
 [[VALIDATORS]]
 NAME="sdftest1"
-HOME_DOMAIN="testnet.digitalbits.org"
+HOME_DOMAIN="testnet.digitalbits.io"
 PUBLIC_KEY="GDKXE2OZMJIPOSLNA6N6F2BVCI3O777I2OOC4BV7VOYUEHYX7RTRYA7Y"
-ADDRESS="core-testnet1.digitalbits.org"
-HISTORY="curl -sf http://history.digitalbits.org/prd/core-testnet/core_testnet_001/{0} -o {1}"
+ADDRESS="core-testnet1.digitalbits.io"
+HISTORY="curl -sf http://history.digitalbits.io/prd/core-testnet/core_testnet_001/{0} -o {1}"
 
 [[VALIDATORS]]
 NAME="sdftest2"
-HOME_DOMAIN="testnet.digitalbits.org"
+HOME_DOMAIN="testnet.digitalbits.io"
 PUBLIC_KEY="GCUCJTIYXSOXKBSNFGNFWW5MUQ54HKRPGJUTQFJ5RQXZXNOLNXYDHRAP"
-ADDRESS="core-testnet2.digitalbits.org"
-HISTORY="curl -sf http://history.digitalbits.org/prd/core-testnet/core_testnet_002/{0} -o {1}"
+ADDRESS="core-testnet2.digitalbits.io"
+HISTORY="curl -sf http://history.digitalbits.io/prd/core-testnet/core_testnet_002/{0} -o {1}"
 
 [[VALIDATORS]]
 NAME="rando-node"
@@ -344,10 +344,6 @@ Once you add validators to your configuration, digitalbits core automatically ge
 * HIGH quality entities are at the top, and are given decision-making priority 
 * The combined weight of MEDIUM quality entities equals a single HIGH quality entity  
 * The combined weight of LOW quality entities equals a single MEDIUM quality entity
-
-Here's a diagram depicting the nested quality levels and how they interact:
-
-![Diagram Automatic Quorum Set Generation](https://raw.githubusercontent.com/digitalbits/docs/master/guides/walkthroughs/assets/validator_complete.png)
 
 
 #### Quorum and overlay network
@@ -402,7 +398,7 @@ This DB should either be a SQLite database or, for larger production instances, 
 *Note: Horizon currently depends on using PostgreSQL.*
 
 For how to specify the database, 
-see the [example config](https://github.com/digitalbits/digitalbits-core/blob/master/docs/digitalbits-core_example.cfg).
+see the [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg).
 
 ##### Cursors and automatic maintenance
 
@@ -446,7 +442,7 @@ Azure Blob Storage, or custom SCP/SFTP/HTTP servers.
 
 Use command templates in the config file to give the specifics of which 
 services you will use and how to access them. 
-The [example config](https://github.com/digitalbits/digitalbits-core/blob/master/docs/digitalbits-core_example.cfg) 
+The [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg) 
 shows how to configure a history archive through command templates. 
 
 While it is possible to run a digitalbits-core node with no configured history 
@@ -1085,13 +1081,9 @@ DigitalBits-core can be gracefully exited at any time by delivering `SIGINT` or
    and you may need to remove the file before it will restart. 
    Otherwise, all components are designed to recover from abrupt termination.
 
-DigitalBits-core can also be packaged in a container system such as Docker, so long 
-as `BUCKET_DIR_PATH` and the database are stored on persistent volumes. For an
-example, see [docker-digitalbits-core](https://github.com/digitalbits/docker-digitalbits-core-horizon).
-
 ### In depth architecture
 
-[architecture.md](https://github.com/digitalbits/digitalbits-core/blob/master/docs/architecture.md) 
+[architecture.md](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/architecture.md) 
   describes how digitalbits-core is structured internally, how it is intended to be 
   deployed, and the collection of servers and services needed to get the full 
   functionality and performance.

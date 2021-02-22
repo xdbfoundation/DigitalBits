@@ -1,6 +1,6 @@
 ---
 title: Versioning
-replacement: https://developers.digitalbits.org/docs/glossary/versioning/
+replacement: https://developers.digitalbits.io/docs/glossary/versioning/
 ---
 
 This document describes the various mechanisms used to keep the overall system working as it evolves.

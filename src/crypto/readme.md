@@ -2,7 +2,7 @@
 
 This directory contains minor convenience wrappers around
 [libsodium](http://libsodium.org). The fork used is stored in
-[another repository](https://github.com/digitalbits/libsodium)
+[another repository](https://github.com/xdbfoundation/libsodium)
 and used as a submodule by `digitalbits-core`.
 
 The crypto module also contains a small implementation to turn public/private

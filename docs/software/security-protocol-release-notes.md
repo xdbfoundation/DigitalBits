@@ -30,10 +30,6 @@ It is organized as a reverse chronological timeline of releases.
 
 The goal is work with the larger security community on a responsible disclosure model.
 
-It then follows that:
-* this document is not where security disclosures are made, instead follow the process outlined in [DigitalBits's bug bounty program](https://www.digitalbits.org/bug-bounty-program/) as a way to triage and respond to issues.
-* issues are reflected in this document 30 days after release of the version of DigitalBits core containing fixes for the issues.
-
 # Format of each report
 
 * `tag-name` - security - description of the problem and impact

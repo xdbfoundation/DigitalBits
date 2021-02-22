@@ -1,5 +1,5 @@
 # Transactions
-See [Concept documentation](https://www.digitalbits.org/developers/guides/concepts/transactions.html).
+See [Concept documentation](https://www.digitalbits.io/developers/guides/concepts/transactions.html).
 
 Anything that changes the ledger is called a _Transaction_.
 Transactions have an arbitrary list of operations inside them.

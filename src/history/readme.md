@@ -20,8 +20,8 @@ called `s3digitalbits` based on the [AWS S3](https://aws.amazon.com/s3/) storage
 
 ~~~~
 [HISTORY.s3digitalbits]
-get="curl http://history.digitalbits.org/{0} -o {1}"
-put="aws s3 cp {0} s3://history.digitalbits.org/{1}"
+get="curl http://history.digitalbits.io/{0} -o {1}"
+put="aws s3 cp {0} s3://history.digitalbits.io/{1}"
 ~~~~
 
 In this example, `digitalbits-core` will use the `curl` command to fetch history and

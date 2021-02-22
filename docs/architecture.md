@@ -17,7 +17,7 @@ Two slightly-obscurely-named components are:
 	see [`src/bucket/readme.md`](/src/bucket/readme.md)
 
   - SCP -- "DigitalBits Consensus Protocol", the component implementing the
-    [consensus algorithm](https://www.digitalbits.org/papers/digitalbits-consensus-protocol.pdf).
+    [consensus algorithm](https://www.digitalbits.io/papers/digitalbits-consensus-protocol.pdf).
 
 Other details:
 

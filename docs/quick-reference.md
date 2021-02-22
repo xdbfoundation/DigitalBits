@@ -8,10 +8,10 @@ The [admin guide](software/admin.md) covers this in great detail.
 You can run production Watchers and Validators.
 
 ### Debian packages
-On Linux, the easiest is to install core using a [pre-packaged debian release](https://github.com/digitalbits/packages).
+On Linux, the easiest is to install core using a [pre-packaged debian release](https://github.com/xdbfoundation/packages).
 
 ### Quick Start Docker image
-You can use the [quickstart](https://github.com/digitalbits/docker-digitalbits-core-horizon)
+You can use the [quickstart](https://github.com/xdbfoundation/docker-digitalbits-core-horizon)
 image to run the latest stable and release candidate digitalbits-core with Docker.
 
 ### Dev container
@@ -90,7 +90,7 @@ synthetic traffic.
 
 ### Playing with history
 
-You can interact with history archives with [digitalbits-archivist](https://github.com/digitalbits/go/tree/master/tools/digitalbits-archivist).
+You can interact with history archives with [digitalbits-archivist](https://github.com/xdbfoundation/go/tree/master/tools/digitalbits-archivist).
 
 #### Command line catchup
 

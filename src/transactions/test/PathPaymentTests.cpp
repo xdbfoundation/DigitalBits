@@ -272,7 +272,7 @@ TEST_CASE("pathpayment", "[tx][pathpayment]")
     SECTION("path payment XDB with not enough funds")
     {
         auto market = TestMarket{*app};
-        // see https://github.com/digitalbits/digitalbits-core/pull/1239
+        // see https://github.com/xdbfoundation/DigitalBits/pull/1239
         auto minimumAccount =
             root.create("minimum-account", minBalanceNoTx + 2 * txfee + 20);
         for_all_versions(*app, [&] {

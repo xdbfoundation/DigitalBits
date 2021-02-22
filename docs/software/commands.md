@@ -1,6 +1,5 @@
 ---
 title: Commands
-replacement: https://developers.digitalbits.org/docs/run-core-node/commands/
 ---
 
 digitalbits-core can be controlled via the following commands.
