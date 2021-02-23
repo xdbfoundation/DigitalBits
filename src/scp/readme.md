@@ -1,6 +1,6 @@
-# SCP (DigitalBits Consensus Protocol)
+# DCP (DigitalBits Consensus Protocol)
 
-The SCP subsystem is an abstract implementation of SCP, a protocol for federated
+The DCP subsystem is an abstract implementation of SCP, a protocol for federated
 byzantine agreement, intended to drive a distributed system built around the
 "replicated state machine" formalism. SCP is defined without reference to any
 particular interpretation of the concepts of "slot" or "value", nor any
