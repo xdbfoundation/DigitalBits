@@ -16,8 +16,8 @@ Two slightly-obscurely-named components are:
 	to stay in buckets grouped by how frequently they change.
 	see [`src/bucket/readme.md`](/src/bucket/readme.md)
 
-  - SCP -- "DigitalBits Consensus Protocol", the component implementing the
-    [consensus algorithm](https://www.digitalbits.io/papers/digitalbits-consensus-protocol.pdf).
+  - DCP, fork of SCP -- "Stellar Consensus Protocol", the component implementing the
+    [consensus algorithm](https://www.stellar.org/papers/stellar-consensus-protocol.pdf)..
 
 Other details:
 
