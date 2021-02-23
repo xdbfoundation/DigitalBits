@@ -31,15 +31,15 @@ There are a few major components of the system. Each component has a dedicated
 source directory and its own dedicated `readme.md`.
 
 
-* **SCP** is our implementation of the DigitalBits Consensus Protocol (SCP). This
+* **DCP** is our implementation of the DigitalBits Consensus Protocol (SCP). This
   component is fully abstracted from the rest of the system. It receives
   candidate black-box values and signals when these values have reached
   consensus by the network (called _externalizing_ a value) (See
   [`src/scp/readme.md`](/src/scp/readme.md)).
 
-* **Herder** is responsible for interfacing between SCP and the rest of
-  `digitalbits-core`. Herder provides SCP with concrete implementations of the
-  methods SCP uses to communicate with peers, to compare values, to determine
+* **Herder** is responsible for interfacing between DCP and the rest of
+  `digitalbits-core`. Herder provides DCP with concrete implementations of the
+  methods DCP uses to communicate with peers, to compare values, to determine
   whether values contain valid signatures, and so forth. Herder often
   accomplishes its tasks by delegating to other components
   (See [`src/herder/readme.md`](/src/herder/readme.md)).
@@ -48,10 +48,10 @@ source directory and its own dedicated `readme.md`.
   about and is connected to. It floods messages and fetches from peers the data
   that is needed to accomplish consensus (See
   [`src/overlay/readme.md`](/src/overlay/readme.md)). All
-  other data downloads are handled without imposing on the SCP-nodes, see
+  other data downloads are handled without imposing on the DCP-nodes, see
   [`./architecture.md`](/docs/architecture.md).
 
-* **Ledger** applies the transaction set that is externalized by SCP. It also
+* **Ledger** applies the transaction set that is externalized by DCP. It also
   forwards the externalization event to other components: it submits the changed
   ledger entries to the bucket list, triggers the publishing of history, and
   informs the overlay system to update its map of flooded messages. Ledger also
