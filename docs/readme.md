@@ -31,7 +31,7 @@ There are a few major components of the system. Each component has a dedicated
 source directory and its own dedicated `readme.md`.
 
 
-* **DCP** is our implementation of the DigitalBits Consensus Protocol (SCP). This
+* **DCP** is our implementation of the Stellar Consensus Protocol (SCP). This
   component is fully abstracted from the rest of the system. It receives
   candidate black-box values and signals when these values have reached
   consensus by the network (called _externalizing_ a value) (See
