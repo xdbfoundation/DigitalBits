@@ -1,6 +1,6 @@
 # DigitalBits-core
 
-DigitalBits-core is a replicated state machine that in consensus with a set of peers maintains a local copy of a cryptographic ledger and processes transactions against it. DigitalBits-core utilizes the [DigitalBits Consensus Protocol], a fork of the [Stellar Consensus Protocol]( https://www.stellar.org/papers/stellar-consensus-protocol), as its federated consensus protocol.
+DigitalBits-core is a replicated state machine that in consensus with a set of peers maintains a local copy of a cryptographic ledger and processes transactions against it. DigitalBits-core utilizes the DigitalBits Consensus Protocol, a fork of the [Stellar Consensus Protocol]( https://www.stellar.org/papers/stellar-consensus-protocol), as its federated consensus protocol.
 
 DigitalBits-core is written in C++11 and runs on Linux, OSX and Windows.
 Learn more by reading the [overview document]( https://github.com/xdbfoundation/DigitalBits/blob/master/docs/readme.md).
