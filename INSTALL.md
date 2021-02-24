@@ -66,8 +66,8 @@ See [INSTALL-Windows.md](INSTALL-Windows.md)
 
 ## Basic Installation
 
-- `git clone https://github.com/digitalbitsorg/digitalbits-core.git`
-- `cd digitalbits-core`
+- `git clone https://github.com/xdbfoundation/digitalbits`
+- `cd digitalbits`
 - `git submodule init`
 - `git submodule update`
 - Type `./autogen.sh`.
