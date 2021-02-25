@@ -27,7 +27,7 @@ Try to separate logically distinct changes into separate commits and thematicall
 
 # Submitting Changes
 
-Please [sign the Contributor License Agreement](https://docs.google.com/forms/d/1g7EF6PERciwn7zfmfke5Sir2n10yddGGSXyZsq98tVY/viewform).
+Please [sign the Contributor License Agreement](https://developer.digitalbits.io/contributor.html).
 
 All content, comments, and pull requests must follow the [DigitalBits Community Guidelines](https://www.digitalbits.io/community-guidelines/). 
 
