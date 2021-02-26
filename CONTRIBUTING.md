@@ -27,7 +27,7 @@ Try to separate logically distinct changes into separate commits and thematicall
 
 # Submitting Changes
 
-Please [sign the Contributor License Agreement](https://www.jotform.com/build/210566645558161).
+Please [sign the Contributor License Agreement](https://form.jotform.com/210566645558161).
 
 All content, comments, and pull requests must follow the [DigitalBits Community Guidelines](https://www.digitalbits.io/community-guidelines/). 
 
