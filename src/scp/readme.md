@@ -24,4 +24,4 @@ The `digitalbits-core` program has a single subclass of SCPDriver called
 ([Overlay](../overlay)) and specific replicated state machine
 ([LedgerManager](../ledger)).
 
-For details of the protocol itself, see the [paper on SCP](https://www.digitalbits.io/papers/digitalbits-consensus-protocol.pdf).
+For details of the protocol itself, see the [paper on SCP](https://developer.digitalbits.io/guides/concepts/scp.html).
