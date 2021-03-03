@@ -118,17 +118,17 @@ mind.
     These are not servers we necessarily run (though we can run extras).
 
 - Observation channel for validators notifying public HTTP nodes of tx
-  results. TBD. Simplest technique is to use the LISTEN/NOTIFY machinery
+  results.Simplest technique is to use the LISTEN/NOTIFY machinery
   built into postgres/libpq, though that commits us to postgres pretty
   firmly. If unacceptable, use an external message queue. This is just to
   trigger wakeups on public HTTP nodes awaiting tx results. Worst case /
   failure mode, they can timeout/poll. Messages are idempotent,
   content-free pings.
 
-- (optional): Set of public validator nodes. Running digitalbits-core only. Tasked
+- Set of public validator nodes. Running digitalbits-core only. Tasked
 with:
   - Listening to core validators and propagating their decisions blindly
     to anyone who asks.
-  - Optionally feeding (some?) tx proposals submitted to them into core network.
+  - Optionally feeding tx proposals submitted to them into core network.
   - Basically just a digitalbits-network load balancer / firewall for public access,
     for people who don't want to form trust relationships.
