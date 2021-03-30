@@ -37,14 +37,11 @@ jobs:
                     libunwind-dev parallel \
                     clang-8 \
                     gcc-6 g++-6 cpp-6 \
-                    libc++-8-dev libc++abi-8-dev unzip curl
-
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-              
+                    libc++-8-dev libc++abi-8-dev unzip curl \
+                    python3-pip ruby ruby-dev rubygems
+          pip3 install --upgrade cloudsmith-cli
+          gem install --no-document fpm
+     
       - name: Build the app    
         run: |
           export ENV CC=clang-8
@@ -57,11 +54,13 @@ jobs:
            sudo make install
            mkdir /opt/digitalbits
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
-                
-      - name: Release
+      
+      - name: Make .deb package
+        run: fpm -f -s dir -t deb -n digitalbits-core -v 1.0.0 /opt/digitalbits/digitalbits-core=/usr/local/bin/digitalbits-core 
+      
+      - name: Upload to cloudsmith.io
         run: |
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }}
-          export AWS_DEFAULT_REGION=eu-central-1
+          export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
+          cloudsmith push deb xdb-foundation/digitalbits-core/ubuntu/focal digitalbits-core_1.0.0_amd64.deb
 
           aws s3 sync /opt/digitalbits/ s3://digitalbits-bin/core/
