@@ -41,7 +41,7 @@ jobs:
                     python3-pip ruby ruby-dev rubygems
           pip install wheel
           pip install --upgrade pip
-          pip install --upgrade cloudsmith-cli
+          python3 -m pip install cloudsmith-cli
           gem install --no-document fpm
      
       - name: Build the app    
