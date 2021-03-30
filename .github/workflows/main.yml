@@ -39,6 +39,7 @@ jobs:
                     gcc-6 g++-6 cpp-6 \
                     libc++-8-dev libc++abi-8-dev unzip curl \
                     python3-pip ruby ruby-dev rubygems
+          pip install --upgrade pip
           pip3 install --upgrade cloudsmith-cli
           gem install --no-document fpm
      
