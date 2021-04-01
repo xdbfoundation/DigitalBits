@@ -68,7 +68,10 @@ jobs:
           WITH_V: false  
           
       - name: Make .deb package
-        run: fpm -f -s dir -t deb -n digitalbits-core -v ${{ steps.bump_version.outputs.tag }} /opt/digitalbits/digitalbits-core=/usr/local/bin/digitalbits-core 
+        run: |
+            fpm -f -s dir -t deb -n digitalbits-core -v ${{ steps.bump_version.outputs.tag }} --deb-use-file-permissions \
+            /opt/digitalbits/digitalbits-core=/usr/local/bin/digitalbits-core \
+            digitalbits-core.service=/etc/systemd/system/digitalbits-core.service 
       
       - name: Upload to cloudsmith.io
         run: |
