@@ -270,6 +270,20 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
 
     LedgerEntry feePoolEntry;
 
+    string lastLedger =
+        mApp.getPersistentState().getState(PersistentState::kLastClosedLedger);
+
+    if (lastLedger.empty())
+    {
+        throw std::runtime_error(
+            "No reference in DB to any last closed ledger");
+    }
+    else
+    {
+        CLOG_INFO(Ledger, "Last closed ledger (LCL) hash is {}", lastLedger);
+        feePoolEntry.previousLedgerHash = hexToBin256(lastLedger);
+    }        
+
     feePoolEntry.lastModifiedLedgerSeq = 2;
     feePoolEntry.data.type(ACCOUNT);
     auto& fpAccount = feePoolEntry.data.account();
