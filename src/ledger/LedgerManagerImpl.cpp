@@ -270,7 +270,7 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
 
     LedgerEntry feePoolEntry;
 
-    feePoolEntry.lastModifiedLedgerSeq = 2;
+    feePoolEntry.lastModifiedLedgerSeq = 1;
     feePoolEntry.data.type(ACCOUNT);
     auto& fpAccount = feePoolEntry.data.account();
     fpAccount.accountID = fskey.getPublicKey();
