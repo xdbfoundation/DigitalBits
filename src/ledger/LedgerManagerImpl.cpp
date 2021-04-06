@@ -266,7 +266,6 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
     SecretKey fskey = SecretKey::fromSeed(mApp.getFeePoolID());
 
     LedgerTxn ltx(mApp.getLedgerTxnRoot(), false);
-    ltx.loadHeader().current() = feeLedger;
 
     LedgerEntry feePoolEntry;
 
@@ -281,9 +280,10 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
     else
     {
         CLOG_INFO(Ledger, "Last closed ledger (LCL) hash is {}", lastLedger);
-        feePoolEntry.previousLedgerHash = hexToBin256(lastLedger);
+        feeLedger.previousLedgerHash = hexToBin256(lastLedger);
     }        
 
+    ltx.loadHeader().current() = feeLedger;
     feePoolEntry.lastModifiedLedgerSeq = 2;
     feePoolEntry.data.type(ACCOUNT);
     auto& fpAccount = feePoolEntry.data.account();
