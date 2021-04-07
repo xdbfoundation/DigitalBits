@@ -196,7 +196,6 @@ ApplicationImpl::newDB()
     mDatabase->upgradeToCurrentSchema();
     mBucketManager->dropAll();
     mLedgerManager->startNewLedger();
-    mLedgerManager->startFeeLedger();
 }
 
 void
