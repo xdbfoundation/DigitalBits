@@ -1,0 +1,13 @@
+/var/log/digitalbits-core.log {
+    su root syslog
+    daily
+    missingok
+    rotate 3
+    compress
+    delaycompress
+    notifempty
+    create 0640 root root
+    sharedscripts
+    endscript
+    copytruncate
+}
