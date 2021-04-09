@@ -71,8 +71,8 @@ jobs:
         run: |
             fpm -f -s dir -t deb -n digitalbits-core -v ${{ steps.bump_version.outputs.tag }} --deb-use-file-permissions \
             /opt/digitalbits/digitalbits-core=/usr/local/bin/digitalbits-core \
-            digitalbits-core.service=/etc/systemd/system/digitalbits-core.service 
-      
+            digitalbits-core.service=/etc/systemd/system/digitalbits-core.service \
+            digitalbits-core=/etc/logrotate.d/digitalbits-core
       - name: Upload to cloudsmith.io
         run: |
           export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
