@@ -1,0 +1,102 @@
+# This is a basic workflow to help you get started with Actions
+name: MSBuild
+# Controls when the action will run. 
+on: 
+  workflow_dispatch:
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  windowsbuild:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+      - name: Install PostgresQL
+        run: |
+          curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
+          .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
+          setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
+          
+      #cd lib\spdlog && mkdir build && cd build && cmake .. && make -j
+      - run: |          
+          curl -L -o postgresql.zip https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
+          Expand-Archive -Path postgresql.zip -DestinationPath .
+          mkdir -p "C:\Program Files\PostgreSQL\9.5\lib"
+          cp -r pgsql\lib\* "C:\Program Files\PostgreSQL\9.5\lib\"
+          dir "C:\Program Files\PostgreSQL\9.5\lib"
+          cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
+          dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
+      - name: Set up Cygwin
+        uses: egor-tensin/setup-cygwin@v3
+        with:
+          platform: x64
+          packages: flex bison sed curl gcc-core
+          
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1 
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+      
+      - run: |
+          nuget restore Builds\VisualStudio\digitalbits-core.sln
+          
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - name: Build Solution
+        run: |
+            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release" /p:AdditionalLibPaths="C:\Program Files\PostgreSQL\9.5\include"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: digitalbits-core.exe
+          path: Builds\VisualStudio\x64\Release\digitalbits-core.exe
+
+
+  pushwindows:
+    needs: windowsbuild
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/download-artifact@v2
+        with:
+          name: digitalbits-core.exe
+
+      - name: Get Latest Tag
+        id: previoustag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+            python-version: 3.8
+      - name: Install dependencies
+        run: |
+            python -m pip install --upgrade pip
+            pip install cloudsmith-cli==0.26.0
+            pip uninstall click -y
+            pip install click==7.1.2
+      - name: Make archive
+        run: tar -zcvf digitalbits-core_${{ steps.previoustag.outputs.tag }}_windows-amd64.tar.gz digitalbits-core.exe
+      - uses: ncipollo/release-action@v1
+        with:
+            allowUpdates: true
+            artifacts: "digitalbits-core_${{ steps.previoustag.outputs.tag }}_windows-amd64.tar.gz"
+            tag: ${{ steps.previoustag.outputs.tag }}
+            omitBodyDuringUpdate: true
+            token: ${{ secrets.GITHUB_TOKEN }}   
+      - name: push to cloudsmith
+        run:  |
+          export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
+          export PATH=$PATH:$HOME/.local/bin
+          cloudsmith push raw xdb-foundation/digitalbits-core-prometheus-exporter digitalbits-core_${{ steps.previoustag.outputs.tag }}_windows-amd64.tar.gz

@@ -34,5 +34,5 @@ AM_CPPFLAGS += -DUSE_EASYLOGGING
 endif # USE_EASYLOGGING
 
 if USE_SPDLOG
-AM_CPPFLAGS += -DUSE_SPDLOG -include $(top_srcdir)/src/util/SpdlogTweaks.h
+AM_CPPFLAGS += -DUSE_SPDLOG -include $(top_srcdir)/src/util/SpdlogTweaks.h 
 endif # USE_SPDLOG
