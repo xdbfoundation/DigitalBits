@@ -56,7 +56,7 @@ calculateCatchupRange(uint32_t lcl, CatchupConfiguration const& cfg,
     }
 
     // All remaining cases have LCL == genesis.
-    assert(lcl == init);
+    assert(lcl == init + 1);
     LedgerRange fullReplay(init + 2, fullReplayCount);
 
     // Case 2: full replay because count >= target - init.
