@@ -47,9 +47,9 @@ calculateCatchupRange(uint32_t lcl, CatchupConfiguration const& cfg,
     checkCatchupPreconditions(lcl, cfg);
     const uint32_t init = LedgerManager::GENESIS_LEDGER_SEQ;
 
-    const uint32_t fullReplayCount = cfg.toLedger() - lcl;
+    const uint32_t fullReplayCount = cfg.toLedger() - lcl + 1;
     // Case 1: replay from LCL as we're already past genesis.
-    if (lcl > init)
+    if (lcl > init + 1)
     {
         LedgerRange replay(lcl + 1, fullReplayCount);
         return CatchupRange(replay);
@@ -57,7 +57,7 @@ calculateCatchupRange(uint32_t lcl, CatchupConfiguration const& cfg,
 
     // All remaining cases have LCL == genesis.
     assert(lcl == init);
-    LedgerRange fullReplay(init + 1, fullReplayCount);
+    LedgerRange fullReplay(init + 2, fullReplayCount);
 
     // Case 2: full replay because count >= target - init.
     if (cfg.count() >= fullReplayCount)
