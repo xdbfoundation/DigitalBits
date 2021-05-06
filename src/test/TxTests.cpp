@@ -194,7 +194,7 @@ applyCheck(TransactionFramePtr tx, Application& app, bool checkSeqNum)
             auto prevAcc = previous->ledgerEntry().data.account();
             REQUIRE(!(prevAcc == srcAccountBefore));
             REQUIRE(!(currAcc.accountID == tx->getSourceID()));
-            REQUIRE(currAcc.balance < prevAcc.balance);
+            REQUIRE(currAcc.balance > prevAcc.balance);
             currAcc.balance = prevAcc.balance;
             if (ledgerVersion <= 9)
             {
