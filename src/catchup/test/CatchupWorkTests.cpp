@@ -211,7 +211,7 @@ TEST_CASE("CatchupRange starting on checkpoint boundary still replays it",
     auto app = createTestApplication(clock, getTestConfig());
     auto& historyManager = app->getHistoryManager();
 
-    uint32_t lcl = 1;
+    uint32_t lcl = 2;
 
     // 66/4 means user wants replay of 63,64,65,66 which means
     // we must start from a state from _before_ 63, namely LCL.
