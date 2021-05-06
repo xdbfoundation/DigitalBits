@@ -26,7 +26,7 @@ TEST_CASE("messagelimiter", "[overlay][survey][messagelimiter]")
 
     // we need to pass a lower ledgerNum into the rate limiter to test the
     // window,  so make sure this is not 0
-    REQUIRE(app->getHerder().getCurrentLedgerSeq() == 1);
+    REQUIRE(app->getHerder().getCurrentLedgerSeq() == 2);
 
     const uint32_t ledgerNumWindow = 0;
     const uint32_t surveyorRequestLimit = 1;
