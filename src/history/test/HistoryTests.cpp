@@ -157,7 +157,7 @@ TEST_CASE("History bucket verification", "[history][catchup]")
             TestBucketState::CONTENTS_AND_HASH_OK));
         auto verify =
             wm.executeWork<DownloadBucketsWork>(mBuckets, hashes, *tmpDir);
-        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS + 1);
+        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS);
     }
     SECTION("download fails file not found")
     {
@@ -191,7 +191,7 @@ TEST_CASE("History bucket verification", "[history][catchup]")
         // Ensure proper behavior when no hashes are passed in
         auto verify = wm.executeWork<DownloadBucketsWork>(
             mBuckets, std::vector<std::string>(), *tmpDir);
-        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS + 1);
+        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS);
     }
 }
 
@@ -340,7 +340,7 @@ TEST_CASE("Tx results verification", "[batching][resultsverification]")
     {
         auto verify =
             wm.executeWork<DownloadVerifyTxResultsWork>(range, tmpDir);
-        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS + 1);
+        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS);
     }
     SECTION("header file missing")
     {
