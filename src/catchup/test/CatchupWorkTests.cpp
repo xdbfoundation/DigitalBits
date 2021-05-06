@@ -22,38 +22,38 @@ namespace digitalbits
 std::vector<std::pair<uint32_t, CatchupConfiguration>> gCatchupRangeCases{
     // fresh database
     // catchup to ledger in middle of first checkpoint
-    {1, {2, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {2, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {2, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {2, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {2, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {2, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     // catchup to ledger at the end of first checkpoint
-    {1, {63, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {63, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {63, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {63, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {63, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {63, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {63, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {63, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     // catchup to ledger at start of second checkpoint
-    {1, {64, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {64, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {64, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {64, 3, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {64, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {64, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {64, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {64, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {64, 3, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {64, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     // catchup to ledger at end of some checkpoint
-    {1, {191, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, 65, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, 66, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, 128, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {191, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 65, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 66, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, 128, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {191, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     // catchup to ledger at start of some checkpoint
-    {1, {320, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 3, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 66, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 67, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 319, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, 320, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {1, {320, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 2, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 3, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 66, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 67, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 319, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, 320, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {320, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
 
     // almost one checkpoint in database
     // catchup to ledger at the end of first checkpoint
@@ -155,7 +155,7 @@ TEST_CASE("compute CatchupRange from CatchupConfiguration", "[catchup]")
             if (range.applyBuckets())
             {
                 // we only apply buckets when lcl is GENESIS
-                REQUIRE(lastClosedLedger == LedgerManager::GENESIS_LEDGER_SEQ);
+                REQUIRE(lastClosedLedger == (LedgerManager::GENESIS_LEDGER_SEQ + 1));
 
                 // buckets can only by applied on checkpoint boundary
                 REQUIRE(historyManager.isLastLedgerInCheckpoint(
