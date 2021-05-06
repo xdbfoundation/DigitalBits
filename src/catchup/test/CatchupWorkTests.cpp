@@ -222,7 +222,7 @@ TEST_CASE("CatchupRange starting on checkpoint boundary still replays it",
     REQUIRE(!crange1.applyBuckets());
     REQUIRE(crange1.replayLedgers());
     REQUIRE(crange1.getReplayFirst() == 3);
-    REQUIRE(crange1.getReplayCount() == 65);
+    REQUIRE(crange1.getReplayCount() == 64);
 
     // 66/3 means user wants replay of 64,65,66 which means
     // we must start from a state _before_ 64, namely 63.

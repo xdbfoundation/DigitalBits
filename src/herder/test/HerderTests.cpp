@@ -2094,7 +2094,7 @@ TEST_CASE("quick restart", "[herder][quickRestart]")
         return currentValidatorLedger();
     };
 
-    uint32_t currentLedger = 1;
+    uint32_t currentLedger = 2;
     REQUIRE(currentValidatorLedger() == currentLedger);
     REQUIRE(currentListenerLedger() == currentLedger);
 
