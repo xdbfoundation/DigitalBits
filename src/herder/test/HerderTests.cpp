@@ -2040,7 +2040,7 @@ TEST_CASE("values externalized out of order", "[herder]")
         REQUIRE(lcl == currentCLedger());
 
         waitForA(fewLedgers);
-        REQUIRE(currentALedger() == nextLedger);
+        REQUIRE(currentALedger() == nextLedger + 1);
         REQUIRE(currentCLedger() == nextLedger);
     }
 }

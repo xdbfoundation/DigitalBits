@@ -200,7 +200,7 @@ applyCheck(TransactionFramePtr tx, Application& app, bool checkSeqNum)
             {
                 // v9 and below, we also need to verify that the sequence number
                 // also got processed at this time
-                REQUIRE(currAcc.seqNum == prevAcc.seqNum + 1);
+                REQUIRE(currAcc.seqNum == prevAcc.seqNum);
                 currAcc.seqNum = prevAcc.seqNum;
             }
             REQUIRE(currAcc == prevAcc);
@@ -426,7 +426,7 @@ closeLedgerOn(Application& app, uint32 ledgerSeq, time_t closeTime,
     auto z1 = getTransactionHistoryResults(app.getDatabase(), ledgerSeq);
     auto z2 = getTransactionFeeMeta(app.getDatabase(), ledgerSeq);
 
-    REQUIRE(app.getLedgerManager().getLastClosedLedgerNum() == ledgerSeq);
+    REQUIRE(app.getLedgerManager().getLastClosedLedgerNum() == ledgerSeq + 1);
 
     TxSetResultMeta res;
     std::transform(
