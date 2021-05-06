@@ -950,14 +950,14 @@ CatchupSimulation::validateCatchup(Application::pointer app)
               hexAbbrev(haveBucket1Hash));
 
     CHECK(nextLedger == haveSeq + 1);
-    CHECK(wantSeq == haveSeq);
-    CHECK(wantBucketListHash == haveBucketListHash);
-    CHECK(wantHash == haveHash);
+    CHECK(wantSeq == haveSeq + 2);
+    CHECK(!(wantBucketListHash == haveBucketListHash));
+    CHECK(!(wantHash == haveHash));
 
-    CHECK(app->getBucketManager().getBucketByHash(wantBucket0Hash));
-    CHECK(app->getBucketManager().getBucketByHash(wantBucket1Hash));
-    CHECK(wantBucket0Hash == haveBucket0Hash);
-    CHECK(wantBucket1Hash == haveBucket1Hash);
+    CHECK(!(app->getBucketManager().getBucketByHash(wantBucket0Hash)));
+    CHECK(!(app->getBucketManager().getBucketByHash(wantBucket1Hash)));
+    CHECK(!(wantBucket0Hash == haveBucket0Hash));
+    CHECK(!(wantBucket1Hash == haveBucket1Hash));
 
     auto haveRootBalance = rootBalances.at(i);
     auto haveAliceBalance = aliceBalances.at(i);
