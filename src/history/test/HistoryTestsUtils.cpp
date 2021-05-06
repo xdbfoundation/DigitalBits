@@ -900,7 +900,7 @@ CatchupSimulation::validateCatchup(Application::pointer app)
         return;
     }
 
-    size_t i = nextLedger - 3;
+    size_t i = nextLedger - 2;
 
     auto root = TestAccount{*app, getRoot(mApp.getNetworkID())};
     auto alice = TestAccount{*app, getAccount("alice")};

@@ -1712,7 +1712,7 @@ TEST_CASE("SCP State", "[herder][acceptance]")
 
         REQUIRE(sim->getNode(nodeIDs[2])
                     ->getLedgerManager()
-                    .getLastClosedLedgerNum() == 1);
+                    .getLastClosedLedgerNum() == 2);
 
         // start up node 0 and 1 again
         // nodes 0 and 1 have lost their SCP state as they got restarted
@@ -1833,7 +1833,7 @@ TEST_CASE("values externalized out of order", "[herder]")
         return currentALedger();
     };
 
-    uint32_t currentLedger = 1;
+    uint32_t currentLedger = 2;
     REQUIRE(currentALedger() == currentLedger);
     REQUIRE(currentCLedger() == currentLedger);
 
