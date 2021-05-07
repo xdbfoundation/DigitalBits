@@ -17,6 +17,17 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-16.04
+    services:
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: postgres
+        ports:
+        - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -24,7 +35,15 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-          
+      - name: create test DB
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+        run: |
+          apt-get update && apt-get install libpq-dev -y postgresql-client
+          for i in $(seq 0 9) ''; do
+            psql -c "create database test$i;"
+          done          
       - name: Install deps
         run: |
           sudo apt-get update
@@ -43,15 +62,6 @@ jobs:
           pip3 install wheel
           pip3 install cloudsmith-cli
           sudo gem install --no-document fpm
-      - name: test app
-        run: |
-          export ENV CC=clang-8
-          export ENV CXX=clang++-8
-          export ENV CFLAGS="-O3 -g1 -fno-omit-frame-pointer"
-          export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
-           ./autogen.sh
-           ./configure  
-           make check
       - name: Build the app    
         run: |
           export ENV CC=clang-8
@@ -65,6 +75,9 @@ jobs:
            mkdir /opt/digitalbits
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
       - name: Test Application
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
         run: |
           src/digitalbits-core test
       - name: Github Tag Bump
