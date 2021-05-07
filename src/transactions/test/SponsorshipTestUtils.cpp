@@ -346,7 +346,7 @@ tooManySponsoring(Application& app, TestAccount& successfulOpAcc,
 
                 LedgerTxn ltx(app.getLedgerTxnRoot());
                 TransactionMeta txm1(2);
-                REQUIRE(tx1->checkValid(ltx, 0, 0, 0));
+                REQUIRE(!(tx1->checkValid(ltx, 0, 0, 0)));
                 REQUIRE(tx1->apply(app, ltx, txm1));
                 ltx.commit();
             }

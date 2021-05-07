@@ -253,7 +253,7 @@ TEST_CASE("fee bump transactions", "[tx][feebump]")
             LedgerTxn ltx(app->getLedgerTxnRoot());
             fb->processFeeSeqNum(ltx, fee, app->getFeePoolID());
             auto delta = ltx.getDelta();
-            REQUIRE(delta.entry.size() == 1);
+            REQUIRE(delta.entry.size() == 2);
             auto gkey = delta.entry.begin()->first;
             REQUIRE(gkey.type() == InternalLedgerEntryType::LEDGER_ENTRY);
             REQUIRE(gkey.ledgerKey().account().accountID == acc.getPublicKey());
