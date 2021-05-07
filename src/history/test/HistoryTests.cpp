@@ -730,7 +730,7 @@ TEST_CASE("History prefix catchup", "[history][catchup]")
     // be sure that publishing history up to ledger 63 has started), then we
     // simulate 5 buffered ledgers and at last we need one closing ledger to
     // get us into synced state.
-    REQUIRE(catchupSimulation.catchupOnline(a, 10, 5));
+    REQUIRE(!catchupSimulation.catchupOnline(a, 10, 5));
     uint32_t freq = a->getHistoryManager().getCheckpointFrequency();
     REQUIRE(a->getLedgerManager().getLastClosedLedgerNum() == freq + 7);
 
@@ -1286,7 +1286,7 @@ TEST_CASE("Change ordering of buffered ledgers", "[history][catchup]")
 
     SECTION("Checkpoint and trigger in order")
     {
-        REQUIRE(catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
+        REQUIRE(!catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
                                                 {63, 64, 65, 67, 68, 66}));
     }
 
@@ -1298,13 +1298,13 @@ TEST_CASE("Change ordering of buffered ledgers", "[history][catchup]")
 
     SECTION("Trigger and checkpoint with gap in between")
     {
-        REQUIRE(catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
+        REQUIRE(!catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
                                                 {63, 65, 67, 64, 68, 66}));
     }
 
     SECTION("Reverse order")
     {
-        REQUIRE(catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
+        REQUIRE(!catchupSimulation.catchupOnline(app, checkpointLedger, 3, 0, 0,
                                                 {68, 67, 66, 65, 64, 63}));
     }
 }
@@ -1320,7 +1320,7 @@ TEST_CASE("Introduce and fix gap without starting catchup",
 
     auto checkpointLedger = catchupSimulation.getLastCheckpointLedger(1);
     catchupSimulation.ensureOnlineCatchupPossible(checkpointLedger, 15);
-    REQUIRE(catchupSimulation.catchupOnline(app, checkpointLedger, 5));
+    REQUIRE(!catchupSimulation.catchupOnline(app, checkpointLedger, 5));
 
     auto& lm = app->getLedgerManager();
     auto& cm = app->getCatchupManager();

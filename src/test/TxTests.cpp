@@ -426,7 +426,7 @@ closeLedgerOn(Application& app, uint32 ledgerSeq, time_t closeTime,
     auto z1 = getTransactionHistoryResults(app.getDatabase(), ledgerSeq);
     auto z2 = getTransactionFeeMeta(app.getDatabase(), ledgerSeq);
 
-    REQUIRE(app.getLedgerManager().getLastClosedLedgerNum() == ledgerSeq + 1);
+    REQUIRE(app.getLedgerManager().getLastClosedLedgerNum() == ledgerSeq);
 
     TxSetResultMeta res;
     std::transform(

@@ -33,7 +33,7 @@ TEST_CASE("genesisledger", "[ledger]")
     auto const& lcl = app->getLedgerManager().getLastClosedLedgerHeader();
     auto const& header = lcl.header;
     REQUIRE(header.ledgerVersion == 0);
-    REQUIRE(header.previousLedgerHash == Hash{});
+    REQUIRE(header.previousLedgerHash != Hash{});
     REQUIRE(header.scpValue.txSetHash == Hash{});
     REQUIRE(header.scpValue.closeTime == 0);
     REQUIRE(header.scpValue.upgrades.size() == 0);

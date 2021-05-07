@@ -98,7 +98,7 @@ checkBucketSizeAndBounds(BucketList& bl, uint32_t ledgerSeq, uint32_t level,
     }
 
     REQUIRE(ledgers.size() == sizeOfBucket);
-    REQUIRE(lbound == (oldestLedger + 2));
+    REQUIRE(lbound == (oldestLedger + 1));
     if (ubound > 0)
     {
         REQUIRE(ubound == oldestLedger + 1 + sizeOfBucket - 1);

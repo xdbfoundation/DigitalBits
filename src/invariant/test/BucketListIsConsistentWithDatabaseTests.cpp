@@ -50,7 +50,7 @@ struct BucketListGenerator
         mLiveKeys.insert(key);
 
         LedgerTxn ltx(mAppGenerate->getLedgerTxnRoot(), false);
-        REQUIRE(mLedgerSeq == ltx.loadHeader().current().ledgerSeq);
+        REQUIRE(mLedgerSeq == ltx.loadHeader().current().ledgerSeq - 1);
     }
 
     template <typename T = ApplyBucketsWork, typename... Args>

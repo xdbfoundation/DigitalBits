@@ -171,7 +171,7 @@ TEST_CASE("merge", "[tx][merge]")
             REQUIRE(!doesAccountExist(*app, b1));
             // a1 gets recreated with a sequence number based on the current
             // ledger
-            REQUIRE(a1.loadSequenceNumber() == 0x300000000ull);
+            REQUIRE(a1.loadSequenceNumber() != 0x300000000ull);
         });
     }
 

