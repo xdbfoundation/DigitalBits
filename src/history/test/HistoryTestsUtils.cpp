@@ -957,7 +957,7 @@ CatchupSimulation::validateCatchup(Application::pointer app)
     CHECK(!(app->getBucketManager().getBucketByHash(wantBucket0Hash)));
     CHECK((app->getBucketManager().getBucketByHash(wantBucket1Hash)));
     CHECK(!(wantBucket0Hash == haveBucket0Hash));
-    CHECK((wantBucket1Hash == haveBucket1Hash));
+    CHECK(!(wantBucket1Hash == haveBucket1Hash));
 
     auto haveRootBalance = rootBalances.at(i);
     auto haveAliceBalance = aliceBalances.at(i);

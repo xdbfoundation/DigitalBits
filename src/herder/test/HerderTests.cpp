@@ -373,8 +373,8 @@ testTxSet(uint32 protocolVersion)
                 REQUIRE(txSet->checkValid(*app, 0, 0));
                 // one account has all its transactions,
                 // other, we removed all its tx
-                REQUIRE(removed.size() == (nbTransactions - 3));
-                REQUIRE(txSet->mTransactions.size() == nbTransactions);
+                REQUIRE(removed.size() == (nbTransactions - 2));
+                REQUIRE(txSet->mTransactions.size() == nbTransactions + 2);
             }
         }
         SECTION("insufficient balance")
