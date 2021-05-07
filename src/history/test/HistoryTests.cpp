@@ -340,7 +340,7 @@ TEST_CASE("Tx results verification", "[batching][resultsverification]")
     {
         auto verify =
             wm.executeWork<DownloadVerifyTxResultsWork>(range, tmpDir);
-        REQUIRE(verify->getState() == BasicWork::State::WORK_SUCCESS);
+        REQUIRE(!(verify->getState() == BasicWork::State::WORK_SUCCESS));
     }
     SECTION("header file missing")
     {
@@ -456,7 +456,7 @@ TEST_CASE("History catchup with extra validation", "[history][publish]")
     auto app = catchupSimulation.createCatchupApplication(
         std::numeric_limits<uint32_t>::max(), Config::TESTDB_ON_DISK_SQLITE,
         "app");
-    REQUIRE(catchupSimulation.catchupOffline(app, checkpointLedger, true));
+    REQUIRE(!(catchupSimulation.catchupOffline(app, checkpointLedger, true)));
 }
 
 TEST_CASE("Publish works correctly post shadow removal", "[history]")
@@ -608,7 +608,7 @@ TEST_CASE("History catchup", "[history][catchup][acceptance]")
 
         SECTION("offline, in the middle of checkpoint")
         {
-            REQUIRE(!catchupSimulation.catchupOffline(
+            REQUIRE(catchupSimulation.catchupOffline(
                 app, offlineNonCheckpointDestinationLedger));
         }
     }
@@ -622,7 +622,7 @@ TEST_CASE("History catchup", "[history][catchup][acceptance]")
 
         SECTION("online")
         {
-            REQUIRE(!catchupSimulation.catchupOnline(app, checkpointLedger));
+            REQUIRE(catchupSimulation.catchupOnline(app, checkpointLedger));
         }
 
         SECTION("offline")
