@@ -22,9 +22,9 @@ namespace digitalbits
 std::vector<std::pair<uint32_t, CatchupConfiguration>> gCatchupRangeCases{
     // fresh database
     // catchup to ledger in middle of first checkpoint
-    {2, {2, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {2, {2, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
-    {2, {2, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {3, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {3, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},
+    {2, {3, max, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     // catchup to ledger at the end of first checkpoint
     {2, {63, 0, CatchupConfiguration::Mode::OFFLINE_BASIC}},
     {2, {63, 1, CatchupConfiguration::Mode::OFFLINE_BASIC}},

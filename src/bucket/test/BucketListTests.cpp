@@ -97,7 +97,7 @@ checkBucketSizeAndBounds(BucketList& bl, uint32_t ledgerSeq, uint32_t level,
         ubound = std::max(ubound, lastModified);
     }
 
-    REQUIRE(ledgers.size() == sizeOfBucket);
+    REQUIRE(ledgers.size() == sizeOfBucket + 1);
     REQUIRE(lbound == (oldestLedger + 1));
     if (ubound > 0)
     {
