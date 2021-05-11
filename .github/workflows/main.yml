@@ -43,7 +43,8 @@ jobs:
           pip3 install wheel
           pip3 install cloudsmith-cli
           sudo gem install --no-document fpm
-     
+      - name: Run tests
+        run: make check
       - name: Build the app    
         run: |
           export ENV CC=clang-8
