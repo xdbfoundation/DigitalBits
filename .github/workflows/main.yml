@@ -39,7 +39,6 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
         run: |
-          sudo apt-get update && sudo apt-get install libpq-dev -y postgresql-client
           for i in $(seq 0 9) ''; do
             psql -c "create database test$i;"
           done                    
