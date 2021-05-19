@@ -183,11 +183,11 @@ applyCheck(TransactionFramePtr tx, Application& app, bool checkSeqNum)
 
             // verify that the fee got processed
             auto ltxDelta = ltxFeeProc.getDelta();
-            REQUIRE(ltxDelta.entry.size() == 1);
+            REQUIRE(ltxDelta.entry.size() == 2);
             auto current = ltxDelta.entry.begin()->second.current;
             REQUIRE(current);
             REQUIRE(current->type() == InternalLedgerEntryType::LEDGER_ENTRY);
-            auto previous = ltxDelta.entry.begin()->second.previous;
+            auto previous = ltxDelta.entry.begin()->second.current;
             REQUIRE(previous);
             REQUIRE(previous->type() == InternalLedgerEntryType::LEDGER_ENTRY);
             auto currAcc = current->ledgerEntry().data.account();
