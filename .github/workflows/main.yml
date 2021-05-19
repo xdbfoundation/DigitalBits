@@ -2,12 +2,6 @@
 name: CI
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -17,31 +11,12 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-16.04
-    services:
-      postgres:
-        image: postgres:10.8
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ""
-          POSTGRES_DB: postgres
-        ports:
-        - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5  
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
-      - name: create test DB
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-        run: |
-          for i in $(seq 0 9) ''; do
-            psql -c "create database test$i;"
-          done                    
       - name: Install deps
         run: |
           sudo apt-get update
@@ -60,18 +35,7 @@ jobs:
           pip3 install wheel
           pip3 install cloudsmith-cli
           sudo gem install --no-document fpm
-      - name: Run tests
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-        run: |
-          export ENV CC=clang-8
-          export ENV CXX=clang++-8
-          export ENV CFLAGS="-O3 -g1 -fno-omit-frame-pointer"
-          export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
-          ./autogen.sh
-          ./configure  
-          make check
+
       - name: Build the app    
         run: |
           export ENV CC=clang-8
