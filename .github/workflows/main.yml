@@ -33,7 +33,7 @@ jobs:
                     libc++-8-dev libc++abi-8-dev unzip curl \
                     python3-pip ruby ruby-dev rubygems python3-setuptools
           pip3 install wheel
-          pip3 install cloudsmith-cli
+          pip3 install --upgrade cloudsmith-cli
           sudo gem install --no-document fpm
 
       - name: Build the app    
@@ -44,7 +44,7 @@ jobs:
           export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
            ./autogen.sh
            ./configure  
-           make -j`nproc`
+           make
            sudo make install
            mkdir /opt/digitalbits
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
