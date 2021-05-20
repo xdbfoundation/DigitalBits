@@ -44,7 +44,7 @@ jobs:
           export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
            ./autogen.sh
            ./configure  
-           make
+           make -j`nproc`
            sudo make install
            mkdir /opt/digitalbits
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
