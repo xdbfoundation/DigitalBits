@@ -34,6 +34,8 @@ jobs:
                     python3-pip ruby ruby-dev rubygems python3-setuptools
           pip3 install wheel
           pip3 install cloudsmith-cli==0.26.0
+          pip3 uninstall click -y
+          pip3 install click==7.1.2
           sudo gem install --no-document fpm
 
       - name: Build the app    
