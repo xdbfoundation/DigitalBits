@@ -20,7 +20,7 @@ jobs:
       - name: Install PostgresQL
         run: |
           curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
-          postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
+          .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
       
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
