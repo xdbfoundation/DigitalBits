@@ -64,5 +64,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: RPM package
-          path: digitalbits-core_1.0.0_amd64.rpm
+          path: digitalbits-core-1.0.0-2.x86_64.rpm
           retention-days: 5
