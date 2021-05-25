@@ -28,4 +28,4 @@ jobs:
 
       - name: Build Solution
         run: |
-            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release"
+            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="DebugNoPostgres"
