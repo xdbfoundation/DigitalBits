@@ -2,9 +2,6 @@
 name: MSBuild
 # Controls when the action will run. 
 on:
-  push:
-    branches:
-      - master
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -20,6 +17,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
+      - name: Install PostgresQL
+        run: |
+          curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
+          postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
+      
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
 
