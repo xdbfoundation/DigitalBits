@@ -31,8 +31,9 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
       
-      - run: nuget restore Builds\VisualStudio\digitalbits-core.sln
-
+      - run: |
+          nuget restore Builds\VisualStudio\digitalbits-core.sln
+          vcpkg install libpq
       - name: Create Build Directory
         run: mkdir _build
 
