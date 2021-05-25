@@ -23,7 +23,7 @@ jobs:
           sudo apt-get install -y software-properties-common
           sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt-get install -y git \
+          sudo apt-get install -y git alien \
                     build-essential pkg-config \
                     autoconf automake libtool \
                     bison flex libpq-dev \
@@ -65,8 +65,13 @@ jobs:
             /opt/digitalbits/digitalbits-core=/usr/local/bin/digitalbits-core \
             digitalbits-core.service=/etc/systemd/system/digitalbits-core.service \
             digitalbits-core=/etc/logrotate.d/digitalbits-core
+      - name: Make .rpm package 
+        run: | 
+          sudo alien -r -k digitalbits-core_${{ steps.bump_version.outputs.tag }}_amd64.deb
+          
       - name: Upload to cloudsmith.io
         run: |
           export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
           export PATH=$PATH:$HOME/.local/bin
           cloudsmith push deb xdb-foundation/digitalbits-core/ubuntu/focal digitalbits-core_${{ steps.bump_version.outputs.tag }}_amd64.deb
+          cloudsmith push rpm xdb-foundation/digitalbits-core/any-distro/any-version digitalbits-core_${{ steps.bump_version.outputs.tag }}-1.x86_64.rpm
