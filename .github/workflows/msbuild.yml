@@ -34,9 +34,11 @@ jobs:
       - run: |
           nuget restore Builds\VisualStudio\digitalbits-core.sln
           vcpkg install libpq
+          
       - name: Create Build Directory
         run: mkdir _build
 
       - name: Build Solution
         run: |
+            set PATH=%PATH%;C:\MinGW\msys\1.0\bin;C:\MinGW\bin;C:\Program Files\PostgreSQL\9.5\bin
             msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release"
