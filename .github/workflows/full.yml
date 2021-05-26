@@ -101,7 +101,8 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifact: "digitalbits-core-linux-amd64.tar.gz"
+          allowUpdates: true
+          artifacts: "digitalbits-core-linux-amd64.tar.gz"
           tag: ${{ steps.previoustag.outputs.tag }}
           bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}   
@@ -140,7 +141,8 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifact: "digitalbits-core-darwin-amd64.tar.gz"
+          allowUpdates: true
+          artifacts: "digitalbits-core-darwin-amd64.tar.gz"
           tag: ${{ steps.bump_version.outputs.tag }}
           bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}   
