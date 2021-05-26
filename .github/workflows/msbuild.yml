@@ -21,7 +21,8 @@ jobs:
         run: |
           curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
           .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
-      
+          setx /M path "%path%;C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;C:\Program Files\PostgreSQL\9.5\bin"
+
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
 
@@ -40,5 +41,4 @@ jobs:
 
       - name: Build Solution
         run: |
-            set PATH=%PATH%;C:\MinGW\msys\1.0\bin;C:\MinGW\bin;C:\Program Files\PostgreSQL\9.5\bin
             msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release"
