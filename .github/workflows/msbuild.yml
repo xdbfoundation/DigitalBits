@@ -41,4 +41,4 @@ jobs:
 
       - name: Build Solution
         run: |
-            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release" /p:IncludePath="C:\Program Files\PostgreSQL\9.5\include"
+            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release" /p:AdditionalLibPaths="C:\Program Files\PostgreSQL\9.5\include"
