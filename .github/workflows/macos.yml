@@ -31,3 +31,10 @@ jobs:
            ./configure  
            make -j`nproc`
            sudo make install
+           
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: digitalbits-core
+          path: /usr/local/bin/digitalbits-core
+          retention-days: 5
