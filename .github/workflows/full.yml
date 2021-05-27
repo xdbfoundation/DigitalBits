@@ -103,8 +103,8 @@ jobs:
         with:
           allowUpdates: true
           artifacts: "digitalbits-core-linux-amd64.tar.gz"
+          omitBodyDuringUpdate: true
           tag: ${{ steps.previoustag.outputs.tag }}
-          bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}   
 
   # This workflow contains a single job called "build"
@@ -121,6 +121,7 @@ jobs:
       - name: Get Latest Tag
         id: previoustag
         uses: WyriHaximus/github-action-get-previous-tag@v1
+        
       - name: Install deps
         run: |
           brew install libsodium
@@ -143,6 +144,6 @@ jobs:
         with:
           allowUpdates: true
           artifacts: "digitalbits-core-darwin-amd64.tar.gz"
+          omitBodyDuringUpdate: true
           tag: ${{ steps.bump_version.outputs.tag }}
-          bodyFile: "README.md"
           token: ${{ secrets.GITHUB_TOKEN }}   
