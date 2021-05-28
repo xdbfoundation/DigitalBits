@@ -1,8 +1,7 @@
 # This is a basic workflow to help you get started with Actions
 name: MSBuild
 # Controls when the action will run. 
-on:
-  workflow_dispatch:
+on: push
     
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
