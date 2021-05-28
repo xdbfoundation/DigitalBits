@@ -10,6 +10,15 @@ jobs:
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Install PostgresQL
+        run: |
+          curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
+          .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
+          setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
       - run: |          
           curl -L -o postgresql.zip https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
           Expand-Archive -Path postgresql.zip -DestinationPath .
@@ -20,17 +29,7 @@ jobs:
         with:
           platform: x64
           packages: Flex Bison curl gcc-core
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - name: Install PostgresQL
-        run: |
-          curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
-          .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
-          setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
-
+          
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
 
