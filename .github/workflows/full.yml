@@ -126,10 +126,7 @@ jobs:
         
       - name: Install deps
         run: |
-          brew install libsodium
-          brew install libtool
           brew install automake
-          brew install pkg-config
           brew install libpqxx 
           pip install --upgrade cloudsmith-cli
 
@@ -138,7 +135,7 @@ jobs:
           export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
           export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin
           sudo touch digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz
-          sudo cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
+          sudo CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
 
            ./autogen.sh
            ./configure  
