@@ -32,6 +32,9 @@ jobs:
           platform: x64
           packages: Flex Bison curl gcc-core
           
+      - run: |
+            flex 
+            bison
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
 

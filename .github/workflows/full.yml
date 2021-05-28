@@ -1,7 +1,6 @@
 name: LinuxMacOS
 # Controls when the action will run. 
 on: 
-  push:
   # Triggers the workflow on push or pull request events but only for the master branch
 #  push:
 #    branches: [ master ]
@@ -139,7 +138,7 @@ jobs:
 
            ./autogen.sh
            ./configure  
-           make -j`nproc`
+           make -j2
            sudo make install
            mkdir /opt/digitalbits    
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
