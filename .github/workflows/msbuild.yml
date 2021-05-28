@@ -18,7 +18,9 @@ jobs:
           Expand-Archive -Path postgresql.zip -DestinationPath .
           cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
           dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
-      
+          curl -L -o cygwin.exe https://cygwin.com/setup-x86_64.exe
+          cygwin.exe -q -root c:\cygwin64 -p "Flex,Bison,curl,gcc-core"
+          setx /M path "%path%;C:\cygwin64\bin"
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
@@ -27,20 +29,16 @@ jobs:
         run: |
           curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
           .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
-          setx /M path "%path%;C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin;C:\Program Files\PostgreSQL\9.5\bin"
-          choco install postgresql10
+          setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
+
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1
-
-      - name: Install MinGW
-        uses: egor-tensin/setup-mingw@v2
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
       
       - run: |
           nuget restore Builds\VisualStudio\digitalbits-core.sln
-          vcpkg install libpq
           
       - name: Create Build Directory
         run: mkdir _build
