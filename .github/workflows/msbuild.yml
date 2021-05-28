@@ -13,6 +13,7 @@ jobs:
     runs-on: windows-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - dir C:\Program Files (x86)\Windows Kits\10\Include\
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
