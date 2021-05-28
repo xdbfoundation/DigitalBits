@@ -15,9 +15,12 @@ jobs:
           Expand-Archive -Path postgresql.zip -DestinationPath .
           cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
           dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
-          curl -L -o cygwin.exe https://cygwin.com/setup-x86_64.exe
-          Start-Process -wait -FilePath "cygwin.exe" -ArgumentList "-q -n -R c:\cygwin64 -P Flex, Bison, curl, gcc-core"
-          setx /M path "%path%;C:\cygwin64\bin"
+      - name: Set up Cygwin
+        uses: egor-tensin/setup-cygwin@v3
+        with:
+          platform: x64
+          packages: Flex Bison curl gcc-core
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
