@@ -1,6 +1,7 @@
 name: LinuxMacOS
 # Controls when the action will run. 
-on:
+on: 
+  push:
   # Triggers the workflow on push or pull request events but only for the master branch
 #  push:
 #    branches: [ master ]
@@ -90,6 +91,7 @@ jobs:
       - name: Make .rpm package 
         run: | 
           sudo alien -r -k digitalbits-core_${{ steps.previoustag.outputs.tag }}_amd64.deb
+          sudo cp digitalbits-core-linux-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_linux-amd64.tar.gz 
           
       - name: Upload to cloudsmith.io
         run: |
@@ -97,7 +99,7 @@ jobs:
           export PATH=$PATH:$HOME/.local/bin
           cloudsmith push deb xdb-foundation/digitalbits-core/ubuntu/focal digitalbits-core_${{ steps.previoustag.outputs.tag }}_amd64.deb
           cloudsmith push rpm xdb-foundation/digitalbits-core/any-distro/any-version digitalbits-core-${{ steps.previoustag.outputs.tag }}-1.x86_64.rpm
-
+          cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_linux-amd64.tar.gz 
 
       - uses: ncipollo/release-action@v1
         with:
@@ -129,9 +131,15 @@ jobs:
           brew install automake
           brew install pkg-config
           brew install libpqxx 
+          pip install --upgrade cloudsmith-cli
 
       - name: Build the app    
         run: |
+          export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
+          export PATH=$PATH:$HOME/.local/bin
+          sudo touch digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz
+          cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
+
            ./autogen.sh
            ./configure  
            make -j`nproc`
@@ -139,11 +147,13 @@ jobs:
            mkdir /opt/digitalbits    
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
            sudo tar -czvf digitalbits-core-darwin-amd64.tar.gz /opt/digitalbits/digitalbits-core
+           sudo cp digitalbits-core-darwin-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
+           cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
 
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           artifacts: "digitalbits-core-darwin-amd64.tar.gz"
           omitBodyDuringUpdate: true
-          tag: ${{ steps.bump_version.outputs.tag }}
+          tag: ${{ steps.previoustag.outputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}   
