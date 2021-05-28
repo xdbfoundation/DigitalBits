@@ -157,11 +157,11 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flex --nounistd -o ../../xdrc/scan.cc ../../xdrc/scan.ll</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">flex --nounistd -o ../../xdrc/scan.cc ../../xdrc/scan.ll</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">flex --nounistd -o ../../xdrc/scan.cc ../../xdrc/scan.ll</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flex --nounistd -o ../../xdrc/scan.cc ../../xdrc/scan.ll</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">flex --nounistd -o ..\..\xdrc\scan.cc ..\..\xdrc\scan.ll</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../xdrc/scan.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../../xdrc/scan.cc</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../xdrc/scan.cc</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../xdrc/scan.cc</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\xdrc\scan.cc</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
@@ -186,7 +186,7 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(RelativeDir)parse.yy</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(RelativeDir)parse.yy</AdditionalInputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bison -o ../../xdrc/parse.cc --defines=../../xdrc/parse.hh ../../xdrc/parse.yy</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">bison -o ../../xdrc/parse.cc --defines=../../xdrc/parse.hh ../../xdrc/parse.yy</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">bison -o ..\..\xdrc\parse.cc --defines=..\..\xdrc\parse.hh ..\..\xdrc/parse.yy</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Running bison</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Running bison</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(RelativeDir)parse.hh;%(RelativeDir)parse.cc</Outputs>
