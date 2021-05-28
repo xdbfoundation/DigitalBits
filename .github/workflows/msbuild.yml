@@ -29,7 +29,7 @@ jobs:
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: flex bison curl gcc-core
+          packages: flex bison sed curl gcc-core
           
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1

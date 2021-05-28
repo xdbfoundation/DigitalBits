@@ -968,16 +968,16 @@ exit /b 0
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger.h ../../src/xdr/DigitalBits-ledger.x</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger.h ../../src/xdr/DigitalBits-ledger.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger.h ../../src/xdr/DigitalBits-ledger.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-ledger.h ..\..\src\xdr\DigitalBits-ledger.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-ledger.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-ledger.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-ledger.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-ledger.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-transaction.h</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-transaction.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-transaction.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-transaction.h</AdditionalInputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ClInclude</OutputItemType>
@@ -986,16 +986,16 @@ exit /b 0
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-transaction.h ../../src/xdr/DigitalBits-transaction.x</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-transaction.h ../../src/xdr/DigitalBits-transaction.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-transaction.h ../../src/xdr/DigitalBits-transaction.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-transaction.h ..\..\src\xdr\DigitalBits-transaction.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-transaction.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src\generated\xdr\DigitalBits-transaction.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-transaction.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-transaction.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-transaction.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-ledger-entries.h</AdditionalInputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ClInclude</OutputItemType>
@@ -1004,13 +1004,13 @@ exit /b 0
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-types.h ../../src/xdr/DigitalBits-types.x</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-types.h ../../src/xdr/DigitalBits-types.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-types.h ../../src/xdr/DigitalBits-types.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-types.h ..\..\src\xdr\DigitalBits-types.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-types.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-types.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-types.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-types.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">
@@ -1025,16 +1025,16 @@ exit /b 0
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-overlay.h ../../src/xdr/DigitalBits-overlay.x</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-overlay.h ../../src/xdr/DigitalBits-overlay.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-overlay.h ../../src/xdr/DigitalBits-overlay.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-overlay.h ..\..\src\xdr\DigitalBits-overlay.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-overlay.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-overlay.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-overlay.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-overlay.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-ledger.h</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-ledger.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-ledger.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-ledger.h</AdditionalInputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ClInclude</OutputItemType>
@@ -1043,16 +1043,16 @@ exit /b 0
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger-entries.h ../../src/xdr/DigitalBits-ledger-entries.x</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger-entries.h ../../src/xdr/DigitalBits-ledger-entries.x</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-ledger-entries.h ../../src/xdr/DigitalBits-ledger-entries.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-ledger-entries.h ..\..\src\xdr\DigitalBits-ledger-entries.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-ledger-entries.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-ledger-entries.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-types.h</AdditionalInputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ClInclude</OutputItemType>
@@ -1065,12 +1065,12 @@ exit /b 0
       <Message Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">running xdrc</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-SCP.h</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-SCP.h</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src/generated/xdr/DigitalBits-SCP.h ../../src/xdr/DigitalBits-SCP.x</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\xdrc.exe -hh -pedantic -o src\generated\xdr\DigitalBits-SCP.h ..\..\src\xdr\DigitalBits-SCP.x</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">running xdrc</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-SCP.h</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-SCP.h</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src/generated/xdr/DigitalBits-types.h</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">src\generated\xdr\DigitalBits-types.h</AdditionalInputs>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">ClInclude</OutputItemType>
       <OutputItemType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ClInclude</OutputItemType>
@@ -1089,7 +1089,7 @@ exit /b 0
       <Outputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">../../src/main/DigitalBitsCoreVersion.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='DebugNoPostgres|x64'">
       </AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../../src/main/DigitalBitsCoreVersion.cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\src\main\DigitalBitsCoreVersion.cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </AdditionalInputs>
     </CustomBuild>
