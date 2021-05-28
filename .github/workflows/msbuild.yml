@@ -19,8 +19,8 @@ jobs:
           cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
           dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
           curl -L -o cygwin.exe https://cygwin.com/setup-x86_64.exe
-          .\cygwin.exe -q -root c:\cygwin64 -p "Flex,Bison,curl,gcc-core"
-          setx /M path "%path%;C:\cygwin64\bin"
+          .\cygwin.exe -q -root D:\cygwin64 -p "Flex,Bison,curl,gcc-core"
+          setx /M path "%path%;D:\cygwin64\bin"
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
