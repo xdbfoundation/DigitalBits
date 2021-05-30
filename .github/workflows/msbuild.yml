@@ -32,7 +32,7 @@ jobs:
           packages: flex bison sed curl gcc-core
           
       - name: setup-msbuild
-        uses: microsoft/setup-msbuild@v1
+        uses: microsoft/setup-msbuild@v1 
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
@@ -46,3 +46,4 @@ jobs:
       - name: Build Solution
         run: |
             msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release" /p:AdditionalLibPaths="C:\Program Files\PostgreSQL\9.5\include"
+            
