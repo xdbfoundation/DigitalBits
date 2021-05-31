@@ -95,4 +95,7 @@ jobs:
             omitBodyDuringUpdate: true
             token: ${{ secrets.GITHUB_TOKEN }}   
       - name: push to cloudsmith
-        run:  cloudsmith push raw xdb-foundation/digitalbits-core-prometheus-exporter digitalbits-core_${{ steps.previoustag.outputs.tag }}_windows-amd64.tar.gz
+        run:  |
+          export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
+          export PATH=$PATH:$HOME/.local/bin
+          cloudsmith push raw xdb-foundation/digitalbits-core-prometheus-exporter digitalbits-core_${{ steps.previoustag.outputs.tag }}_windows-amd64.tar.gz
