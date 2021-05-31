@@ -21,6 +21,7 @@ jobs:
           curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
           .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
           setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
+          cd lib\spdlog\cmake && mkdir build && cd build && .. && make -j
       - run: |          
           curl -L -o postgresql.zip https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
           Expand-Archive -Path postgresql.zip -DestinationPath .
