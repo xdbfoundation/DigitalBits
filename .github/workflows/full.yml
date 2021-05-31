@@ -141,7 +141,7 @@ jobs:
            ./configure  
            make -j2
            sudo make install
-           mkdir /opt/digitalbits    
+           sudo mkdir /opt/digitalbits    
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
            sudo tar -czvf digitalbits-core-darwin-amd64.tar.gz /opt/digitalbits/digitalbits-core
            sudo cp digitalbits-core-darwin-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
