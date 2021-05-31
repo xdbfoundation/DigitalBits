@@ -157,9 +157,6 @@
     <Filter Include="lib\tracy">
       <UniqueIdentifier>{59b37591-b830-4d78-9b4f-c7e2ddcea012}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib\spdlog">
-      <UniqueIdentifier>{f296b651-5074-4b3c-9fec-1df4233f2fec}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\util\getopt_long.c">
@@ -300,9 +297,6 @@
     <ClCompile Include="..\..\src\work\WorkSequence.cpp">
       <Filter>work</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\work\WorkWithCallback.cpp">
-      <Filter>work</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\util\StatusManager.cpp">
       <Filter>util</Filter>
     </ClCompile>
@@ -323,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\test\TestPrinter.cpp">
       <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\util\easylogging++.cc">
+      <Filter>lib\util</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\test\TestMarket.cpp">
       <Filter>test</Filter>
@@ -346,9 +343,6 @@
       <Filter>main\generated</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\LiabilitiesMatchOffers.cpp">
-      <Filter>invariant</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\invariant\OrderBookIsNotCrossed.cpp">
       <Filter>invariant</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\SponsorshipCountIsValid.cpp">
@@ -546,6 +540,12 @@
     <ClCompile Include="..\..\src\history\HistoryManagerImpl.cpp">
       <Filter>history</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\history\InferredQuorum.cpp">
+      <Filter>history</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\history\InferredQuorumUtils.cpp">
+      <Filter>history</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\history\StateSnapshot.cpp">
       <Filter>history</Filter>
     </ClCompile>
@@ -672,9 +672,6 @@
     <ClCompile Include="..\..\src\invariant\test\LiabilitiesMatchOffersTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\invariant\test\OrderBookIsNotCrossedTests.cpp">
-      <Filter>invariant\tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\invariant\test\SponsorshipCountIsValidTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
@@ -795,9 +792,6 @@
     <ClCompile Include="..\..\src\transactions\test\SetOptionsTests.cpp">
       <Filter>transactions\tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\transactions\test\SetTrustLineFlagsTests.cpp">
-      <Filter>transactions\tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\transactions\test\SignatureUtilsTest.cpp">
       <Filter>transactions\tests</Filter>
     </ClCompile>
@@ -850,9 +844,6 @@
       <Filter>transactions</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\transactions\SetOptionsOpFrame.cpp">
-      <Filter>transactions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\transactions\SetTrustLineFlagsOpFrame.cpp">
       <Filter>transactions</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\transactions\SignatureChecker.cpp">
@@ -1101,12 +1092,6 @@
     <ClCompile Include="..\..\src\transactions\CreateClaimableBalanceOpFrame.cpp">
       <Filter>transactions</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\transactions\ClawbackOpFrame.cpp">
-      <Filter>transactions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\transactions\ClawbackClaimableBalanceOpFrame.cpp">
-      <Filter>transactions</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\transactions\BeginSponsoringFutureReservesOpFrame.cpp">
       <Filter>transactions</Filter>
     </ClCompile>
@@ -1117,12 +1102,6 @@
       <Filter>transactions</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\transactions\test\ClaimableBalanceTests.cpp">
-      <Filter>transactions\tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\transactions\test\ClawbackTests.cpp">
-      <Filter>transactions\tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\transactions\test\ClawbackClaimableBalanceTests.cpp">
       <Filter>transactions\tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\transactions\test\EndSponsoringFutureReservesTests.cpp">
@@ -1164,17 +1143,11 @@
     <ClCompile Include="..\..\src\util\Backtrace.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\spdlog.cpp">
-      <Filter>lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\herder\TxQueueLimiter.cpp">
-      <Filter>herder</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\herder\SurgePricingUtils.cpp">
-      <Filter>herder</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\util\easylogging++.h">
+      <Filter>lib\util</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\lib\util\cpptoml.h">
       <Filter>lib\util</Filter>
     </ClInclude>
@@ -1265,6 +1238,9 @@
     <ClInclude Include="..\..\src\util\NonCopyable.h">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\util\optional.h">
+      <Filter>util</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\util\XDRStream.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -1331,9 +1307,6 @@
     <ClInclude Include="..\..\src\work\WorkSequence.h">
       <Filter>work</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\work\WorkWithCallback.h">
-      <Filter>work</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\util\StatusManager.h">
       <Filter>util</Filter>
     </ClInclude>
@@ -1346,7 +1319,7 @@
     <ClInclude Include="..\..\src\test\TestUtils.h">
       <Filter>test</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\util\Algorithm.h">
+    <ClInclude Include="..\..\src\util\Algoritm.h">
       <Filter>util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\util\SecretValue.h">
@@ -1389,9 +1362,6 @@
       <Filter>invariant</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\invariant\LiabilitiesMatchOffers.h">
-      <Filter>invariant</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\invariant\OrderBookIsNotCrossed.h">
       <Filter>invariant</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\invariant\SponsorshipCountIsValid.h">
@@ -1616,6 +1586,12 @@
     <ClInclude Include="..\..\src\history\HistoryTestsUtils.h">
       <Filter>history</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\history\InferredQuorum.h">
+      <Filter>history</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\history\InferredQuorumUtils.h">
+      <Filter>history</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\src\history\StateSnapshot.h">
       <Filter>history</Filter>
     </ClInclude>
@@ -1764,9 +1740,6 @@
       <Filter>transactions</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\transactions\SetOptionsOpFrame.h">
-      <Filter>transactions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\transactions\SetTrustLineFlagsOpFrame.h">
       <Filter>transactions</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\transactions\SignatureChecker.h">
@@ -1973,12 +1946,6 @@
     <ClInclude Include="..\..\src\transactions\CreateClaimableBalanceOpFrame.h">
       <Filter>transactions</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\transactions\ClawbackOpFrame.h">
-      <Filter>transactions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\transactions\ClawbackClaimableBalanceOpFrame.h">
-      <Filter>transactions</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\transactions\BeginSponsoringFutureReservesOpFrame.h">
       <Filter>transactions</Filter>
     </ClInclude>
@@ -2023,27 +1990,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\test\Fuzzer.h">
       <Filter>test</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\spdlog\include\spdlog\spdlog.h">
-      <Filter>lib\spdlog</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\spdlog\include\spdlog\sinks\stdout_color_sinks.h">
-      <Filter>lib\spdlog</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\spdlog\include\spdlog\sinks\stdout_sinks.h">
-      <Filter>lib\spdlog</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\spdlog\include\spdlog\sinks\basic_file_sink.h">
-      <Filter>lib\spdlog</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\util\SpdlogTweaks.h">
-      <Filter>util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\herder\TxQueueLimiter.h">
-      <Filter>herder</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\herder\SurgePricingUtils.h">
-      <Filter>herder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2175,12 +2121,6 @@
       <Filter>docs</Filter>
     </None>
     <None Include="..\..\docs\tx-simulation.md">
-      <Filter>docs</Filter>
-    </None>
-    <None Include="..\..\src\util\LogPartitions.def">
-      <Filter>util</Filter>
-    </None>
-    <None Include="..\..\docs\digitalbits-core_testnet_validator.cfg">
       <Filter>docs</Filter>
     </None>
   </ItemGroup>
