@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
+          submodules: recursive
       - name: Install PostgresQL
         run: |
           curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
