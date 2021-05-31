@@ -330,7 +330,7 @@
     <ClCompile Include="..\..\src\invariant\BucketListIsConsistentWithDatabase.cpp">
       <Filter>invariant</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\invariant\ConservationOfLumens.cpp">
+    <ClCompile Include="..\..\src\invariant\ConservationOfDigitalBits.cpp">
       <Filter>invariant</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\InvariantManagerImpl.cpp">
@@ -660,7 +660,7 @@
     <ClCompile Include="..\..\src\invariant\test\BucketListIsConsistentWithDatabaseTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\invariant\test\ConservationOfLumensTests.cpp">
+    <ClCompile Include="..\..\src\invariant\test\ConservationOfDigitalBitsTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\test\InvariantTests.cpp">
@@ -1343,7 +1343,7 @@
     <ClInclude Include="..\..\src\invariant\BucketListIsConsistentWithDatabase.h">
       <Filter>invariant</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\invariant\ConservationOfLumens.h">
+    <ClInclude Include="..\..\src\invariant\ConservationOfDigitalBits.h">
       <Filter>invariant</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\invariant\Invariant.h">
