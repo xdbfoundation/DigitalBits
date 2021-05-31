@@ -26,6 +26,8 @@ jobs:
       - run: |          
           curl -L -o postgresql.zip https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
           Expand-Archive -Path postgresql.zip -DestinationPath .
+          cp -r pgsql\* "'C:\Program Files\PostgreSQL\9.5\"
+          dir "'C:\Program Files\PostgreSQL\9.5\lib"
           cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
           dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
       - name: Set up Cygwin
