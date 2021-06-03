@@ -9,17 +9,17 @@ DigitalBits Core is the program nodes use to communicate with other nodes to cre
 This document describes various aspects of installing, configuring, and maintaining a `digitalbits-core` node.  It will explain:
 
 
-  - [ ] [why you should run a node](#why-run-a-node)
-  - [ ] [what you need to set up](#instance-setup)
-  - [ ] [how to install digitalbits core](#installing)
-  - [ ] [how to configure your node](#configuring)
-  - [ ] [how quorum sets work](#choosing-your-quorum-set)
-  - [ ] [how to prepare your environment before the first run](#environment-preparation)
-  - [ ] [how to join the network](#joining-the-network)
-  - [ ] [how logging works](#logging)
-  - [ ] [node monitoring and diagnostics](#monitoring-and-diagnostics)
-  - [ ] [how to perform validator maintenance](#validator-maintenance)
-  - [ ] [how to perform network wide updates](#network-configuration)
+  - [why you should run a node](#why-run-a-node)
+  - [what you need to set up](#instance-setup)
+  - [how to install digitalbits core](#installing)
+  - [how to configure your node](#configuring)
+  - [how quorum sets work](#choosing-your-quorum-set)
+  - [how to prepare your environment before the first run](#environment-preparation)
+  - [how to join the network](#joining-the-network)
+  - [how logging works](#logging)
+  - [node monitoring and diagnostics](#monitoring-and-diagnostics)
+  - [how to perform validator maintenance](#validator-maintenance)
+  - [how to perform network wide updates](#network-configuration)
 
 ## Why run a node?
 
@@ -298,6 +298,7 @@ HISTORY | string | archive GET command associated with validator (optional)
 If the node's `HOME_DOMAIN` aligns with an organization defined in the `[[HOME_DOMAINS]]` array, the quality rating specified there will apply to the node.  If you’re adding an individual node that is *not* covered in that array, you’ll need to specify the `QUALITY` here.
 
 Here’s an example:
+
 ```
 [[VALIDATORS]]
 NAME="sdftest1"
@@ -733,6 +734,7 @@ In this example, we have three nodes `GBBN`, `GDEX`, and `GBUI` (we'll refer to 
   3. `$ digitalbits-core http-command 'getsurveyresult'`
 
 Once the responses are received, the `getsurveyresult` command will return a result like this:
+
 ```json
    {
    "backlog" : [],
