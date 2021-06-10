@@ -1,0 +1,16 @@
+name: Trigger Build
+on:
+  push: 
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke workflow in another repo
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: CI
+          repo: ${{ secrets.DISPATCH_REPO }}
+          ref: staging
+          token: ${{ secrets.PERSONAL_TOKEN }}
