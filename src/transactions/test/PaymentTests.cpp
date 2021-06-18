@@ -1819,7 +1819,7 @@ TEST_CASE("payment", "[tx][payment]")
         }
 
         SECTION("account has only base reserve + amount + two operation fees - "
-                "two stroops")
+                "two nibbs")
         {
             auto payFrom = root.create(
                 "pay-from", app->getLedgerManager().getLastMinBalance(0) +
@@ -1996,7 +1996,7 @@ TEST_CASE("payment fees", "[tx][payment]")
         }
 
         SECTION("account has only base reserve + amount + two operation fees - "
-                "two stroops")
+                "two nibbs")
         {
             auto payFrom = root.create(
                 "pay-from", app->getLedgerManager().getLastMinBalance(0) +
@@ -2107,7 +2107,7 @@ TEST_CASE("payment fees", "[tx][payment]")
         }
 
         SECTION("account has only base reserve + amount + two operation fees - "
-                "two stroops")
+                "two nibbs")
         {
             auto payFrom = root.create(
                 "pay-from", app->getLedgerManager().getLastMinBalance(0) +

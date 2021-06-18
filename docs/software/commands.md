@@ -34,7 +34,7 @@ Command options can only by placed after command.
   exit. Useful for determining the public key that corresponds to a given
   private key. For example:
 
-`$ digitalbits-core convert-id SDQVDISRYN2JXBS7ICL7QJAEKB3HWBJFP2QECXG7GZICAHBK4UNJCWK2`
+`$ digitalbits-core convert-id SD63V7FAL6YZCT4KSGLC24ZLMMU67B4XPGMJBOWW2ZI6UGVDMMUMZFEM`
 
 * **dump-xdr <FILE-NAME>**:  Dumps the given XDR file and then exits.
 * **fuzz <FILE-NAME>**: Run a single fuzz input and exit.
@@ -73,7 +73,7 @@ Command options can only by placed after command.
   Option **--in-memory** stores the current ledger in memory rather than a
   database.<br>
   Option **--start-at-ledger <N>** starts **--in-memory** mode with a catchup to
-  ledger **N** then replays to the current state of the network.<br>
+  ledger **N** then replays to the current state of the network.
   Option **--start-at-hash <HASH>** provides a (mandatory) hash for the ledger
   **N** specified by the **--start-at-ledger** option.
 * **sec-to-pub**:  Reads a secret key on standard input and outputs the
@@ -85,16 +85,15 @@ Command options can only by placed after command.
   envelope stored in binary format in <FILE-NAME>, and send the result to
   standard output (which should be redirected to a file or piped through a tool
   such as `base64`).  The private signing key is read from standard input,
-  unless <FILE-NAME> is "/dev/stdin" in which case the transaction envelope is read from
+  unless <FILE-NAME> is `/dev/stdin` in which case the transaction envelope is read from
   standard input and the signing key is read from `/dev/tty`.  In either event,
   if the signing key appears to be coming from a terminal, digitalbits-core
   disables echo. Note that if you do not have a DIGITALBITS_NETWORK_ID environment
   variable, then before this argument you must specify the --netid option. For
-  example, the production digitalbits network is "`Public Global DigitalBits Network ;
-  September 2015`" while the test network is "`Test SDF Network ; September
-  2015`".<br>
+  example, the production digitalbits network is `LiveNet Global DigitalBits Network ; February 2021` while the test network is `TestNet Global DigitalBits Network ; December 2020`.
   Option --base64 alters the behavior to work on base64-encoded XDR rather than
   raw XDR.
+
 * **test**: Run all the unit tests.
   * Suboptions specific to digitalbits-core:
       * `--all-versions` : run with all possible protocol versions
@@ -106,7 +105,7 @@ Command options can only by placed after command.
     on possible options for test.
   * For example this will run just the tests tagged with `[tx]` using protocol
     versions 9 and 10 and stop after the first failure:
-    `digitalbits-core test -a --version 9 --version 10 "[tx]"`
+    `digitalbits-core test -a --version 14 --version 15 "[tx]"`
 * **upgrade-db**: Upgrades local database to current schema version. This is
   usually done automatically during digitalbits-core run or other command.
 * **verify-checkpoints**: Listens to the network until it observes a consensus
@@ -138,26 +137,21 @@ format.
   it to the archive.
 
 * **connect**
-  `connect?peer=NAME&port=NNN`<br>
-  Triggers the instance to connect to peer NAME at port NNN.
+  `connect?peer=NAME&port=NNN` Triggers the instance to connect to peer NAME at port NNN.
 
 * **dropcursor**  
-  `dropcursor?id=ID`<br>
-  Deletes the tracking cursor identified by `id`. See `setcursor` for
+  `dropcursor?id=ID` Deletes the tracking cursor identified by `id`. See `setcursor` for
   more information.
 
 * **droppeer**
-  `droppeer?node=NODE_ID[&ban=D]`<br>
-  Drops peer identified by NODE_ID, when D is 1 the peer is also banned.
+  `droppeer?node=NODE_ID[&ban=D]` Drops peer identified by NODE_ID, when D is 1 the peer is also banned.
 
 * **info**
   Returns information about the server in JSON format (sync state, connected
   peers, etc).
 
 * **ll**  
-  `ll?level=L[&partition=P]`<br>
-  Adjust the log level for partition P where P is one of Bucket, Database, Fs,
-  Herder, History, Ledger, Overlay, Process, SCP, Tx (or all if no partition is
+  `ll?level=L[&partition=P]` Adjust the log level for partition P where P is one of Bucket, Database, Fs, Herder, History, Ledger, Overlay, Process, SCP, Tx (or all if no partition is
   specified). Level is one of FATAL, ERROR, WARNING, INFO, DEBUG, VERBOSE,
   TRACE.
 
@@ -165,8 +159,7 @@ format.
   Rotate log files.
 
 * **maintenance**
-  `maintenance?[queue=true]`<br>
-  Performs maintenance tasks on the instance.
+  `maintenance?[queue=true]` Performs maintenance tasks on the instance.
    * `queue` performs deletion of queue data. See `setcursor` for more information.
 
 * **metrics**
@@ -174,18 +167,14 @@ format.
   purpose).
 
 * **clearmetrics**
-  `clearmetrics?[domain=DOMAIN]`<br>
-  Clear metrics for a specified domain. If no domain specified, clear all
-  metrics (for testing purposes).
+  `clearmetrics?[domain=DOMAIN]` Clear metrics for a specified domain. If no domain specified, clear all metrics (for testing purposes).
 
 * **peers?[&fullkeys=false]**
   Returns the list of known peers in JSON format.
   If `fullkeys` is set, outputs unshortened public keys.
 
 * **quorum**
-  `quorum?[node=NODE_ID][&compact=false][&fullkeys=false][&transitive=false]`<br>
-  Returns information about the quorum for `NODE_ID` (local node by default).
-  If `transitive` is set, information is for the transitive quorum centered on `NODE_ID`, otherwise only for nodes in the quorum set of `NODE_ID`.
+  `quorum?[node=NODE_ID][&compact=false][&fullkeys=false][&transitive=false]` Returns information about the quorum for `NODE_ID` (local node by default). If `transitive` is set, information is for the transitive quorum centered on `NODE_ID`, otherwise only for nodes in the quorum set of `NODE_ID`.
 
   `NODE_ID` is either a full key (`GABCD...`), an alias (`$name`) or an
   abbreviated ID (`@GABCD`).
@@ -195,8 +184,7 @@ format.
   If `fullkeys` is set, outputs unshortened public keys.
 
 * **setcursor**
-  `setcursor?id=ID&cursor=N`<br>
-  Sets or creates a cursor identified by `ID` with value `N`. ID is an
+  `setcursor?id=ID&cursor=N` Sets or creates a cursor identified by `ID` with value `N`. ID is an
   uppercase AlphaNum, N is an uint32 that represents the last ledger sequence
   number that the instance ID processed. Cursors are used by dependent services
   to tell digitalbits-core which data can be safely deleted by the instance. The
@@ -207,18 +195,14 @@ format.
   `dropcursor`.
 
 * **getcursor**
-  `getcursor?[id=ID]`<br>
-  Gets the cursor identified by `ID`. If ID is not defined then all cursors
+  `getcursor?[id=ID]` Gets the cursor identified by `ID`. If ID is not defined then all cursors
   will be returned.
 
 * **scp**
-  `scp?[limit=n][&fullkeys=false]`<br>
-  Returns a JSON object with the internal state of the SCP engine for the last
-  n (default 2) ledgers. Outputs unshortened public keys if fullkeys is set.
+  `scp?[limit=n][&fullkeys=false]` Returns a JSON object with the internal state of the SCP engine for the last n (default 2) ledgers. Outputs unshortened public keys if fullkeys is set.
 
 * **tx**
-  `tx?blob=Base64`<br>
-  Submit a transaction to the network.
+  `tx?blob=Base64` Submit a transaction to the network.
   blob is a base64 encoded XDR serialized 'TransactionEnvelope', and it
   returns a JSON object with the following properties
   status:
@@ -229,32 +213,29 @@ format.
             Base64 encoded, XDR serialized 'TransactionResult'
 
 * **upgrades**
-  * `upgrades?mode=get`<br>
-    Retrieves the currently configured upgrade settings.<br>
-  * `upgrades?mode=clear`<br>
-    Clears any upgrade settings.<br>
-  * `upgrades?mode=set&upgradetime=DATETIME&[basefee=NUM]&[basereserve=NUM]&[maxtxsize=NUM]&[protocolversion=NUM]`<br>
+  * `upgrades?mode=get`Retrieves the currently configured upgrade settings.<br>
+  * `upgrades?mode=clear`Clears any upgrade settings.
+  * `upgrades?mode=set&upgradetime=DATETIME&[basefee=NUM]&[basereserve=NUM]&[maxtxsize=NUM]&[protocolversion=NUM]`
     * upgradetime is a required date (UTC) in the form `1970-01-01T00:00:00Z`. 
         It is the time the upgrade will be scheduled for. If it is in the past
         by less than 12 hours, the upgrade will occur immediately. If it's more
-        than 12 hours, then the upgrade will be ignored<br>
+        than 12 hours, then the upgrade will be ignored
     * fee (uint32) This is what you would prefer the base fee to be. It is in
-        stroops<br>
+        nibbs
     * basereserve (uint32) This is what you would prefer the base reserve to
-        be. It is in stroops.<br>
+        be. It is in nibbs.
     * maxtxsize (uint32) This defines the maximum number of transactions to
         include in a ledger. When too many transactions are pending, surge
         pricing is applied. The instance picks the top maxtxsize transactions
         locally to be considered in the next ledger. Where transactions are
         ordered by transaction fee(lower fee transactions are held for later).
-        <br>
     * protocolversion (uint32) defines the protocol version to upgrade to.
         When specified it must match one of the protocol versions supported
         by the node and should be greater than ledgerVersion from the current
-        ledger<br>
+        ledger
 
 * **surveytopology**
-  `surveytopology?duration=DURATION&node=NODE_ID`<br>
+  `surveytopology?duration=DURATION&node=NODE_ID`
   Starts a survey that will request peer connectivity information from nodes
   in the backlog. `DURATION` is the number of seconds this survey will run
   for, and `NODE_ID` is the public key you will add to the backlog to survey.
@@ -267,17 +248,17 @@ format.
   just set `SURVEYOR_KEYS` to `$self` or a bogus key
 
 * **stopsurvey**
-  `stopsurvey`<br>
+  `stopsurvey`
   Will stop the survey if one is running. Noop if no survey is running
 
 * **getsurveyresult**
-  `getsurveyresult`<br>
+  `getsurveyresult`
   Returns the current survey results. The results will be reset everytime a new survey
   is started
 
 ### The following HTTP commands are exposed on test instances
 * **generateload**
-  `generateload[?mode=(create|pay)&accounts=N&offset=K&txs=M&txrate=R&batchsize=L&spikesize=S&spikeinterval=I]`<br>
+  `generateload[?mode=(create|pay)&accounts=N&offset=K&txs=M&txrate=R&batchsize=L&spikesize=S&spikeinterval=I]`
   Artificially generate load for testing; must be used with
   `ARTIFICIALLY_GENERATE_LOAD_FOR_TESTING` set to true. Depending on the mode,
   either creates new accounts or generates payments on accounts specified
@@ -292,13 +273,13 @@ format.
   and start a new consensus round.
 
 * **testacc**
-  `testacc?name=N`<br>
+  `testacc?name=N`
   Returns basic information about the account identified by name. Note that N
   is a string used as seed, but "root" can be used as well to specify the root
   account used for the test instance.
 
 * **testtx**
-  `testtx?from=F&to=T&amount=N&[create=true]`<br>
+  `testtx?from=F&to=T&amount=N&[create=true]`
   Injects a payment transaction (or a create transaction if "create" is
   specified) from the account F to the account T, sending N XDB to the account.
   Note that F and T are seed strings but can also be specified as "root" as
