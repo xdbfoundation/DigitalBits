@@ -545,6 +545,7 @@ Until the node sees a quorum, it will say
 ```
 
 After observing consensus, a new field `quorum` will be set with information on what the network decided on, at this point the node will switch to "*Catching up*":
+
 ```json
       "quorum" : {
          "qset" : {
@@ -572,12 +573,14 @@ After observing consensus, a new field `quorum` will be set with information on 
 
 This is a phase where the node downloads data from archives.
 The state will start with something like
+
 ```json
       "state" : "Catching up",
       "status" : [ "Catching up: Awaiting checkpoint (ETA: 35 seconds)" ]
 ```
 
 and then go through the various phases of downloading and applying state such as
+
 ```json
       "state" : "Catching up",
       "status" : [ "Catching up: downloading ledger files 20094/119803 (16%)" ]
@@ -586,6 +589,7 @@ and then go through the various phases of downloading and applying state such as
 #### Synced
 
 When the node is done catching up, its state will change to
+
 ```json
       "state" : "Synced!"
 ```
@@ -701,35 +705,102 @@ This list is the result of both inbound connections from other peers and outboun
 ```json
 {
    "authenticated_peers" : {
-     "inbound" : [
-        {
-           "address" : "54.161.82.181:11625",
-           "elapsed" : 6,
-           "id" : "sdf1",
-           "olver" : 5,
-           "ver" : "v9.1.0"
-        }
-     ],
-     "outbound" : [
-       {
-          "address" : "54.211.174.177:11625",
-          "elapsed" : 2303,
-          "id" : "sdf2",
-          "olver" : 5,
-          "ver" : "v9.1.0"
-       },
-       {
-          "address" : "54.160.175.7:11625",
-          "elapsed" : 14082,
-          "id" : "sdf3",
-          "olver" : 5,
-          "ver" : "v9.1.0"
-        }
-     ]
+      "inbound" : [
+         {
+            "address" : "3.97.5.252:11625",
+            "elapsed" : 265799,
+            "id" : "can",
+            "latency" : 93,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "35.181.0.80:11625",
+            "elapsed" : 265801,
+            "id" : "fra-1",
+            "latency" : 11,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "13.49.180.62:11625",
+            "elapsed" : 265800,
+            "id" : "swe",
+            "latency" : 24,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "54.232.68.234:11625",
+            "elapsed" : 265799,
+            "id" : "bra",
+            "latency" : 206,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "52.63.51.186:11625",
+            "elapsed" : 265798,
+            "id" : "aus",
+            "latency" : 289,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "54.195.58.142:11625",
+            "elapsed" : 265799,
+            "id" : "irl",
+            "latency" : 23,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "35.177.74.117:11625",
+            "elapsed" : 265800,
+            "id" : "gbr-1",
+            "latency" : 17,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         }
+      ],
+      "outbound" : [
+         {
+            "address" : "176.34.117.74:11625",
+            "elapsed" : 265799,
+            "id" : "irl-1",
+            "latency" : 26,
+            "olver" : 15,
+            "ver" : "1.0.26"
+         },
+         {
+            "address" : "54.179.231.67:11625",
+            "elapsed" : 265799,
+            "id" : "sgp-1",
+            "latency" : 155,
+            "olver" : 15,
+            "ver" : "1.0.26"
+         },
+         {
+            "address" : "13.251.98.56:11625",
+            "elapsed" : 265799,
+            "id" : "sgp",
+            "latency" : 153,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         },
+         {
+            "address" : "3.64.96.173:11625",
+            "elapsed" : 265799,
+            "id" : "deu-1",
+            "latency" : 1,
+            "olver" : 15,
+            "ver" : "1.0.5-1-g7f8dc82"
+         }
+      ]
    },
    "pending_peers" : {
-      "inbound" : [ "211.249.63.74:11625", "45.77.5.118:11625" ],
-      "outbound" : [ "178.21.47.226:11625", "178.131.109.241:11625" ]
+      "inbound" : null,
+      "outbound" : null
    }
 }
 ```
@@ -742,67 +813,430 @@ By default, a node will relay or respond to a survey message if the message orig
 
 ##### Example survey command
 
-In this example, we have three nodes `GBBN`, `GDEX`, and `GBUI` (we'll refer to them by the first four letters of their public keys). We will execute the commands below from `GBUI`, and note that `GBBN` has `SURVEYOR_KEYS=["$self"]` in it's config file, so `GBBN` will not relay or respond to any survey messages.
+In this example, we have three nodes `GB6I`, `GAWK`, and `GAKP` (we'll refer to them by the first four letters of their public keys). We will execute the commands below from `GAKP`
 
-  1. `$ digitalbits-core http-command 'surveytopology?duration=1000&node=GBBNXPPGDFDUQYH6RT5VGPDSOWLZEXXFD3ACUPG5YXRHLTATTUKY42CL'`
-  2. `$ digitalbits-core http-command 'surveytopology?duration=1000&node=GDEXJV6XKKLDUWKTSXOOYVOYWZGVNIKKQ7GVNR5FOV7VV5K4MGJT5US4'`
+  1. `$ digitalbits-core http-command 'surveytopology?duration=1000&node=GB6IPEJ2NV3AKWK6OXZWPOJQ4HGRSB2ULMWBESZ5MUY6OSBUDGJOSPKD'`
+  2. `$ digitalbits-core http-command 'surveytopology?duration=1000&node=GAWKRGXGM7PPZMQGUH2ATXUKMKZ5DTJHDV7UK7P4OHHA2BKSF3ZUEVWT'`
   3. `$ digitalbits-core http-command 'getsurveyresult'`
 
 Once the responses are received, the `getsurveyresult` command will return a result like this:
 
 ```json
-   {
-   "backlog" : [],
+ {
+   "backlog" : null,
    "badResponseNodes" : null,
    "surveyInProgress" : true,
    "topology" : {
-      "GBBNXPPGDFDUQYH6RT5VGPDSOWLZEXXFD3ACUPG5YXRHLTATTUKY42CL" : null,
-      "GDEXJV6XKKLDUWKTSXOOYVOYWZGVNIKKQ7GVNR5FOV7VV5K4MGJT5US4" : {
+      "GAWKRGXGM7PPZMQGUH2ATXUKMKZ5DTJHDV7UK7P4OHHA2BKSF3ZUEVWT" : {
          "inboundPeers" : [
             {
-               "bytesRead" : 26392,
-               "bytesWritten" : 26960,
+               "bytesRead" : 1319451500,
+               "bytesWritten" : 1789787444,
                "duplicateFetchBytesRecv" : 0,
                "duplicateFetchMessageRecv" : 0,
-               "duplicateFloodBytesRecv" : 10424,
-               "duplicateFloodMessageRecv" : 43,
-               "messagesRead" : 93,
-               "messagesWritten" : 96,
-               "nodeId" : "GBBNXPPGDFDUQYH6RT5VGPDSOWLZEXXFD3ACUPG5YXRHLTATTUKY42CL",
-               "secondsConnected" : 22,
+               "duplicateFloodBytesRecv" : 1026522552,
+               "duplicateFloodMessageRecv" : 2580699,
+               "messagesRead" : 3044942,
+               "messagesWritten" : 4087393,
+               "nodeId" : "GBKW3R3APTMYSCZDRYNG6CCAEHDW4UNLEQQHTHL7UEFFJAWTSJOWH5Q7",
+               "secondsConnected" : 266135,
                "uniqueFetchBytesRecv" : 0,
                "uniqueFetchMessageRecv" : 0,
-               "uniqueFloodBytesRecv" : 11200,
-               "uniqueFloodMessageRecv" : 46,
-               "version" : "v12.2.0-46-g61aadd29"
+               "uniqueFloodBytesRecv" : 142722388,
+               "uniqueFloodMessageRecv" : 357679,
+               "version" : "1.0.5-1-g7f8dc82"
             },
             {
-               "bytesRead" : 32204,
-               "bytesWritten" : 31212,
+               "bytesRead" : 1770594740,
+               "bytesWritten" : 1804861344,
                "duplicateFetchBytesRecv" : 0,
                "duplicateFetchMessageRecv" : 0,
-               "duplicateFloodBytesRecv" : 11200,
-               "duplicateFloodMessageRecv" : 46,
-               "messagesRead" : 115,
-               "messagesWritten" : 112,
-               "nodeId" : "GBUICIITZTGKL7PUBHUPWD67GDRAIYUA4KCOH2PUIMMZ6JQLNVA7C4JL",
-               "secondsConnected" : 23,
-               "uniqueFetchBytesRecv" : 176,
+               "duplicateFloodBytesRecv" : 1441716008,
+               "duplicateFloodMessageRecv" : 3608484,
+               "messagesRead" : 4042683,
+               "messagesWritten" : 4120575,
+               "nodeId" : "GBF7CE3PPXKAWVZ255FDO5ZKEHZDBRW7SBDKBHSQZDQ3E5TRSKUSBKGT",
+               "secondsConnected" : 266136,
+               "uniqueFetchBytesRecv" : 0,
+               "uniqueFetchMessageRecv" : 0,
+               "uniqueFloodBytesRecv" : 130784724,
+               "uniqueFloodMessageRecv" : 327750,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1718480180,
+               "bytesWritten" : 1806090716,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1392254840,
+               "duplicateFloodMessageRecv" : 3488651,
+               "messagesRead" : 3927071,
+               "messagesWritten" : 4125749,
+               "nodeId" : "GDNJGMQCWXN2DAPIR5NBJS775LIKYSSY35S2CSRHLDFE7NCSQNWZ2KIZ",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 120,
+               "uniqueFetchMessageRecv" : 3,
+               "uniqueFloodBytesRecv" : 133680340,
+               "uniqueFloodMessageRecv" : 331961,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1829936832,
+               "bytesWritten" : 1850089360,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1516913072,
+               "duplicateFloodMessageRecv" : 3793905,
+               "messagesRead" : 4173890,
+               "messagesWritten" : 4219942,
+               "nodeId" : "GB4UPA2VRNJGE7EWPKCE4EQRXVOFPCVBERMXCA3ZOFJU3JU7COA7HIWG",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 40,
+               "uniqueFetchMessageRecv" : 1,
+               "uniqueFloodBytesRecv" : 108631064,
+               "uniqueFloodMessageRecv" : 273515,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1763768960,
+               "bytesWritten" : 1726508056,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1365434196,
+               "duplicateFloodMessageRecv" : 3414468,
+               "messagesRead" : 4028641,
+               "messagesWritten" : 3941813,
+               "nodeId" : "GBDWWMQKFO3WBTSZ74F64LNXETXBD7VYQT6MIXFVIBHLM57HIR7LYKI2",
+               "secondsConnected" : 266136,
+               "uniqueFetchBytesRecv" : 80,
                "uniqueFetchMessageRecv" : 2,
-               "uniqueFloodBytesRecv" : 14968,
-               "uniqueFloodMessageRecv" : 62,
-               "version" : "v12.2.0-46-g61aadd29"
+               "uniqueFloodBytesRecv" : 200915788,
+               "uniqueFloodMessageRecv" : 507751,
+               "version" : "1.0.5-1-g7f8dc82"
             }
          ],
-         "numTotalInboundPeers" : 2,
-         "numTotalOutboundPeers" : 0,
-         "outboundPeers" : null
+         "numTotalInboundPeers" : 5,
+         "numTotalOutboundPeers" : 6,
+         "outboundPeers" : [
+            {
+               "bytesRead" : 1792071236,
+               "bytesWritten" : 1778194844,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1433378664,
+               "duplicateFloodMessageRecv" : 3594717,
+               "messagesRead" : 4099502,
+               "messagesWritten" : 4059217,
+               "nodeId" : "GDKMIZ6AJQVGYIKFNXLL6DR3J2V252ZVNIKMX5R4MCN4A567ESURCRZJ",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 80,
+               "uniqueFetchMessageRecv" : 2,
+               "uniqueFloodBytesRecv" : 157870864,
+               "uniqueFloodMessageRecv" : 398329,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1809998112,
+               "bytesWritten" : 1760959280,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1430406932,
+               "duplicateFloodMessageRecv" : 3586460,
+               "messagesRead" : 4136609,
+               "messagesWritten" : 4023246,
+               "nodeId" : "GAKPT7BFXX224DJ7KB7V22LTJ6WH4SRQSJ3VLW324FIVFB2P6VW2OF76",
+               "secondsConnected" : 266087,
+               "uniqueFetchBytesRecv" : 0,
+               "uniqueFetchMessageRecv" : 0,
+               "uniqueFloodBytesRecv" : 176989172,
+               "uniqueFloodMessageRecv" : 443715,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1699440284,
+               "bytesWritten" : 1808372100,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1381874900,
+               "duplicateFloodMessageRecv" : 3457222,
+               "messagesRead" : 3879126,
+               "messagesWritten" : 4132485,
+               "nodeId" : "GB6IPEJ2NV3AKWK6OXZWPOJQ4HGRSB2ULMWBESZ5MUY6OSBUDGJOSPKD",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 0,
+               "uniqueFetchMessageRecv" : 0,
+               "uniqueFloodBytesRecv" : 127319572,
+               "uniqueFloodMessageRecv" : 315388,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1810887204,
+               "bytesWritten" : 1706255056,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1349137536,
+               "duplicateFloodMessageRecv" : 3388373,
+               "messagesRead" : 4139121,
+               "messagesWritten" : 3907274,
+               "nodeId" : "GAD3IYRUDJN7AVE4VUUQQO74AWFKLEFKB5BFUNOFM6KA4WH5G23GUQ7W",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 40,
+               "uniqueFetchMessageRecv" : 1,
+               "uniqueFloodBytesRecv" : 259026368,
+               "uniqueFloodMessageRecv" : 644295,
+               "version" : "1.0.26"
+            },
+            {
+               "bytesRead" : 1866721248,
+               "bytesWritten" : 1873733952,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1563607960,
+               "duplicateFloodMessageRecv" : 3913744,
+               "messagesRead" : 4257175,
+               "messagesWritten" : 4274491,
+               "nodeId" : "GAH63EU4HJANIP3W6UNCJ2YKOYRZQJHYWQBKZGXVZK6UFNQ4SULCKWLC",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 40,
+               "uniqueFetchMessageRecv" : 1,
+               "uniqueFloodBytesRecv" : 94722784,
+               "uniqueFloodMessageRecv" : 236961,
+               "version" : "1.0.26"
+            },
+            {
+               "bytesRead" : 1747241704,
+               "bytesWritten" : 1761972356,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1378008000,
+               "duplicateFloodMessageRecv" : 3445213,
+               "messagesRead" : 3990007,
+               "messagesWritten" : 4023986,
+               "nodeId" : "GDS25FEPPK5LK5BVWGEPLFCQQV7DQOXS6ERYWHDQIKZU3YGO5NRODIAT",
+               "secondsConnected" : 266135,
+               "uniqueFetchBytesRecv" : 120,
+               "uniqueFetchMessageRecv" : 3,
+               "uniqueFloodBytesRecv" : 173669564,
+               "uniqueFloodMessageRecv" : 438386,
+               "version" : "1.0.5-1-g7f8dc82"
+            }
+         ]
+      },
+      "GB6IPEJ2NV3AKWK6OXZWPOJQ4HGRSB2ULMWBESZ5MUY6OSBUDGJOSPKD" : {
+         "inboundPeers" : [
+            {
+               "bytesRead" : 1987104652,
+               "bytesWritten" : 1936802228,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1604039460,
+               "duplicateFloodMessageRecv" : 4021363,
+               "messagesRead" : 4526782,
+               "messagesWritten" : 4417042,
+               "nodeId" : "GBAFYZTWV5QJSCNKJ4MGMUVKB7Z4QYVJ46RU2OEQENFBXC42EFOEAG5K",
+               "secondsConnected" : 266281,
+               "uniqueFetchBytesRecv" : 0,
+               "uniqueFetchMessageRecv" : 0,
+               "uniqueFloodBytesRecv" : 161732672,
+               "uniqueFloodMessageRecv" : 398923,
+               "version" : "1.0.26"
+            },
+            {
+               "bytesRead" : 1828798132,
+               "bytesWritten" : 1717513652,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1378742404,
+               "duplicateFloodMessageRecv" : 3458271,
+               "messagesRead" : 4179287,
+               "messagesWritten" : 3930517,
+               "nodeId" : "GAH63EU4HJANIP3W6UNCJ2YKOYRZQJHYWQBKZGXVZK6UFNQ4SULCKWLC",
+               "secondsConnected" : 267925,
+               "uniqueFetchBytesRecv" : 1480,
+               "uniqueFetchMessageRecv" : 37,
+               "uniqueFloodBytesRecv" : 245376064,
+               "uniqueFloodMessageRecv" : 613814,
+               "version" : "1.0.26"
+            },
+            {
+               "bytesRead" : 1808043016,
+               "bytesWritten" : 1699120888,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1380679068,
+               "duplicateFloodMessageRecv" : 3454742,
+               "messagesRead" : 4131739,
+               "messagesWritten" : 3878409,
+               "nodeId" : "GAWKRGXGM7PPZMQGUH2ATXUKMKZ5DTJHDV7UK7P4OHHA2BKSF3ZUEVWT",
+               "secondsConnected" : 266089,
+               "uniqueFetchBytesRecv" : 2600,
+               "uniqueFetchMessageRecv" : 65,
+               "uniqueFloodBytesRecv" : 224993316,
+               "uniqueFloodMessageRecv" : 570500,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1933618092,
+               "bytesWritten" : 1940615152,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1696995132,
+               "duplicateFloodMessageRecv" : 4260138,
+               "messagesRead" : 4414218,
+               "messagesWritten" : 4429410,
+               "nodeId" : "GBF7CE3PPXKAWVZ255FDO5ZKEHZDBRW7SBDKBHSQZDQ3E5TRSKUSBKGT",
+               "secondsConnected" : 267925,
+               "uniqueFetchBytesRecv" : 40,
+               "uniqueFetchMessageRecv" : 1,
+               "uniqueFloodBytesRecv" : 20668488,
+               "uniqueFloodMessageRecv" : 46926,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1859937040,
+               "bytesWritten" : 980896344,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 722600940,
+               "duplicateFloodMessageRecv" : 1807789,
+               "messagesRead" : 4243324,
+               "messagesWritten" : 2276808,
+               "nodeId" : "GB4UPA2VRNJGE7EWPKCE4EQRXVOFPCVBERMXCA3ZOFJU3JU7COA7HIWG",
+               "secondsConnected" : 266279,
+               "uniqueFetchBytesRecv" : 4080,
+               "uniqueFetchMessageRecv" : 102,
+               "uniqueFloodBytesRecv" : 929604984,
+               "uniqueFloodMessageRecv" : 2328924,
+               "version" : "1.0.5-1-g7f8dc82"
+            }
+         ],
+         "numTotalInboundPeers" : 5,
+         "numTotalOutboundPeers" : 7,
+         "outboundPeers" : [
+            {
+               "bytesRead" : 1959804648,
+               "bytesWritten" : 1949180596,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1723596416,
+               "duplicateFloodMessageRecv" : 4319460,
+               "messagesRead" : 4468498,
+               "messagesWritten" : 4446343,
+               "nodeId" : "GBDWWMQKFO3WBTSZ74F64LNXETXBD7VYQT6MIXFVIBHLM57HIR7LYKI2",
+               "secondsConnected" : 267908,
+               "uniqueFetchBytesRecv" : 320,
+               "uniqueFetchMessageRecv" : 8,
+               "uniqueFloodBytesRecv" : 17649000,
+               "uniqueFloodMessageRecv" : 41906,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1913329324,
+               "bytesWritten" : 1875729308,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1604502564,
+               "duplicateFloodMessageRecv" : 4013182,
+               "messagesRead" : 4364877,
+               "messagesWritten" : 4273747,
+               "nodeId" : "GDNJGMQCWXN2DAPIR5NBJS775LIKYSSY35S2CSRHLDFE7NCSQNWZ2KIZ",
+               "secondsConnected" : 267821,
+               "uniqueFetchBytesRecv" : 1920,
+               "uniqueFetchMessageRecv" : 48,
+               "uniqueFloodBytesRecv" : 95239720,
+               "uniqueFloodMessageRecv" : 244522,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 463614892,
+               "bytesWritten" : 461851692,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 402087768,
+               "duplicateFloodMessageRecv" : 1009114,
+               "messagesRead" : 1058538,
+               "messagesWritten" : 1054304,
+               "nodeId" : "GDS25FEPPK5LK5BVWGEPLFCQQV7DQOXS6ERYWHDQIKZU3YGO5NRODIAT",
+               "secondsConnected" : 64428,
+               "uniqueFetchBytesRecv" : 280,
+               "uniqueFetchMessageRecv" : 7,
+               "uniqueFloodBytesRecv" : 9738280,
+               "uniqueFloodMessageRecv" : 23668,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1891787976,
+               "bytesWritten" : 1893719264,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1630266516,
+               "duplicateFloodMessageRecv" : 4080218,
+               "messagesRead" : 4313519,
+               "messagesWritten" : 4319330,
+               "nodeId" : "GBKW3R3APTMYSCZDRYNG6CCAEHDW4UNLEQQHTHL7UEFFJAWTSJOWH5Q7",
+               "secondsConnected" : 266198,
+               "uniqueFetchBytesRecv" : 40,
+               "uniqueFetchMessageRecv" : 1,
+               "uniqueFloodBytesRecv" : 50426624,
+               "uniqueFloodMessageRecv" : 126837,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1947961272,
+               "bytesWritten" : 1938537620,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1719576312,
+               "duplicateFloodMessageRecv" : 4310221,
+               "messagesRead" : 4441329,
+               "messagesWritten" : 4422691,
+               "nodeId" : "GAKPT7BFXX224DJ7KB7V22LTJ6WH4SRQSJ3VLW324FIVFB2P6VW2OF76",
+               "secondsConnected" : 266042,
+               "uniqueFetchBytesRecv" : 440,
+               "uniqueFetchMessageRecv" : 11,
+               "uniqueFloodBytesRecv" : 11156796,
+               "uniqueFloodMessageRecv" : 24685,
+               "version" : "1.0.5-1-g7f8dc82"
+            },
+            {
+               "bytesRead" : 1927832452,
+               "bytesWritten" : 1891387552,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1635660264,
+               "duplicateFloodMessageRecv" : 4092621,
+               "messagesRead" : 4396609,
+               "messagesWritten" : 4311492,
+               "nodeId" : "GAD3IYRUDJN7AVE4VUUQQO74AWFKLEFKB5BFUNOFM6KA4WH5G23GUQ7W",
+               "secondsConnected" : 267924,
+               "uniqueFetchBytesRecv" : 1200,
+               "uniqueFetchMessageRecv" : 30,
+               "uniqueFloodBytesRecv" : 77061364,
+               "uniqueFloodMessageRecv" : 196797,
+               "version" : "1.0.26"
+            },
+            {
+               "bytesRead" : 1960772888,
+               "bytesWritten" : 1953499612,
+               "duplicateFetchBytesRecv" : 0,
+               "duplicateFetchMessageRecv" : 0,
+               "duplicateFloodBytesRecv" : 1731586832,
+               "duplicateFloodMessageRecv" : 4338556,
+               "messagesRead" : 4470686,
+               "messagesWritten" : 4455365,
+               "nodeId" : "GDKMIZ6AJQVGYIKFNXLL6DR3J2V252ZVNIKMX5R4MCN4A567ESURCRZJ",
+               "secondsConnected" : 267924,
+               "uniqueFetchBytesRecv" : 200,
+               "uniqueFetchMessageRecv" : 5,
+               "uniqueFloodBytesRecv" : 10520348,
+               "uniqueFloodMessageRecv" : 24959,
+               "version" : "1.0.5-1-g7f8dc82"
+            }
+         ]
       }
    }
-   }
+}
 ```
-
-In this example, note that the node `GBBN` under the `topology` field has a `null` value because it's configured to not respond to the survey message.
 
 Notable field definitions
 
@@ -824,48 +1258,209 @@ Run
 The output looks something like:
 
 ```json
-{
-   "node" : "GCTSF",
+ {
+   "node" : "self",
    "qset" : {
-      "agree" : 6,
-      "cost" : 20883268,
+      "agree" : 12,
+      "cost" : {
+         "1077499" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077500" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077501" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077502" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6424
+         },
+         "1077503" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6424,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077504" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6424,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077505" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6424,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077506" : {
+            "aus" : 6424,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6424,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077507" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077508" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077509" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6232,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         },
+         "1077510" : {
+            "aus" : 6232,
+            "bra" : 6232,
+            "can" : 6232,
+            "deu-1" : 6232,
+            "fra-1" : 6424,
+            "gbr-1" : 6232,
+            "irl" : 6232,
+            "irl-1" : 6232,
+            "sgp" : 6232,
+            "sgp-1" : 6232,
+            "swe" : 6232
+         }
+      },
       "delayed" : null,
       "disagree" : null,
-      "fail_at" : 2,
-      "fail_with" : [ "sdf_watcher1", "sdf_watcher2" ],
-      "hash" : "d5c247",
+      "fail_at" : 3,
+      "fail_with" : [ "irl-1", "sgp-1", "fra-1" ],
+      "hash" : "bd50f0",
       "lag_ms" : {
-         "sdf_watcher1" : 192,
-         "sdf_watcher2" : 215,
-         "sdf_watcher3" : 79,
-         "stronghold1" : 321,
-         "eno" : 266,
-         "tempo.eu.com" : 225,
-         "satoshipay" : 249,
+         "aus" : 275,
+         "bra" : 198,
+         "can" : 96,
+         "deu-1" : 44,
+         "fra-1" : 62,
+         "gbr-1" : 51,
+         "irl" : 46,
+         "irl-1" : 76,
+         "sgp" : 159,
+         "sgp-1" : 187,
+         "swe" : 86
       },
-      "ledger" : 24311847,
-      "missing" : [ "stronghold1" ],
+      "ledger" : 1077510,
+      "missing" : null,
       "phase" : "EXTERNALIZE",
+      "validated" : true,
       "value" : {
-         "t" : 3,
+         "t" : 2,
          "v" : [
-            "sdf_watcher1",
-            "sdf_watcher2",
-            "sdf_watcher3",
             {
                "t" : 3,
-               "v" : [ "stronghold1", "eno", "tempo.eu.com", "satoshipay" ]
+               "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+            },
+            {
+               "t" : 4,
+               "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
             }
          ]
       }
    },
    "transitive" : {
-      "critical": [
-         [ "GDM7M" ]
-      ],
+      "critical" : null,
       "intersection" : true,
-      "last_check_ledger" : 24311536,
-      "node_count" : 21
+      "last_check_ledger" : 1026924,
+      "node_count" : 12
    }
 }
 ```
@@ -887,19 +1482,19 @@ Entries to watch for in the `qset` section -- describing the node and its quorum
 In the example above, 6 nodes are functioning properly, one is down (`stronghold1`), and
  the instance will fail if any two nodes still working (or one node and one inner-quorum-set) fail as well.
 
-If a node is stuck in state `Joining SCP`, this command allows to quickly find the reason:
+If a node is stuck in state `Joining DCP`, this command allows to quickly find the reason:
 
   * too many validators missing (down or without a good connectivity), solutions are:
     * [adjust quorum set](#crafting-a-quorum-set) (thresholds, grouping, etc) based on the nodes that are not missing
     * try to get a [better connectivity path](#quorum-and-overlay-network) to the missing validators
-  * network split would cause SCP to be stuck because of nodes that disagree. This would happen if either there is a bug in SCP, the network does not have quorum intersection or the disagreeing nodes are misbehaving (compromised, etc)
+  * network split would cause DCP to be stuck because of nodes that disagree. This would happen if either there is a bug in DCP, the network does not have quorum intersection or the disagreeing nodes are misbehaving (compromised, etc)
 
 Note that the node not being able to reach consensus does not mean that the network
 as a whole will not be able to reach consensus (and the opposite is true, the network
 may fail because of a different set of validators failing).
 
 You can get a sense of the quorum set health of a different node by doing
-`$ digitalbits-core http-command 'quorum?node=$sdf1` or `$ digitalbits-core http-command 'quorum?node=@GABCDE` 
+`$ digitalbits-core http-command 'quorum?node=$deu'` or `$ digitalbits-core http-command 'quorum?node=@GDKMIZ` 
 
 Overall network health can be evaluated by walking through all nodes and looking at their health. Note that this is only an approximation as remote nodes may not have received the same messages (in particular: `missing` for 
 other nodes is not reliable).
@@ -921,7 +1516,7 @@ the `transitive` field. This has several important sub-fields:
 
 The quorum endpoint can also retrieve detailed information for the transitive quorum.
 
-This is an easier to process format than what `scp` returns as it doesn't contain all SCP messages.
+This is an easier to process format than what `dcp` returns as it doesn't contain all DCP messages.
 
 `$ digitalbits-core http-command 'quorum?transitive=true'`
 
@@ -929,57 +1524,261 @@ The output looks something like:
 
 ```json
 {
- "critical": null,
- "intersection" : true,
- "last_check_ledger" : 121235,
- "node_count" : 4,
- "nodes" : [
+   "critical" : null,
+   "intersection" : true,
+   "last_check_ledger" : 1026924,
+   "node_count" : 12,
+   "nodes" : [
       {
          "distance" : 0,
-         "heard" : 121235,
-         "node" : "GB7LI",
+         "heard" : 1077537,
+         "node" : "self",
          "qset" : {
             "t" : 2,
-            "v" : [ "sdf1", "sdf2", "sdf3" ]
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
          },
          "status" : "tracking",
-         "value" : "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
          "value_id" : 1
       },
       {
          "distance" : 1,
-         "heard" : 121235,
-         "node" : "sdf2",
+         "heard" : 1077537,
+         "node" : "irl-1",
          "qset" : {
             "t" : 2,
-            "v" : [ "sdf1", "sdf2", "sdf3" ]
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
          },
          "status" : "tracking",
-         "value" : "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
          "value_id" : 1
       },
       {
          "distance" : 1,
-         "heard" : 121235,
-         "node" : "sdf3",
+         "heard" : 1077537,
+         "node" : "sgp-1",
          "qset" : {
             "t" : 2,
-            "v" : [ "sdf1", "sdf2", "sdf3" ]
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
          },
          "status" : "tracking",
-         "value" : "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
          "value_id" : 1
       },
       {
          "distance" : 1,
-         "heard" : 121235,
-         "node" : "sdf1",
+         "heard" : 1077537,
+         "node" : "can",
          "qset" : {
             "t" : 2,
-            "v" : [ "sdf1", "sdf2", "sdf3" ]
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
          },
          "status" : "tracking",
-         "value" : "[ txH: d99591, ct: 1557426183, upgrades: [ ] ]",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "fra-1",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "swe",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "bra",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "sgp",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "aus",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "deu-1",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "irl",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
+         "value_id" : 1
+      },
+      {
+         "distance" : 1,
+         "heard" : 1077537,
+         "node" : "gbr-1",
+         "qset" : {
+            "t" : 2,
+            "v" : [
+               {
+                  "t" : 3,
+                  "v" : [ "irl-1", "sgp-1", "fra-1", "deu-1", "gbr-1" ]
+               },
+               {
+                  "t" : 4,
+                  "v" : [ "self", "can", "swe", "bra", "sgp", "aus", "irl" ]
+               }
+            ]
+         },
+         "status" : "tracking",
+         "value" : "[ SIGNED@irl-1 txH: cb7bcc, ct: 1624010357, upgrades: [ ] ]",
          "value_id" : 1
       }
    ]
@@ -1062,19 +1861,19 @@ An improper plan may cause issues such as:
   * nodes missing consensus (aka "getting stuck"), and having to use history to rejoin
   * network reconfiguration taking effect at a non deterministic time (causing fees to change ahead of schedule for example)
 
-For more information look at [`docs/versioning.md`](../versioning.md).
+For more information look at [`docs/versioning.md`](https://developers.digitalbits.io/software/DigitalBits/docs/versioning).
 
 ### Example upgrade command
 
-Example here is to upgrade the protocol version to version 9 on January-31-2018.
+Example here is to upgrade the protocol version to version 15 on February-28-2021.
 
-  1. `$ digitalbits-core http-command 'upgrades?mode=set&upgradetime=2018-01-31T20:00:00Z&protocolversion=9'`
+  1. `$ digitalbits-core http-command 'upgrades?mode=set&upgradetime=2021-02-28T20:00:00Z&protocolversion=15'`
   2. `$ digitalbits-core http-command info`
 
 At this point `info` will tell you that the node is setup to vote for this upgrade:
 ```json
       "status" : [
-         "Armed with network upgrades: upgradetime=2018-01-31T20:00:00Z, protocolversion=9"
+         "Armed with network upgrades: upgradetime=2021-02-28T20:00:00Z, protocolversion=15"
       ]
 ```
 
@@ -1084,7 +1883,7 @@ This section contains information that is useful to know but that should not sto
 
 ### Creating your own private network
 
-[testnet.md](./testnet.md) is a short tutorial demonstrating how to
+[testnet](https://developers.digitalbits.io/software/DigitalBits/docs/software/testnet) is a short tutorial demonstrating how to
   configure and run a short-lived, isolated test network.
 
 ### Runtime information: start and stop
@@ -1100,7 +1899,7 @@ DigitalBits-core can be gracefully exited at any time by delivering `SIGINT` or
 
 ### In depth architecture
 
-[architecture.md](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/architecture.md) 
+[architecture](https://developers.digitalbits.io/software/DigitalBits/docs/architecture) 
   describes how digitalbits-core is structured internally, how it is intended to be 
   deployed, and the collection of servers and services needed to get the full 
   functionality and performance.
