@@ -8,7 +8,7 @@ When submitting changes that may impact the network's performance, we require to
 
 * Execution (real) time
 * CPU utilization at various interval, and/or percentile
-* Disk I/O at the operating system level (ie: unit is typically in blocks/s), both reads and writes of the stellar-core process
+* Disk I/O at the operating system level (ie: unit is typically in blocks/s), both reads and writes of the digitalbits-core process
 * SQL: rate of operations (read and writes), Disk I/O of the SQL process if available (*PostgreSQL*)
 * Memory utilization
 
@@ -30,12 +30,12 @@ There are 3 types of network available for testing.
 
 ### Public network
 #### What it's good for
-* The public network has historical data dating back to when the network launched in 2015, the transaction history is as diverse as it can be.
+* The public network has historical data dating back to when the network launched in 2021, the transaction history is as diverse as it can be.
 * Validating the performance characteristics of old versions of the protocol - which may allow to quantify potential performance regressions in old versions (that can be acceptable).
 * The public network has a much more diverse set of validators than testnet, which allows better evaluation of SCP related metrics.
 
 #### What it's not good for
-* SCP and flooding related changes typically require all validators to run code compatible with a change.
+* DCP and flooding related changes typically require all validators to run code compatible with a change.
 * The ledger may not be large enough when evaluating future trends.
 * Stress testing is expensive on the network and may lead to unnecessary outage.
 
@@ -75,8 +75,8 @@ Inject transactions, wait until they are incorporated into a ledger.
 This scenario looks at the overhead of flooding transactions and SCP messages (required for transactions to be included in a ledger).
 
 ### Built-in load generator
-stellar-core has a built-in load generator that allows to inject transactions on private networks.
-See the `generateload` [command](docs/software/commands.md) for more detail.
+digitalbits-core has a built-in load generator that allows to inject transactions on private networks.
+See the `generateload` [command](https://developers.digitalbits.io/software/DigitalBits/docs/software/commands) for more detail.
 
 ## Micro-benchmarks
 
@@ -88,11 +88,11 @@ In some cases it may make sense to submit changes to those tests (or write new m
 
 # Measuring metrics
 ## Built-in metrics
-Calling the `metrics` [command](docs/software/commands.md) allows to gather the metrics at various intervals.
+Calling the `metrics` [command](https://developers.digitalbits.io/software/DigitalBits/docs/software/commands) allows to gather the metrics at various intervals.
 
 ### Notable metrics
 
-See [docs/metrics](docs/metrics.md) for information on metrics exposed by stellar-core.
+See [docs/metrics](https://developers.digitalbits.io/software/DigitalBits/docs/metrics) for information on metrics exposed by digitalbits-core.
 
 ## System metrics
 Tools used to gather those metrics are O/S specific.
@@ -111,6 +111,7 @@ For a list of performance related tool, see https://en.wikipedia.org/wiki/Load_(
 
 
 Utilization per processor
+
 ```
 $ mpstat -P ALL
 06:16:11 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
@@ -131,6 +132,7 @@ On Linux system, this can be done with a command like
 `iotop` is the equivalent of `top` for I/O; it also allows to aggregate data, which can be useful to identify small but steady utilization of I/O subsystems.
 
 Basic view:
+
 ```
 iostat -d
 Linux 3.13.0-139-generic (core-live-005)        04/10/2018      _x86_64_        (2 CPU)
@@ -170,6 +172,7 @@ If you want to profile as a regular user, with `sysctl` check the values of:
     kernel.perf_event_mlock_kb
 
 In particular
+
      * `kernel.perf_event_paranoid` that when above 1, disables CPU events.
      * `kernel.sched_schedstats` should be set to 1
 
@@ -181,6 +184,7 @@ If they are not what you want, you can set them, as root:
 
 #### Compile flags
 Preparing the binary to be "perf friendly" (run before running `configure`):
+
 ```
 # whatever flags you want to set, -O2 is typical
 export CFLAGS="-O2"
@@ -194,6 +198,7 @@ export CXXFLAGS="$CXXFLAGS -fno-omit-frame-pointer -ggdb"
 #### Reducing the dataset
 
 A run can be scoped to
+
 * only a subset of threads, see the `--tid` option
 * a specific range, for example only capture data during "normal" operation,
 excluding startup/shutdown.
@@ -205,17 +210,21 @@ excluding startup/shutdown.
 Note: on some systems, the quality of symbols differs depending on the tool-chain. If you don't get good stack traces, try switching to gcc/g++.
 
 In order to improve the quality of stack traces:
-* Use your own version of dependencies (sqlite, etc) with the same compile options (done for you by stellar-core's configure script) 
+
+* Use your own version of dependencies (sqlite, etc) with the same compile options (done for you by digitalbits-core's configure script) 
 * Use alternate libraries such as google-tcmalloc
+
 ```
 # you may need to install a package such as libtcmalloc-minimal4 for this to work
 export LDFLAGS=-ltcmalloc_minimal
-# alternatively, you can start "stellar-core", with something like
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so ./stellar-core ...
+# alternatively, you can start "digitalbits-core", with something like
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so ./digitalbits-core ...
 ```
+
 * use clang/clang++ and a custom `libc++` compiled with the same compilation options that you use.
     * See [building a custom libc++](CONTRIBUTING.md#building-a-custom-libc)
     * Do not enable memory sanitizer for that version, instead run something like
+
 ```
     svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm
     (cd llvm/projects && svn co http://llvm.org/svn/llvm-project/libcxx/trunk libcxx)
@@ -239,28 +248,28 @@ You can just pull a local copy with
 ### Example perf sessions
 #### Sampling session
 
-This example grabs 60 seconds of data from a running stellar-core instance.
+This example grabs 60 seconds of data from a running digitalbits-core instance.
 
-    perf record -F 99 -p $(pgrep stellar-core) --call-graph dwarf,20000 -o perf-cpu.data -- sleep 60
+    perf record -F 99 -p $(pgrep digitalbits-core) --call-graph dwarf,20000 -o perf-cpu.data -- sleep 60
 
 To view the report: `perf report -n  -F +period -i perf-cpu.data`
 
 To generate a flame graph:
 
+```bash
     perf report --stdio -i perf-cpu.data --no-children -n -g folded,0,caller,count -s comm | awk '/^ / { comm = $3 } /^[0-9]/ { print comm ";" $2, $1 }'  > perf-cpu.folded
     ~/src/FlameGraph/flamegraph.pl perf-cpu.folded > ~/reports/folded-cpu.svg
-
-This generates a report that looks like [this](sample-reports/folded-cpu.svg)
+```
 
 #### "Off CPU" session
 
-Records for 60 seconds events related to when a running stellar-core process is waiting on something.
+Records for 60 seconds events related to when a running digitalbits-core process is waiting on something.
 
 As most threads "sleep" (waiting for some work), most of the interesting data in this report is in the smaller parts of the report (as the cummulative time of threads waiting for work is dominant).
 
 Note: "counts" in this report represent time in milliseconds.
 
-    perf record -e 'sched:sched_stat_sleep,sched:sched_switch,sched:sched_process_exit' -p $(pgrep stellar-core) --call-graph dwarf -o perf-offcpu-raw.data  -- sleep 60
+    perf record -e 'sched:sched_stat_sleep,sched:sched_switch,sched:sched_process_exit' -p $(pgrep digitalbits-core) --call-graph dwarf -o perf-offcpu-raw.data  -- sleep 60
     sudo perf inject -f -v -s -i perf-offcpu-raw.data -o perf-offcpu.data
     sudo chown user.user perf-offcpu.data
 
@@ -268,10 +277,11 @@ To view the report: `perf report -n  -F +period -i perf-offcpu.data`
 
 To generate a flame graph:
 
+```
     perf report --stdio -i perf-offcpu.data --no-children -n -g folded,0,caller,period -s comm | awk '/^ / { comm = $3 } /^[0-9]/ { print comm ";" $2, $1/1000000 }'  > perf-offcpu.folded
     ~/src/FlameGraph/flamegraph.pl perf-offcpu.folded > ~/reports/folded-offcpu.svg
+```
 
-This generates a report that looks like [this](sample-reports/folded-offcpu.svg)
 
 #### common issues
 
@@ -285,14 +295,16 @@ Hint:   Try 'sudo mount -o remount,mode=755 /sys/kernel/debug/tracing'
 
 solution is, as root to run
 
+```
     sysctl kernel.perf_event_paranoid=-1
     sysctl kernel.sched_schedstats=1
+```
 
 ## Windows
 
 ### Tracy
 
-Stellar-core has built-in support for Tracy traces.
+Digitalbits-core has built-in support for Tracy traces.
 
 To install the visualizer, follow the [build and install instructions](https://github.com/wolfpld/tracy) from the main Tracy site.
 
@@ -300,15 +312,19 @@ At a high level you need to
 
 install the required pre-requesites to build clients, run in a shell:
 
+```
     vcpkg.exe integrate install
     vcpkg.exe install --triplet x64-windows-static capstone freetype glfw3
+```
 
 Then build one of the servers.
 
 Solutions for servers compatible with the version of stellar-core can be found under:
 
+```
     * lib/tracy/profiler/build/win32 (GUI)
     * lib/tracy/capture/build/win32
+```
 
 Note: when connecting, use `localhost` instead of `127.0.0.1` as Tracy binds by default to IPV6 addresses.
 

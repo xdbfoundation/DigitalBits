@@ -5,7 +5,7 @@ title: DB Schema
 digitalbits-core maintains the current state of the ledger in a SQL DB. Currently
 it can be configured to use either sqlite or postgres.
 
-This database is the main way a dependent service such as Horizon can gather information on the current ledger state or transaction history.
+This database is the main way a dependent service such as Frontier can gather information on the current ledger state or transaction history.
 
 Most objects are the straight representation of the equivalent XDR object.
 See [`src/ledger/readme.md`](/src/ledger/readme.md) for a detailed description of those.
