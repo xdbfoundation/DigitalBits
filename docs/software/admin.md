@@ -25,16 +25,16 @@ This document describes various aspects of installing, configuring, and maintain
 
 ### Benefits of running a node
 
-You get to run your own Horizon instance:
+You get to run your own Frontier instance:
 
   * Allows for customizations (triggers, etc) of the business logic or APIs
   * Full control of which data to retain (historical or online)
   * A trusted entry point to the network
     * Trusted end to end (can implement additional counter measures to secure services)
-    * Open Horizon increases customer trust by allowing to query at the source (ie: larger token issuers have an official endpoint that can be queried)
+    * Open Frontier increases customer trust by allowing to query at the source (ie: larger token issuers have an official endpoint that can be queried)
   * Control of SLA
 
-note: in this document we use "Horizon" as the example implementation of a first tier service built on top of digitalbits-core, but any other system would get the same benefits.
+note: in this document we use "Frontier" as the example implementation of a first tier service built on top of digitalbits-core, but any other system would get the same benefits.
 
 ### Level of participation to the network
 
@@ -44,7 +44,7 @@ As a node operator you can participate to the network in multiple ways.
 | -------------------------------------------------- | ------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
 | description                                        | non-validator | all of watcher + publish to archive | all of watcher + active participation in consensus (submit proposals for the transaction set to include in the next ledger) | basic validator + publish to archive |
 | submits transactions                               | yes           | yes                                 | yes                                                                                                                         | yes                                  |
-| supports horizon                                   | yes           | yes                                 | yes                                                                                                                         | yes                                  |
+| supports frontier                                   | yes           | yes                                 | yes                                                                                                                         | yes                                  |
 | participates in consensus                          | no            | no                                  | yes                                                                                                                         | yes                                  |
 | helps other nodes to catch up and join the network | no            | yes                                 | no                                                                                                                          | yes                                  |
 | Increase the resiliency of the network             | No            | Medium                              | Low                                                                                                                         | High                                 |
@@ -63,7 +63,7 @@ Use cases:
   * Ephemeral instances, where having other nodes depend on those nodes is not desired
   * Potentially reduced administration cost (no or reduced SLA)
   * Real time network monitoring (which validators are present, etc)
-  * Generate network meta-data for other systems (Horizon)
+  * Generate network meta-data for other systems (Frontier)
 
 **Operational requirements**:
 
@@ -147,7 +147,7 @@ Storage wise, 20 GB seems to be an excellent working set as it leaves plenty of 
     * digitalbits-core needs access to a database (postgresql for example), which may reside on a different machine on the network
     * other connections can safely be blocked
   * **inbound**: digitalbits-core exposes an *unauthenticated* HTTP endpoint on port `HTTP_PORT` (default 11626)
-    * it is used by other systems (such as Horizon) to submit transactions (so may have to be exposed to the rest of your internal ips)
+    * it is used by other systems (such as Frontier) to submit transactions (so may have to be exposed to the rest of your internal ips)
     *  query information (info, metrics, ...) for humans and automation
     *  perform administrative commands (schedule upgrades, change log levels, ...)
 
@@ -170,15 +170,14 @@ The version number scheme that we follow is `protocol_version.release_number.pat
 See the [INSTALL](https://github.com/xdbfoundation/DigitalBits/blob/master/INSTALL.md) for build instructions.
 
 ### Package based Installation
-If you are using Ubuntu 16.04 LTS we provide the latest stable releases of [digitalbits-core](https://github.com/xdbfoundation/DigitalBits) and [digitalbits-horizon](https://github.com/xdbfoundation/go/tree/master/services/horizon) in Debian binary package format.
+If you are using Ubuntu 20.04 LTS we provide the latest stable releases of [digitalbits-core](https://github.com/xdbfoundation/DigitalBits) and [frontier](https://github.com/xdbfoundation/go/tree/master/services/frontier) in Debian binary package format.
 
-See [detailed installation instructions](https://github.com/xdbfoundation/packages#sdf---packages)
+See [detailed installation instructions](https://github.com/xdbfoundation/DigitalBits/releases)
 
 ### Container based installation
 Docker images are maintained in a few places, good starting points are:
 
-   * the [quickstart image](https://github.com/xdbfoundation/docker-digitalbits-core-horizon)
-   * the [standalone image](https://github.com/xdbfoundation/docker-digitalbits-core). **Warning**: this only tracks the latest master, so you have to find the image based on the [release](https://github.com/xdbfoundation/DigitalBits/releases) that you want to use.
+   * the [quickstart image](https://github.com/xdbfoundation/quickstart)
 
 ## Configuring
 
@@ -192,16 +191,16 @@ digitalbits-core loads `./digitalbits-core.cfg`, but you can specify a different
 
 The [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg) is not a real configuration, but documents all possible configuration elements as well as their default values.
 
-Here is an [example test network config](https://github.com/xdbfoundation/docker-digitalbits-core-horizon/blob/master/testnet/core/etc/digitalbits-core.cfg) for connecting to the test network.
+Here is an [example test network config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_testnet.cfg) for connecting to the test network.
 
-Here is an [example public network config](https://github.com/xdbfoundation/docs/blob/master/other/digitalbits-core-validator-example.cfg) for connecting to the public network.
+Here is an [example public network config](hhttps://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core.cfg) for connecting to the public network.
 
 The examples in this file don't specify `--conf betterfile.cfg` for brevity.
 
 Auditing of the P2P network is enabled by default, see the [overlay topology](#overlay-topology-survey) section for more detail if you'd like to disable it
 
 ### Validating node
-Nodes are considered **validating** if they take part in SCP and sign messages 
+Nodes are considered **validating** if they take part in DCP and sign messages 
 pledging that the network agreed to a particular transaction set.
 
 If you want to validate, you must generate a public/private key for your node.
@@ -212,15 +211,18 @@ messages will look like they came from you.
 Generate a key pair like this:
 
 `$ digitalbits-core gen-seed`
+
 the output will look something like
+
 ```
-Secret seed: SBAAOHEU4WSWX6GBZ3VOXEGQGWRBJ72ZN3B3MFAJZWXRYGDIWHQO37SY
-Public: GDMTUTQRCP6L3JQKX3OOKYIGZC6LG2O6K2BSUCI6WNGLL4XXCIB3OK2P
+Secret seed: SBWJ7VAPK6ABBHIJSJMUAUTVR2LQGNZNWW7NQIRV5D2BSGCE3PZA5EFI
+Public: GA7AIALXFIW2HN53Z77ZCYJIAW23NKGDMMU3ROYG3YQYLYV4ATCDL3FV
+
 ```
 
 Place the seed in your config:
 
-`NODE_SEED="SBAAOHEU4WSWX6GBZ3VOXEGQGWRBJ72ZN3B3MFAJZWXRYGDIWHQO37SY"`
+`NODE_SEED="SBWJ7VAPK6ABBHIJSJMUAUTVR2LQGNZNWW7NQIRV5D2BSGCE3PZA5EFI"`
 
 and set the following value in your config:
 
@@ -232,10 +234,11 @@ watch SCP and see all the data in the network but will not send validation messa
 NB: if you run more than one node, set the `HOME_DOMAIN` common to those nodes using the `NODE_HOME_DOMAIN` property.
 Doing so will allow your nodes to be grouped correctly during [quorum set generation](#home-domains-array).
 
-If you want other validators to add your node to their quorum sets, you should also share your public key (GDMTUTQ... ) by publishing a digitalbits.toml file on your homedomain following specs laid out in [SEP-20](https://github.com/xdbfoundation/digitalbits-protocol/blob/master/ecosystem/sep-0020.md). 
+If you want other validators to add your node to their quorum sets, you should also share your public key (GDMTUTQ... ) by publishing a digitalbits.toml file on your homedomain.
 
 ### Choosing your quorum set
 A good quorum set:
+
 * aligns with your organization’s priorities 
 * has enough redundancy to handle arbitrary node failures
 * maintains good quorum intersection 
@@ -250,9 +253,9 @@ To generate a quorum set, digitalbits core:
 While this does not absolve you of all responsibility — you still need to pick trustworthy validators and keep an eye on them to ensure that they’re consistent and reliable — it does make your life easier, and reduces the chances for human error.
 
 #### Validator discovery
-When you add a validating node to your quorum set, it’s generally because you trust the *organization* running the node: you trust SDF, not some anonymous DigitalBits public key. 
+When you add a validating node to your quorum set, it’s generally because you trust the *organization* running the node: you trust XDB Foundation, not some anonymous DigitalBits public key. 
 
-In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a digitalbits.toml file hosted on that domain.  To find out how that works, take a look at [SEP-20](https://github.com/xdbfoundation/digitalbits-protocol/blob/master/ecosystem/sep-0020.md).  
+In order to create a self-verified link between a node and the organization that runs it, a validator declares a home domain on-chain using a `set_options` operation, and publishes organizational information in a digitalbits.toml file hosted on that domain.  
 
 As a result of that link, you can look up a node by its DigitalBits public key and check the digitalbits.toml to find out who runs it. If you decide to trust an organization, you can use that list to collect the information necessary to add their nodes to your configuration.  
 
@@ -301,25 +304,32 @@ Here’s an example:
 
 ```
 [[VALIDATORS]]
-NAME="sdftest1"
+NAME="deu-1"
 HOME_DOMAIN="testnet.digitalbits.io"
-PUBLIC_KEY="GDKXE2OZMJIPOSLNA6N6F2BVCI3O777I2OOC4BV7VOYUEHYX7RTRYA7Y"
-ADDRESS="core-testnet1.digitalbits.io"
-HISTORY="curl -sf http://history.digitalbits.io/prd/core-testnet/core_testnet_001/{0} -o {1}"
+PUBLIC_KEY="GCV5THURTQOWMLBB6QSL5CJJTQHTZN5GTZ2QGJCDOLLP4JZSK56SHNIV"
+ADDRESS="deu-1.testnet.digitalbits.io"
+HISTORY="curl -sf https://history.testnet.digitalbits.io/node1/{0} -o {1}"
 
 [[VALIDATORS]]
-NAME="sdftest2"
+NAME="deu-2"
 HOME_DOMAIN="testnet.digitalbits.io"
-PUBLIC_KEY="GCUCJTIYXSOXKBSNFGNFWW5MUQ54HKRPGJUTQFJ5RQXZXNOLNXYDHRAP"
-ADDRESS="core-testnet2.digitalbits.io"
-HISTORY="curl -sf http://history.digitalbits.io/prd/core-testnet/core_testnet_002/{0} -o {1}"
+PUBLIC_KEY="GCVJL3CPBWAJMYTR7PAOKNQMZ6KWDZUZNY4P6ACKACQETXPK3XOU3YUI"
+ADDRESS="deu-2.testnet.digitalbits.io"
+HISTORY="curl -sf https://history.testnet.digitalbits.io/node2/{0} -o {1}"
 
 [[VALIDATORS]]
-NAME="rando-node"
+NAME="deu-3"
+HOME_DOMAIN="testnet.digitalbits.io"
+PUBLIC_KEY="GD4WG4HSA7CODZBSCXOPGVZM2RZ4BEEYH36WJ4PTTV4C474DZ5QL4LX7"
+ADDRESS="deu-3.testnet.digitalbits.io"
+HISTORY="curl -sf https://history.testnet.digitalbits.io/node3/{0} -o {1}"
+
+[[VALIDATORS]]
+NAME="some-random-node"
 QUALITY="LOW"
-HOME_DOMAIN="rando.com"
-PUBLIC_KEY="GC2V2EFSXN6SQTWVYA5EPJPBWWIMSD2XQNKUOHGEKB535AQE2I6IXV2Z"
-ADDRESS="core.rando.com"
+HOME_DOMAIN="somerandomdomain.com"
+PUBLIC_KEY="GA7AIALXFIW2HN53Z77ZCYJIAW23NKGDMMU3ROYG3YQYLYV4ATCDL3FV"
+ADDRESS="node.somerandomdomain.com"
 ```
 
 #### Validator quality
@@ -328,6 +338,7 @@ ADDRESS="core.rando.com"
 **HIGH** quality validators are given the most weight in automatic quorum set configuration.  Before assigning a high quality rating to a node, make sure it has low latency and good uptime, and that the organization running the node is reliable and trustworthy.  
 
 A high quality a validator:
+
 * publishes an archive
 * belongs to a suite of nodes that provide redundancy 
 
@@ -339,6 +350,7 @@ Choosing redundant nodes is good practice.  The archive requirement is programma
  
 #### Automatic quorum set generation
 Once you add validators to your configuration, digitalbits core automatically generates a quorum set using the following rules:
+
 * Validators with the same home domain are automatically grouped together and given a threshold requiring a simple majority (2f+1)
 * Heterogeneous groups of validators are given a threshold assuming byzantine failure (3f+1)
 * Entities are grouped by QUALITY and nested from HIGH to LOW 
@@ -379,7 +391,7 @@ Cross reference your validator settings, in particular:
     * known peers
   * home domains and validators arrays
   * seed defined if validating
-  * [Automatic maintenance](#cursors-and-automatic-maintenance) configured properly, especially when digitalbits-core is used in conjunction with a downstream system like Horizon.
+  * [Automatic maintenance](#cursors-and-automatic-maintenance) configured properly, especially when digitalbits-core is used in conjunction with a downstream system like Frontier.
 
 ### Database and local state
 
@@ -396,30 +408,30 @@ DigitalBits-core stores the state of the ledger in a SQL database.
 
 This DB should either be a SQLite database or, for larger production instances, a separate PostgreSQL server.
 
-*Note: Horizon currently depends on using PostgreSQL.*
+*Note: Frontier currently depends on using PostgreSQL.*
 
 For how to specify the database, 
 see the [example config](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/digitalbits-core_example.cfg).
 
 ##### Cursors and automatic maintenance
 
-Some tables in the database act as a publishing queue for external systems such as Horizon and generate **meta data** for changes happening to the distributed ledger.
+Some tables in the database act as a publishing queue for external systems such as Frontier and generate **meta data** for changes happening to the distributed ledger.
 
 If not managed properly those tables will grow without bounds. To avoid this, a built-in scheduler will delete data from old ledgers that are not used anymore by other parts of the system (external systems included).
 
 The settings that control the automatic maintenance behavior are: `AUTOMATIC_MAINTENANCE_PERIOD`,  `AUTOMATIC_MAINTENANCE_COUNT` and `KNOWN_CURSORS`.
 
-By default, digitalbits-core will perform this automatic maintenance, so be sure to disable it until you have done the appropriate data ingestion in downstream systems (Horizon for example sometimes needs to reingest data).
+By default, digitalbits-core will perform this automatic maintenance, so be sure to disable it until you have done the appropriate data ingestion in downstream systems (Frontier for example sometimes needs to reingest data).
 
 If you need to regenerate the meta data, the simplest way is to replay ledgers for the range you're interested in after (optionally) clearing the database with `newdb`.
 
 ##### Meta data snapshots and restoration
 
-Some deployments of digitalbits-core and Horizon will want to retain meta data for the _entire history_ of the network. This meta data can be quite large and computationally expensive to regenerate anew by replaying ledgers in digitalbits-core from an empty initial database state, as described in the previous section.
+Some deployments of digitalbits-core and Frontier will want to retain meta data for the _entire history_ of the network. This meta data can be quite large and computationally expensive to regenerate anew by replaying ledgers in digitalbits-core from an empty initial database state, as described in the previous section.
 
-This can be especially costly if run more than once. For instance, when bringing a new node online. Or even if running a single node with Horizon, having already ingested the meta data _once_: a subsequent version of Horizon may have a schema change that entails re-ingesting it _again_.
+This can be especially costly if run more than once. For instance, when bringing a new node online. Or even if running a single node with Frontier, having already ingested the meta data _once_: a subsequent version of Frontier may have a schema change that entails re-ingesting it _again_.
 
-Some operators therefore prefer to shut down their digitalbits-core (and/or Horizon) processes and _take filesystem-level snapshots_ or _database-level dumps_ of the contents of digitalbits-core's database and bucket directory, and/or Horizon's database, after meta data generation has occurred the first time. Such snapshots can then be restored, putting digitalbits-core and/or Horizon in a state containing meta data without performing full replay.
+Some operators therefore prefer to shut down their digitalbits-core (and/or Frontier) processes and _take filesystem-level snapshots_ or _database-level dumps_ of the contents of digitalbits-core's database and bucket directory, and/or Frontier's database, after meta data generation has occurred the first time. Such snapshots can then be restored, putting digitalbits-core and/or Frontier in a state containing meta data without performing full replay.
 
 Any reasonably-recent state will do -- if such a snapshot is a little old, digitalbits-core will replay ledgers from whenever the snapshot was taken to the current network state anyways -- but this procedure can greatly accelerate restoring validator nodes, or cloning them to create new ones.
 
@@ -467,6 +479,7 @@ Archive sections can also be configured with `put` and `mkdir` commands to
  cause the instance to publish to that archive (for nodes configured as [archiver nodes](#archiver-nodes) or [full validators](#full-validators)).
 
 The very first time you want to use your archive *before starting your node* you need to initialize it with:
+
 `$ digitalbits-core new-hist <historyarchive>`
 
 **IMPORTANT:**
@@ -528,7 +541,7 @@ You should see `authenticated_count` increase.
 
 Until the node sees a quorum, it will say
 ```json
-"state" : "Joining SCP"
+"state" : "Joining DCP"
 ```
 
 After observing consensus, a new field `quorum` will be set with information on what the network decided on, at this point the node will switch to "*Catching up*":
@@ -615,47 +628,49 @@ The output will look something like
 
 ```json
 {
-      "build" : "v11.1.0",
-      "history_failure_rate" : "0",
+   "info" : {
+      "build" : "1.0.5-1-g7f8dc82",
+      "history_failure_rate" : "0.0",
       "ledger" : {
-         "age" : 3,
+         "age" : 4,
          "baseFee" : 100,
-         "baseReserve" : 5000000,
-         "closeTime" : 1560350852,
-         "hash" : "40d884f6eb105da56bea518513ba9c5cda9a4e45ac824e5eac8f7262c713cc60",
-         "maxTxSetSize" : 1000,
-         "num" : 24311579,
-         "version" : 11
+         "baseReserve" : 100000000,
+         "closeTime" : 1624009448,
+         "hash" : "97b5ac15116706543420b2b656c277c53351dcfdd68d7ba2ff38116d6b67b422",
+         "maxTxSetSize" : 100,
+         "num" : 1077364,
+         "version" : 15
       },
-      "network" : "Public Global DigitalBits Network ; September 2015",
+      "network" : "LiveNet Global DigitalBits Network ; February 2021",
       "peers" : {
-         "authenticated_count" : 5,
+         "authenticated_count" : 11,
          "pending_count" : 0
       },
-      "protocol_version" : 10,
+      "protocol_version" : 15,
       "quorum" : {
+         "node" : "self",
          "qset" : {
-            "agree" : 6,
-            "cost" : 20883268,
+            "agree" : 12,
+            "cost" : 68552,
             "delayed" : 0,
             "disagree" : 0,
-            "fail_at" : 2,
-            "hash" : "d5c247",
-            "lag_ms" : 430,
-            "ledger" : 24311579,
-            "missing" : 1,
-            "phase" : "EXTERNALIZE"
+            "fail_at" : 3,
+            "hash" : "bd50f0",
+            "lag_ms" : 115,
+            "ledger" : 1077363,
+            "missing" : 0,
+            "phase" : "EXTERNALIZE",
+            "validated" : true
          },
          "transitive" : {
             "critical" : null,
             "intersection" : true,
-            "last_check_ledger" : 24311536,
-            "node_count" : 21
+            "last_check_ledger" : 1026924,
+            "node_count" : 12
          }
       },
-      "startedOn" : "2019-06-10T17:40:29Z",
-      "state" : "Catching up",
-      "status" : [ "Catching up: downloading and verifying buckets: 30/30 (100%)" ]
+      "startedOn" : "2021-06-15T07:58:26Z",
+      "state" : "Synced!"
    }
 }
 ```
@@ -673,7 +688,7 @@ Some notable fields in `info` are:
     * `pending_count` are connections that are not fully established yet
   * `protocol_version` is the maximum version of the protocol that this instance recognizes
   * `state` : indicates the node's synchronization status relative to the network.
-  * `quorum` : summarizes the state of the SCP protocol participants, the same as the information returned by the `quorum` command (see below).
+  * `quorum` : summarizes the state of the DCP protocol participants, the same as the information returned by the `quorum` command (see below).
 
 ### Overlay information
 

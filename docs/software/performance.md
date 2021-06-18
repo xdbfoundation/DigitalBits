@@ -59,9 +59,9 @@ The performance of each such process will vary depending on how it is configured
 
 History archiving (or lack thereof) will typically _not_ alter the load caused on _any other_ subsystems. Since history archiving is essential to having adequate backups of the state of the network, it is strongly recommended that nodes archive history if they can afford to.
 
-### Horizon support dimension
+### Frontier support dimension
 
-Nodes configured to support a Horizon server are typically under significant load at the database level _caused by_ Horizon. This means that the resulting database performance available to `digitalbits-core`'s database, ledger and transaction subsystems is greatly reduced. Configuring dedicated non-consensus nodes to support Horizon, or running Horizon on a read replica of a `digitalbits-core` database, may be a reasonable option to alleviate this contention.
+Nodes configured to support a Frontier server are typically under significant load at the database level _caused by_ Frontier. This means that the resulting database performance available to `digitalbits-core`'s database, ledger and transaction subsystems is greatly reduced. Configuring dedicated non-consensus nodes to support Frontier, or running Frontier on a read replica of a `digitalbits-core` database, may be a reasonable option to alleviate this contention.
 
 ## Variation in node configuration
 
@@ -80,7 +80,7 @@ Some key configuration choices concerning storage access will greatly affect per
   1. The `BUCKET_DIR_PATH` config option sets the location that `digitalbits-core` places its buckets while (re)writing the bucket list. This should be located on a relatively fast, low-latency local disk. Ideally SSD or NVMe or similar. The faster the better. It does not need to be _very_ large and should not grow in usage _very_ fast, though `digitalbits-core` will fail if it fills up, so keep an eye on its utilization and make sure there's plenty of room.
   2. The `DATABASE` config value controls not only which _kind_ of database the node is performing transactions against, but also _where_ the database is located. Unlike with many database-backed programs, the _content_ of the database in a `digitalbits-core` installation is somewhat ephemeral: every node has a complete copy of it, as does every history archive, and the database can always be restored / rebuilt from history archives (it is in fact being continuously backed up every 5 minutes). So the main thing to optimize for here is latency, especially on nodes doing consensus. We recommend either:
 
-     * SQLite on a fast, local disk. This is probably the fastest option and is perfectly adequate for many types of node. Note: if you are running Horizon, it will need to access digitalbits-core's database to ingest data. It is not compatible with SQLite. 
+     * SQLite on a fast, local disk. This is probably the fastest option and is perfectly adequate for many types of node. Note: if you are running Frontier, it will need to access digitalbits-core's database to ingest data. It is not compatible with SQLite. 
      * The newest version of PostgreSQL supported (a minimum version is listed in installation instructions but we usually test with newer versions as well).
 
          * Ideally running on the same physical machine as `digitalbits-core`
