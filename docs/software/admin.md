@@ -1861,7 +1861,7 @@ An improper plan may cause issues such as:
   * nodes missing consensus (aka "getting stuck"), and having to use history to rejoin
   * network reconfiguration taking effect at a non deterministic time (causing fees to change ahead of schedule for example)
 
-For more information look at [`docs/versioning.md`](https://developers.digitalbits.io/software/DigitalBits/docs/versioning).
+For more information look at [`docs/versioning.md`](../versioning.md).
 
 ### Example upgrade command
 
@@ -1883,7 +1883,7 @@ This section contains information that is useful to know but that should not sto
 
 ### Creating your own private network
 
-[testnet](https://developers.digitalbits.io/software/DigitalBits/docs/software/testnet) is a short tutorial demonstrating how to
+[testnet](./testnet.md) is a short tutorial demonstrating how to
   configure and run a short-lived, isolated test network.
 
 ### Runtime information: start and stop
@@ -1899,7 +1899,7 @@ DigitalBits-core can be gracefully exited at any time by delivering `SIGINT` or
 
 ### In depth architecture
 
-[architecture](https://developers.digitalbits.io/software/DigitalBits/docs/architecture) 
+[architecture](../architecture.md) 
   describes how digitalbits-core is structured internally, how it is intended to be 
   deployed, and the collection of servers and services needed to get the full 
   functionality and performance.

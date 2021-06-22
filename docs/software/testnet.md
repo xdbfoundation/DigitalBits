@@ -1,8 +1,4 @@
----
-title: Testnet
----
-
-Review the [admin guide](https://developers.digitalbits.io/software/DigitalBits/docs/software/admin) for more detailed information.
+Review the [admin guide](./admin.md) for more detailed information.
 
 ## Starting a test network with 1 node
 
