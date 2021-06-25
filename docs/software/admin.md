@@ -1883,6 +1883,7 @@ This section contains information that is useful to know but that should not sto
 
 ### Creating your own private network
 
+
 [testnet](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/testnet.md) is a short tutorial demonstrating how to
   configure and run a short-lived, isolated test network.
 
@@ -1899,7 +1900,9 @@ DigitalBits-core can be gracefully exited at any time by delivering `SIGINT` or
 
 ### In depth architecture
 
+
 [architecture](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/architecture.md) 
+
   describes how digitalbits-core is structured internally, how it is intended to be 
   deployed, and the collection of servers and services needed to get the full 
   functionality and performance.
