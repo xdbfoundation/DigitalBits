@@ -15,7 +15,7 @@ You can use the [quickstart](https://github.com/xdbfoundation/quickstart)
 image to run the latest stable and release candidate digitalbits-core with Docker.
 
 ### Dev container
-Using vscode and the [container support in Visual Studio Code](../.devcontainer/README.md)
+Using vscode and the container support in Visual Studio Code
 you can quickly build and run a digitalbits-core instance from your machine.
 
 ## Builds with testing hooks enabled
@@ -40,7 +40,7 @@ critical tasks.
 A special command `logrotate` can be used in conjunction with log rotation tools. 
 
 ### Metrics
-Core keeps tracks of [internal metrics](metrics.md), which includes all sorts of data about
+Core keeps tracks of [internal metrics](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/metrics.md), which includes all sorts of data about
 what core is actually doing.
 
 The `metrics` command returns all those metrics in one json object.
@@ -52,7 +52,7 @@ want to get a clean reading (post setup) of certain metrics.
 
 You can get information from the overlay network:
  * locally with the `peers` endpoint
- * globally using the [survey](docs/../software/admin.md#overlay-topology-survey) commands
+ * globally using the [survey](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/admin.md#overlay-topology-survey) commands
 
 You have some control over which peers you're connected to:
  * the `ban` command allows to ban peers (so that neither inbound nor outbound are allowed until unbanned).

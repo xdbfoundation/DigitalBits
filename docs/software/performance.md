@@ -12,7 +12,7 @@ The performance of a `digitalbits-core` node varies in two main dimensions:
 
   1. _What it is configured to do_:
 
-     * As discussed in the [admin.md](./admin.md) file, nodes may be configured as watchers, archivers, basic validators or full validators. These roles have different performance costs.
+     * As discussed in the [admin.md](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/admin.md) file, nodes may be configured as watchers, archivers, basic validators or full validators. These roles have different performance costs.
      * Each such role may have a variety of options enabled or disabled at varying costs to the node.
 
   2. _How it is physically and logically configured to do its job_:
@@ -35,7 +35,7 @@ For purposes of understanding performance, the following subsystems of `digitalb
   7. **History**: This subsystem is responsible for queueing outgoing history records being sent to a _history archive_, as well as fetching and applying history records _from_ such an archive if the node falls out of sync with its peers and needs to catch up. Usually history is lightly loaded, but when it is active it can generate load on CPU and network, as well as against **ledger** (and thereby **database**).
   8. **Bucket list**: This subsystem maintains a redundant copy of the database in a log-structured merge tree form on disk, that is amenable to efficient delta calculation and cryptographic hashing. The former is used for "fast" catch-up, the latter for calculating a state-of-the-world hash at each ledger close. Buckets in the bucket list are written to disk and rewritten at exponentially-distributed intervals, with less-frequently-written buckets being commensurately exponentially larger. Thus periodic spikes in IO load will occur when larger buckets are (re)written; this happens on background threads and is optimized to be mostly-sequential, but it is still noticeable.
 
-For more detail on these subsystems, see the [architecture.md](../architecture.md) document.
+For more detail on these subsystems, see the [architecture.md](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/architecture.md) document.
 
 ## Variation in node function
 
