@@ -518,7 +518,7 @@ as `curl`, or by running a command such as
 
 The endpoint is [not intended to be exposed to the public internet](#interaction-with-other-internal-systems). It's typically accessed by administrators, or by a mid-tier application to submit transactions to the DigitalBits network. 
 
-See [commands](./commands.md) for a description of the available commands.
+See [commands](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/commands.md) for a description of the available commands.
 
 ### Joining the network
 
@@ -1861,7 +1861,7 @@ An improper plan may cause issues such as:
   * nodes missing consensus (aka "getting stuck"), and having to use history to rejoin
   * network reconfiguration taking effect at a non deterministic time (causing fees to change ahead of schedule for example)
 
-For more information look at [`docs/versioning.md`](../versioning.md).
+For more information look at [`docs/versioning.md`](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/versioning.md).
 
 ### Example upgrade command
 
@@ -1883,7 +1883,7 @@ This section contains information that is useful to know but that should not sto
 
 ### Creating your own private network
 
-[testnet](./testnet.md) is a short tutorial demonstrating how to
+[testnet](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/testnet.md) is a short tutorial demonstrating how to
   configure and run a short-lived, isolated test network.
 
 ### Runtime information: start and stop
@@ -1899,7 +1899,7 @@ DigitalBits-core can be gracefully exited at any time by delivering `SIGINT` or
 
 ### In depth architecture
 
-[architecture](../architecture.md) 
+[architecture](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/architecture.md) 
   describes how digitalbits-core is structured internally, how it is intended to be 
   deployed, and the collection of servers and services needed to get the full 
   functionality and performance.
