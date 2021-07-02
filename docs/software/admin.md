@@ -518,7 +518,7 @@ as `curl`, or by running a command such as
 
 The endpoint is [not intended to be exposed to the public internet](#interaction-with-other-internal-systems). It's typically accessed by administrators, or by a mid-tier application to submit transactions to the DigitalBits network. 
 
-See [commands](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/commands.md) for a description of the available commands.
+See [commands](./commands.md) for a description of the available commands.
 
 ### Joining the network
 
@@ -1884,7 +1884,7 @@ This section contains information that is useful to know but that should not sto
 ### Creating your own private network
 
 
-[testnet](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/testnet.md) is a short tutorial demonstrating how to
+[testnet](./testnet.md) is a short tutorial demonstrating how to
   configure and run a short-lived, isolated test network.
 
 ### Runtime information: start and stop

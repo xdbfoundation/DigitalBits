@@ -2,7 +2,7 @@
 title: Testnet
 ---
 
-Review the [admin guide](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/admin.md) for more detailed information.
+Review the [admin guide](./admin.md) for more detailed information.
 
 ## Starting a test network with 1 node
 

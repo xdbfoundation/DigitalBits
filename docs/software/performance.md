@@ -12,7 +12,7 @@ The performance of a `digitalbits-core` node varies in two main dimensions:
 
   1. _What it is configured to do_:
 
-     * As discussed in the [admin.md](https://github.com/xdbfoundation/DigitalBits/blob/master/docs/software/admin.md) file, nodes may be configured as watchers, archivers, basic validators or full validators. These roles have different performance costs.
+     * As discussed in the [admin.md](./admin.md) file, nodes may be configured as watchers, archivers, basic validators or full validators. These roles have different performance costs.
      * Each such role may have a variety of options enabled or disabled at varying costs to the node.
 
   2. _How it is physically and logically configured to do its job_:
