@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   tagbump:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}   
   linuxbuild:
     needs: tagbump
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -46,19 +46,12 @@ jobs:
           sudo apt-get install -y software-properties-common
           sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt-get install -y git alien \
-                    build-essential pkg-config \
-                    autoconf automake libtool \
-                    bison flex libpq-dev \
-                    libunwind-dev parallel \
-                    clang-8 \
-                    gcc-6 g++-6 cpp-6 \
-                    libc++-8-dev libc++abi-8-dev unzip curl \
-                    python3-pip ruby ruby-dev rubygems python3-setuptools
+          sudo apt-get install git build-essential alien pkg-config \
+          autoconf automake libtool bison flex libpq-dev libunwind-dev \
+          parallel gcc-8 g++-8 cpp-8 unzip curl \
+          python3-pip ruby ruby-dev rubygems python3-setuptools 
           pip3 install wheel
-          pip3 install cloudsmith-cli==0.26.0
-          pip3 uninstall click -y
-          pip3 install click==7.1.2
+          pip3 install cloudsmith-cli
           sudo gem install --no-document fpm
 
       - name: Build the app    
