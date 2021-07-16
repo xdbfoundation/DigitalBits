@@ -22,7 +22,7 @@ using namespace digitalbits;
 TEST_CASE("LedgerCloseMetaStream file descriptor - LIVE_NODE",
           "[ledgerclosemetastreamlive]")
 {
-    // Live reqires a multinode simulation, as we're not allowed to run a
+    // Live requires a multinode simulation, as we're not allowed to run a
     // validator and record metadata streams at the same time (to avoid the
     // unbounded-latency stream-write step): N nodes participating in consensus,
     // and one watching and streamnig metadata.
@@ -31,6 +31,7 @@ TEST_CASE("LedgerCloseMetaStream file descriptor - LIVE_NODE",
     TmpDirManager tdm(std::string("streamtmp-") + binToHex(randomBytes(8)));
     TmpDir td = tdm.tmpDir("streams");
     std::string path = td.getName() + "/stream.xdr";
+    size_t nLcmInitValue = 0;
 
     {
         // Step 1: Set up a 4 node simulation with 3 validators and 1 watcher.
@@ -72,6 +73,8 @@ TEST_CASE("LedgerCloseMetaStream file descriptor - LIVE_NODE",
         auto app3 = simulation->addNode(vNode3SecretKey, qSet, &cfg3);
         auto app4 = simulation->addNode(vNode4SecretKey, qSet, &cfg4);
 
+        nLcmInitValue = app4->getLedgerManager().getLastClosedLedgerNum();
+
         simulation->addPendingConnection(vNode1NodeID, vNode2NodeID);
         simulation->addPendingConnection(vNode1NodeID, vNode3NodeID);
         simulation->addPendingConnection(vNode1NodeID, vNode4NodeID);
@@ -92,7 +95,7 @@ TEST_CASE("LedgerCloseMetaStream file descriptor - LIVE_NODE",
     XDRInputFileStream stream;
     stream.open(path);
     LedgerCloseMeta lcm;
-    size_t nLcm = 1;
+    size_t nLcm = nLcmInitValue;
     while (stream && stream.readOne(lcm))
     {
         ++nLcm;

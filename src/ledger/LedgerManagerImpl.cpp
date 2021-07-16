@@ -281,6 +281,9 @@ LedgerManagerImpl::startFeeLedger(LedgerHeader const& feeLedger)
 
     ltx.create(feePoolEntry);
 
+    CLOG_INFO(Ledger, "Established fee pool ledger, closing");
+    CLOG_INFO(Ledger, "Fee Pool account seed: {}", fskey.getStrKeySeed().value);
+
     ledgerClosed(ltx);
     ltx.commit();
 }
@@ -341,8 +344,10 @@ LedgerManagerImpl::loadLastKnownLedger(
             // In no-history mode, this method should only be called when
             // the LCL is genesis.
             releaseAssertOrThrow(mLastClosedLedger.hash == lastLedgerHash);
+            // fee ledger will be always pushed right after genesis, thus 
+            // ledgerSeq will be GENESIS_LEDGER_SEQ + 1
             releaseAssertOrThrow(mLastClosedLedger.header.ledgerSeq ==
-                                 GENESIS_LEDGER_SEQ);
+                                 GENESIS_LEDGER_SEQ + 1);
             CLOG_INFO(Ledger, "LCL is genesis: {}",
                       ledgerAbbrev(mLastClosedLedger));
         }
@@ -1097,7 +1102,7 @@ LedgerManagerImpl::ledgerClosed(AbstractLedgerTxn& ltx)
     ZoneScoped;
     auto ledgerSeq = ltx.loadHeader().current().ledgerSeq;
     auto ledgerVers = ltx.loadHeader().current().ledgerVersion;
-    CLOG_TRACE(Ledger,
+    CLOG_INFO(Ledger,
                "sealing ledger {} with version {}, sending to bucket list",
                ledgerSeq, ledgerVers);
 
