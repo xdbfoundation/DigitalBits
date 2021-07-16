@@ -21,8 +21,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install git build-essential alien pkg-config \
           autoconf automake libtool bison flex libpq-dev libunwind-dev \
-          parallel gcc-8 g++-8 cpp-8 unzip curl
-
+          parallel gcc-8 g++-8 cpp-8 unzip curl \
+          python3-pip ruby ruby-dev rubygems python3-setuptools  \
+          pip3 install wheel
+          pip3 install cloudsmith-cli
+          cloudsmith --help
       - name: Build the app    
         run: |
            ./autogen.sh
