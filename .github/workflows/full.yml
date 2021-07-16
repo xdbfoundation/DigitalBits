@@ -56,10 +56,6 @@ jobs:
 
       - name: Build the app    
         run: |
-          export ENV CC=clang-8
-          export ENV CXX=clang++-8
-          export ENV CFLAGS="-O3 -g1 -fno-omit-frame-pointer"
-          export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
            ./autogen.sh
            ./configure  
            make -j`nproc`
