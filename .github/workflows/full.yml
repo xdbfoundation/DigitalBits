@@ -1,19 +1,13 @@
-name: LinuxMacOS
+name: Release For All Platforms
 # Controls when the action will run. 
 on:
   push:
-  # Triggers the workflow on push or pull request events but only for the master branch
-#  push:
-#    branches: [ master ]
-#  pull_request:
-#    branches: [ master ]
-  # release:
-  #   types: [created]
-  # Allows you to run this workflow manually from the Actions tab
+    branches: 
+      - master
   workflow_dispatch:
 jobs:
   tagbump:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -35,7 +29,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}   
   linuxbuild:
     needs: tagbump
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -52,27 +46,16 @@ jobs:
           sudo apt-get install -y software-properties-common
           sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
           sudo apt-get update
-          sudo apt-get install -y git alien \
-                    build-essential pkg-config \
-                    autoconf automake libtool \
-                    bison flex libpq-dev \
-                    libunwind-dev parallel \
-                    clang-8 \
-                    gcc-6 g++-6 cpp-6 \
-                    libc++-8-dev libc++abi-8-dev unzip curl \
-                    python3-pip ruby ruby-dev rubygems python3-setuptools
+          sudo apt-get install git build-essential alien pkg-config \
+          autoconf automake libtool bison flex libpq-dev libunwind-dev \
+          parallel gcc-8 g++-8 cpp-8 unzip curl \
+          python3-pip ruby ruby-dev rubygems python3-setuptools 
           pip3 install wheel
-          pip3 install cloudsmith-cli==0.26.0
-          pip3 uninstall click -y
-          pip3 install click==7.1.2
+          pip3 install cloudsmith-cli
           sudo gem install --no-document fpm
 
       - name: Build the app    
         run: |
-          export ENV CC=clang-8
-          export ENV CXX=clang++-8
-          export ENV CFLAGS="-O3 -g1 -fno-omit-frame-pointer"
-          export ENV CXXFLAGS="$CFLAGS -stdlib=libc++" 
            ./autogen.sh
            ./configure  
            make -j`nproc`
@@ -88,7 +71,7 @@ jobs:
             digitalbits-core.service=/etc/systemd/system/digitalbits-core.service \
             digitalbits-core=/etc/logrotate.d/digitalbits-core
       
-      - name: Make .rpm package 
+      - name: Make .rpm package
         run: | 
           sudo alien -r -k digitalbits-core_${{ steps.previoustag.outputs.tag }}_amd64.deb
           sudo cp digitalbits-core-linux-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_linux-amd64.tar.gz 
@@ -132,10 +115,7 @@ jobs:
 
       - name: Build the app    
         run: |
-          export CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }}
-          export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin
-          sudo echo hello > digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64
-          sudo CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64
+           export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin
 
            ./autogen.sh
            ./configure  
@@ -144,9 +124,13 @@ jobs:
            sudo mkdir /opt/digitalbits    
            sudo cp /usr/local/bin/digitalbits-core /opt/digitalbits/digitalbits-core     
            sudo tar -czvf digitalbits-core-darwin-amd64.tar.gz /opt/digitalbits/digitalbits-core
-           sudo cp digitalbits-core-darwin-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
-           cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
-
+         
+      - name: Push MasOS build to cloudsmith
+        run: |
+            export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin
+            sudo cp digitalbits-core-darwin-amd64.tar.gz digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
+            sudo CLOUDSMITH_API_KEY=${{ secrets.CLOUDSMITH_API_KEY }} cloudsmith push raw xdb-foundation/digitalbits-core digitalbits-core_${{ steps.previoustag.outputs.tag }}_darwin-amd64.tar.gz 
+      
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true

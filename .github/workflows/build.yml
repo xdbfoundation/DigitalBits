@@ -1,0 +1,93 @@
+name: Build For All Platforms
+# Controls when the action will run. 
+on:
+  push:
+    branches-ignore:
+      - master
+  workflow_dispatch:
+jobs:
+  linuxbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+          sudo apt-get update
+          sudo apt-get install git build-essential alien pkg-config \
+          autoconf automake libtool bison flex libpq-dev libunwind-dev \
+          parallel gcc-8 g++-8 cpp-8 unzip curl
+      - name: Build the app    
+        run: |
+           ./autogen.sh
+           ./configure  
+           make -j`nproc`
+
+  macosbuild:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Install deps
+        run: |
+          brew install automake
+          brew install libpqxx 
+
+      - name: Build the app    
+        run: |
+           export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.7/bin
+
+           ./autogen.sh
+           ./configure  
+           make -j2
+
+  windowsbuild:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+          submodules: recursive
+      - name: Install PostgresQL
+        run: |
+          curl -L -o postgresql.exe https://sbp.enterprisedb.com/getfile.jsp?fileid=1257550
+          .\postgresql.exe --unattendedmodeui minimal --mode unattended --superpassword "password" --servicename "postgreSQL" --servicepassword "password" --serverport 5432
+          setx /M path "%path%;C:\Program Files\PostgreSQL\9.5\bin"
+          
+      #cd lib\spdlog && mkdir build && cd build && cmake .. && make -j
+      - run: |          
+          curl -L -o postgresql.zip https://sbp.enterprisedb.com/getfile.jsp?fileid=1257551
+          Expand-Archive -Path postgresql.zip -DestinationPath .
+          mkdir -p "C:\Program Files\PostgreSQL\9.5\lib"
+          cp -r pgsql\lib\* "C:\Program Files\PostgreSQL\9.5\lib\"
+          dir "C:\Program Files\PostgreSQL\9.5\lib"
+          cp -r pgsql\include\* "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
+          dir "C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt"
+      
+      - name: Set up Cygwin
+        uses: egor-tensin/setup-cygwin@v3
+        with:
+          platform: x64
+          packages: flex bison sed curl gcc-core
+          
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1 
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+      
+      - run: |
+          nuget restore Builds\VisualStudio\digitalbits-core.sln
+          
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - name: Build Solution
+        run: |
+            msbuild.exe Builds\VisualStudio\digitalbits-core.sln /p:platform="x64" /p:configuration="Release" /p:AdditionalLibPaths="C:\Program Files\PostgreSQL\9.5\include"
