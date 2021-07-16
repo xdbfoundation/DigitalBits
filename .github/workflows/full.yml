@@ -13,7 +13,6 @@ on:
   workflow_dispatch:
 jobs:
   tagbump:
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-16.04
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -21,6 +20,7 @@ jobs:
         with:
           fetch-depth: '0'   # This workflow contains a single job called "build"
       - name: Github Tag Bump
+        if: github.ref == 'refs/heads/master'
         id: bump_version
         uses: anothrNick/github-tag-action@1.34.0
         env:
@@ -30,6 +30,7 @@ jobs:
           WITH_V: false
 
       - uses: ncipollo/release-action@v1
+        if: github.ref == 'refs/heads/master'
         with:
           tag: ${{ steps.bump_version.outputs.tag }}
           bodyFile: "README.md"
